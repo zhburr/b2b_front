@@ -1,0 +1,98 @@
+<section id="about" class="w-100 pb-100">
+  <div class="container-fluid" style="background-color: #f7f7f7">
+    <div class="container" style="padding-top: 100px; padding-bottom: 100px">
+      <div class="row">
+        <div class="col-6 px-4">
+          <div class="mb-3">
+            <button mat-raised-button style="background-color: #3ed6a2">
+              GET START NOW
+            </button>
+          </div>
+          <div>
+            <p class="display-6 mb-4" style="font-weight: 500; color: #374a8a">
+              We are the partners in growth of your business!
+            </p>
+            <p class="mb-4">
+              At B2B Direct, we are committed to helping businesses succeed in
+              B2B direct marketing through our customized planning, financial
+              projection, and international business solutions. We understand
+              that every business is unique, which is why we tailor our services
+              to meet the specific needs and goals of each client. Our team of
+              experts has years of experience in B2B direct marketing, financial
+              analysis, and international commerce. We are passionate about
+              helping businesses succeed, and we are committed to delivering
+              exceptional service and results. Contact us today to learn more
+              about how we can help your business grow and thrive in the
+              competitive world of B2B direct marketing.
+            </p>
+
+            <p class="mb-4">
+              We are passionate about helping businesses succeed, and we are
+              committed to delivering exceptional service and results. Contact
+              us today to learn more about how we can help your business grow
+              and thrive in the competitive world of B2B direct marketing.
+            </p>
+            <p *ngIf="aboutUsReadmore" class="mb-4">
+              We bring a wealth of knowledge and expertise to each project we
+              undertake, and we work closely with our clients to develop
+              effective and efficient strategies that deliver results. We pride
+              ourselves on our commitment to exceptional service and results.
+              Our clients trust us to deliver accurate financial projections,
+              navigate the complexities of cross-border commerce, and develop
+              effective marketing campaigns that drive sales and revenue. At B2B
+              Direct, we believe in building long-term relationships with our
+              clients. We take the time to understand their businesses and
+              goals, and we work collaboratively to develop strategies that help
+              them achieve success. Our regular analytics and reporting provide
+              our clients with valuable insights into the performance of their
+              marketing campaigns and financial projections, enabling them to
+              make data-driven decisions for future planning.
+            </p>
+            <p
+              (click)="aboutUsReadmore = false"
+              style="color: #374a8a; cursor: pointer; font-weight: 600"
+              *ngIf="aboutUsReadmore"
+            >
+              show less
+            </p>
+          </div>
+          <div *ngIf="!aboutUsReadmore">
+            <a class="cta" (click)="aboutUsReadmore = true">
+              <span>Read more</span>
+              <svg width="13px" height="10px" viewBox="0 0 13 10">
+                <path d="M1,5 L11,5"></path>
+                <polyline points="8 1 12 5 8 9"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="col-6">
+          <div>
+            <img
+              style="object-fit: contain; height: 500px"
+              src="../../../assets/images/apple.png"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid p-50" style="background-color: black">
+    <div class="d-flex justify-content-center">
+      <p class="h5 me-4" style="color: white">
+        Unlock Your Business's Potential with B2B Direct
+      </p>
+      <div>
+        <a class="cta-white">
+          <span>Register today</span>
+          <svg width="13px" height="10px" viewBox="0 0 13 10">
+            <path d="M1,5 L11,5"></path>
+            <polyline points="8 1 12 5 8 9"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

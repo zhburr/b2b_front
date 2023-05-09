@@ -1,0 +1,51 @@
+ngb-carousel img {
+    width: 100vw !important;
+    object-fit: cover;
+    height: 100vh;
+}
+
+
+.carousel-indicators button {
+    border-radius: 50% !important;
+    width: 7px !important;
+    height: 3px !important;
+}
+
+
+.right-middle-carousel-text {
+    // right: 165px;
+    right: 125px;
+    left: auto;
+    bottom: 195px;
+}
+
+.left-middle-carusel {
+    left: 195px;
+    right: auto;
+    bottom: 180px;
+}
+
+
+.caption-heading {
+
+    font-size: 60px;
+    color: #374A8A;
+    font-weight: bolder;
+}
+
+.green-aqua {
+    color: #3ED6A2;
+}
+
+.pt-100 {
+    padding-top: 100px;
+}
+
+.pb-100 {
+    padding-bottom: 100px;
+}
+
+.trans-scale-1-7 {
+    transform: scale(1.7);
+
+}

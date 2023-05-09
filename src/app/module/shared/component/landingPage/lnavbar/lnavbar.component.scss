@@ -1,0 +1,40 @@
+.spacer {
+    flex: 1 1 auto;
+}
+
+mat-toolbar {
+    background-color: #FFFFFF;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    font-family: Montserrat, sans-serif;
+    position: fixed;
+    margin-bottom: 5rem;
+    top: 0;
+    height: 50px;
+    transition: 0.3s all ease-in-out;
+    z-index: 3;
+}
+
+a>span {
+    margin-right: 50px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #797979;
+    cursor: pointer;
+
+    &:hover {
+        color: black;
+    }
+}
+
+.logo {
+    font-size: large;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.logo>img {
+    height: 60px;
+}
