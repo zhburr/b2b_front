@@ -10,12 +10,14 @@ import { LmainComponent } from './component/landingPage/lmain/lmain.component';
 import { LaboutComponent } from './component/landingPage/labout/labout.component';
 import { LprocessComponent } from './component/landingPage/lprocess/lprocess.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
 @NgModule({
   declarations: [
     LnavbarComponent,
     LmainComponent,
     LaboutComponent,
     LprocessComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     CommonModule,
