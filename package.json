@@ -24,6 +24,7 @@
     "@popperjs/core": "^2.11.7",
     "animate.css": "^4.1.1",
     "bootstrap": "^5.2.3",
+    "ng-lazyload-image": "^9.1.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

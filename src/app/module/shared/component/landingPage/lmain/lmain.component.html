@@ -3,10 +3,11 @@
     <ng-template ngbSlide>
       <div class="picsum-img-wrapper">
         <img
-          src="../../../assets/images/5.png"
-          alt="Random second slide"
-          loading="lazy"
+          [defaultImage]="'../../../assets/images/sping.gif'"
+          [lazyLoad]="'../../../assets/images/5.png'"
+          alt="slide"
         />
+        <!-- src="../../../assets/images/5.png" -->
       </div>
       <div
         class="carousel-caption left-middle-carusel text-left mb-4 animate__animated animate__slideInRight"
@@ -27,9 +28,9 @@
     <ng-template ngbSlide>
       <div class="picsum-img-wrapper">
         <img
-          src="../../../assets/images/7-1.png"
-          alt="Random third slide"
-          loading="lazy"
+          [defaultImage]="'../../../assets/images/sping.gif'"
+          [lazyLoad]="'../../../assets/images/7-1.png'"
+          alt="slide"
         />
       </div>
       <div

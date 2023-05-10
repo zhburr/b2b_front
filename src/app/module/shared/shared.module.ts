@@ -11,6 +11,7 @@ import { LaboutComponent } from './component/landingPage/labout/labout.component
 import { LprocessComponent } from './component/landingPage/lprocess/lprocess.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 @NgModule({
   declarations: [
     LnavbarComponent,
@@ -27,6 +28,7 @@ import { PageNotFoundComponent } from './component/page-not-found/page-not-found
     MatButtonModule,
     NgbCarouselModule,
     FormsModule,
+    LazyLoadImageModule,
   ],
   exports: [
     LnavbarComponent,
@@ -39,6 +41,7 @@ import { PageNotFoundComponent } from './component/page-not-found/page-not-found
     NgbCarouselModule,
     FormsModule,
     ScrollingModule,
+    LazyLoadImageModule,
   ],
 })
 export class SharedModule {}

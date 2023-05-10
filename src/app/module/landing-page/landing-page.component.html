@@ -541,7 +541,8 @@
               min-height: 400px;
               max-height: 600px;
             "
-            src="../../../assets/images/1.png"
+            [defaultImage]="'../../../assets/images/sping.gif'"
+            [lazyLoad]="'../../../assets/images/1.png'"
             alt=""
           />
         </div>
@@ -915,7 +916,7 @@
             >
               Company
             </li>
-            <li (click)="gotoView('process')">
+            <li (click)="gotoView('process')" style="cursor: pointer">
               <a class="tz-text text-medium-gray inner-link">About Us</a>
             </li>
             <li>
@@ -934,7 +935,7 @@
             >
               Useful Links
             </li>
-            <li (click)="gotoView('process')">
+            <li (click)="gotoView('process')" style="cursor: pointer">
               <a class="tz-text text-medium-gray inner-link">Our process</a>
             </li>
             <li>
