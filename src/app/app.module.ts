@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './module/shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +16,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SharedModule,
     NgbModule,
   ],
-  providers: [],
+  providers: [
+    [Location, { provide: LocationStrategy, useClass: HashLocationStrategy }],
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

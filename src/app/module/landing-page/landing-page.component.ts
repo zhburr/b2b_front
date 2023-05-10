@@ -51,7 +51,7 @@ export class LandingPageComponent {
 
   getHref() {
     let newMsg = this.msg.replace(/ /g, '%20');
-    this.href = `https://wa.me/923364671219?text=${newMsg}`;
+    this.href = `https://wa.me/447411455885?text=${newMsg}`;
     this.msg = '';
   }
 
