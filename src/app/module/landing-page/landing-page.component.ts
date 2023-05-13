@@ -26,23 +26,6 @@ export class LandingPageComponent {
     caruselConfig.pauseOnHover = true;
   }
 
-  @HostListener('window:scroll', []) onWindowScroll() {
-    const verticalOffset =
-      window.scrollY ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop ||
-      0;
-
-    if (verticalOffset > 100) {
-      document.getElementById('lnavbar')!.style.padding = '2rem 5rem';
-      document.getElementById('lnavbar')!.style.borderBottom =
-        '1px solid lightgrey';
-    } else {
-      document.getElementById('lnavbar')!.style.padding = '2.5rem 5rem';
-      document.getElementById('lnavbar')!.style.borderBottom = 'none';
-    }
-  }
-
   changeTab(type: any) {
     Object.keys(this.tabs).forEach((res: any) => {
       this.tabs[res] = res === type;
@@ -56,6 +39,8 @@ export class LandingPageComponent {
   }
 
   gotoView(event: string) {
+    console.log(event);
+
     document
       .getElementById(event)
       ?.scrollIntoView({ behavior: 'smooth', block: 'start' });

@@ -1,0 +1,310 @@
+<section id="team" class="mb-100">
+  <!-- <div class="mb-100">
+      <div
+        class="container d-flex flex-column pt-50 justify-content-center w-50 mb-50"
+      >
+        <p
+          class="text-uppercase display-6 text-center"
+          style="font-weight: 600"
+        >
+          Meet our team
+        </p>
+        <p>
+          Get to know the passionate and dedicated team of professionals at B2B
+          Direct who are committed to delivering exceptional service to our
+          clients & customers
+        </p>
+      </div>
+      <div class="container d-flex">
+        <div class="container d-flex flex-column text-center px-4 w-25">
+          <div class="people-img">
+            <img
+              style="height: 200px; width: 200px"
+              src="../../../assets/images/test.png"
+              alt=""
+            />
+          </div>
+          <p class="people-name text-center" style="font-weight: 500">
+            Andrew Lupkin
+          </p>
+          <p
+            class="people-designation text-center pb-4 border-bottom border-dark"
+            style="color: grey"
+          >
+            Founder and CEO
+          </p>
+          <div class="container icons d-flex flex-row justify-content-around">
+            <mat-icon>facebook</mat-icon>
+            <mat-icon>linkedin</mat-icon>
+            <mat-icon>public</mat-icon>
+          </div>
+        </div>
+        <div class="container d-flex flex-column text-center px-4 w-25">
+          <div class="people-img">
+            <img
+              style="height: 200px; width: 200px"
+              src="../../../assets/images/test.png"
+              alt=""
+            />
+          </div>
+          <p class="people-name text-center" style="font-weight: 500">
+            Andrew Lupkin
+          </p>
+          <p
+            class="people-designation text-center pb-4 border-bottom border-dark"
+            style="color: grey"
+          >
+            Founder and CEO
+          </p>
+          <div class="container icons d-flex flex-row justify-content-around">
+            <mat-icon>facebook</mat-icon>
+            <mat-icon>linkedin</mat-icon>
+            <mat-icon>public</mat-icon>
+          </div>
+        </div>
+        <div class="container d-flex flex-column text-center px-4 w-25">
+          <div class="people-img">
+            <img
+              style="height: 200px; width: 200px"
+              src="../../../assets/images/test.png"
+              alt=""
+            />
+          </div>
+          <p class="people-name text-center" style="font-weight: 500">
+            Andrew Lupkin
+          </p>
+          <p
+            class="people-designation text-center pb-4 border-bottom border-dark"
+            style="color: grey"
+          >
+            Founder and CEO
+          </p>
+          <div class="container icons d-flex flex-row justify-content-around">
+            <mat-icon>facebook</mat-icon>
+            <mat-icon>linkedin</mat-icon>
+            <mat-icon>public</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  <div class="container-fluid" style="background-color: black">
+    <div class="row">
+      <div class="col-6 p-0">
+        <img
+          style="
+            width: 100%;
+            object-fit: cover;
+            height: auto;
+            min-height: 400px;
+            max-height: 600px;
+          "
+          [src]="'../../../assets/images/1.png'"
+          alt=""
+        />
+      </div>
+      <div class="col-6 p-4" style="max-height: 550px">
+        <div class="row border-bottom border-light mb-4">
+          <div class="col-12">
+            <p class="display-6 text-white" style="font-weight: 600">
+              We're small but impressive.
+            </p>
+            <p class="h5 text-white">Experience the power of B2B Direct.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 text-white d-flex flex-row justify-content-around">
+            <p
+              style="cursor: pointer"
+              [ngClass]="tabs.mission ? 'active-tab' : ''"
+              (click)="changeTab('mission')"
+            >
+              Company mission
+            </p>
+            <p
+              style="cursor: pointer"
+              [ngClass]="tabs.whyUs ? 'active-tab' : ''"
+              (click)="changeTab('whyUs')"
+            >
+              Why choose us
+            </p>
+            <p
+              style="cursor: pointer"
+              [ngClass]="tabs.promise ? 'active-tab' : ''"
+              (click)="changeTab('promise')"
+            >
+              Our promise
+            </p>
+            <p
+              style="cursor: pointer"
+              [ngClass]="tabs.weDo ? 'active-tab' : ''"
+              (click)="changeTab('weDo')"
+            >
+              Brand Protection
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div
+            class="col text-white hscroll p-4"
+            style="overflow-y: auto; height: 450px"
+          >
+            <ng-container *ngIf="tabs.mission">
+              <p>
+                At B2B Direct, our mission is to provide innovative and reliable
+                3PL solutions that help our clients succeed in their businesses.
+                We are committed to delivering exceptional service, exceeding
+                expectations, and building long-term relationships based on
+                trust and transparency.
+              </p>
+              <p>
+                Our mission is driven by our core values of integrity,
+                collaboration, and innovation. We believe that integrity is the
+                foundation of all business relationships, and we strive to
+                always act with honesty, transparency, and respect. We also
+                believe that collaboration is key to success, and we work
+                closely with our clients to understand their unique needs and
+                develop customized logistics solutions that help them achieve
+                their goals. Finally, we believe that innovation is essential in
+                a rapidly-evolving business environment, and we are always
+                seeking new and innovative ways to improve our services and stay
+                ahead of the competition.
+              </p>
+              <p>
+                Our goal is to be a trusted partner in our clients' success. We
+                understand that our clients rely on us to provide reliable,
+                efficient, and cost-effective logistics solutions, and we take
+                that responsibility very seriously. We are committed to
+                providing exceptional service that meets or exceeds our clients'
+                expectations, and we continuously strive to improve our
+                processes and services to better meet the evolving needs of our
+                clients.
+              </p>
+            </ng-container>
+            <ng-container *ngIf="tabs.whyUs">
+              <p>
+                At B2B Direct, we strive to provide exceptional services that
+                exceed our clients' expectations. Here are some reasons why you
+                should choose us:
+              </p>
+              <p>
+                Quality services: Our team consists of experienced professionals
+                who are committed to providing quality services that meet your
+                business needs. Competitive pricing: We offer competitive
+                pricing that is tailored to your budget, without compromising on
+                the quality of our services. Tailored solutions: We understand
+                that each business is unique, and we provide tailored solutions
+                that are specific to your business needs. Transparency: We
+                believe in transparent communication and are committed to
+                keeping our clients informed throughout the entire process.
+                Customer satisfaction: Our ultimate goal is to ensure our
+                clients' satisfaction. We are dedicated to going above and
+                beyond to ensure that our clients are happy with our services.
+                Reliability: We understand the importance of deadlines and the
+                impact they have on your business. We are committed to meeting
+                deadlines and delivering on our promises. Technology-driven: We
+                leverage technology to provide innovative solutions that improve
+                efficiency and productivity, ensuring that your business stays
+                ahead of the competition.
+              </p>
+              <p>
+                In summary, B2B Direct is committed to providing quality
+                services, tailored solutions, competitive pricing, and
+                transparent communication, all while prioritizing customer
+                satisfaction and reliability. With our experienced professionals
+                and technology-driven approach, we can help take your business
+                to the next level.
+              </p>
+            </ng-container>
+            <ng-container *ngIf="tabs.promise">
+              <p>
+                At B2B Direct, we believe in delivering exceptional service to
+                our clients, and we stand behind our commitment to excellence
+                with our promise. Our promise is based on three core values:
+                reliability, transparency, and accountability.
+              </p>
+              <p>
+                We promise to provide reliable and timely service to our
+                clients, ensuring that their needs are met efficiently and
+                effectively. We understand the importance of deadlines and the
+                impact that delays can have on a business, which is why we make
+                it our priority to deliver on time, every time.
+              </p>
+              <p>
+                We also promise transparency in all of our business dealings. We
+                believe in open and honest communication with our clients, and
+                we strive to provide clear and accurate information at all
+                times. Our clients can trust us to provide them with the
+                information they need to make informed decisions about their
+                business.
+              </p>
+              <p>
+                Finally, we promise accountability. We take responsibility for
+                our actions and are committed to making things right if we ever
+                fall short of our clients' expectations. We believe in building
+                strong and lasting relationships with our clients based on trust
+                and mutual respect, and we know that accountability is a key
+                part of that.
+              </p>
+              <p>
+                At B2B Direct, our promise is more than just words. It's a
+                commitment to our clients to provide them with the highest level
+                of service possible. We stand behind our promise and are proud
+                to deliver exceptional service to businesses across industries.
+              </p>
+            </ng-container>
+            <ng-container *ngIf="tabs.weDo">
+              <p>
+                Brand protection involving B2B Direct Limited and one of their
+                clients:
+              </p>
+              <p>
+                Challenge: Ven-Dens. had recently discovered that their products
+                were being sold on an online marketplace by unauthorized
+                third-party sellers. These sellers were offering products at
+                significantly lower prices than those set by Ven-Dens., which
+                was hurting the brand's reputation and sales. Additionally,
+                these unauthorized sellers were not following Ven-Dens.'s
+                quality control standards, leading to negative reviews and
+                customer dissatisfaction.
+              </p>
+              <p>
+                Solution: Ven-Dens. turned to B2B Direct Limited, a provider of
+                logistics and e-commerce solutions, for assistance with brand
+                protection. B2B Direct Limited offered product listing removal
+                services that could identify and remove unauthorized sellers
+                from online marketplaces.
+              </p>
+              <p>
+                B2B Direct Limited's team of experts conducted a thorough
+                analysis of Ven-Dens's online marketplace listings to identify
+                unauthorized sellers. They then used advanced technology and
+                industry knowledge to remove the unauthorized listings from the
+                marketplace, protecting Ven-Dens's brand reputation and ensuring
+                that customers received high-quality products.
+              </p>
+              <p>
+                Results: With B2B Direct Limited's product listing removal
+                services, Ven-Dens. was able to protect their brand reputation
+                on the online marketplace. They saw a decrease in negative
+                reviews and customer complaints related to counterfeit or
+                low-quality products. Additionally, the removal of unauthorized
+                sellers allowed Ven-Dens. to regain control of their product
+                pricing and sales on the online marketplace, leading to
+                increased revenue and profitability.
+              </p>
+              <p>
+                Conclusion: By partnering with B2B Direct Limited for brand
+                protection, Ven-Dens. was able to effectively address the
+                challenge of unauthorized third-party sellers on an online
+                marketplace. B2B Direct Limited's product listing removal
+                services allowed them to protect their brand reputation,
+                maintain control over pricing and sales, and ultimately increase
+                revenue and profitability.
+              </p>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

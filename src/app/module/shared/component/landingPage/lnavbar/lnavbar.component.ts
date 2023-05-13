@@ -23,14 +23,10 @@ export class LnavbarComponent {
       0;
 
     if (verticalOffset > 100) {
-      console.log('a');
-
       document.getElementById('lnavbar')!.style.padding = '2rem 5rem';
       document.getElementById('lnavbar')!.style.borderBottom =
         '1px solid lightgrey';
     } else {
-      console.log('b');
-
       document.getElementById('lnavbar')!.style.padding = '2.5rem 5rem';
       document.getElementById('lnavbar')!.style.borderBottom = 'none';
     }

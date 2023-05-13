@@ -12,6 +12,9 @@ import { LprocessComponent } from './component/landingPage/lprocess/lprocess.com
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { LserviceComponent } from './component/landingPage/lservice/lservice.component';
+import { LteamComponent } from './component/landingPage/lteam/lteam.component';
+import { LcontactComponent } from './component/landingPage/lcontact/lcontact.component';
 @NgModule({
   declarations: [
     LnavbarComponent,
@@ -19,6 +22,9 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     LaboutComponent,
     LprocessComponent,
     PageNotFoundComponent,
+    LserviceComponent,
+    LteamComponent,
+    LcontactComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +41,9 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     LmainComponent,
     LaboutComponent,
     LprocessComponent,
+    LserviceComponent,
+    LteamComponent,
+    LcontactComponent,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,

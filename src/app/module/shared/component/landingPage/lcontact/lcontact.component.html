@@ -1,0 +1,44 @@
+<section id="contact" class="mb-100 pt-50">
+  <div class="container-fluid" style="background-color: #f7f7f7">
+    <div class="p-50">
+      <div class="row">
+        <div
+          class="col-6 border border-light rounded"
+          style="background-color: white"
+        >
+          <div class="d-flex flex-column p-4 text-center">
+            <p class="h4">Ready to Get Started?</p>
+            <p class="h5">Contact us on WhatsApp</p>
+            <textarea
+              class="w-100 rounded p-2"
+              [(ngModel)]="msg"
+              rows="10"
+            ></textarea>
+            <div class="pt-2">
+              <p>Send a message on WhatsApp</p>
+              <a target="_blank" (click)="getHref()" [href]="href">
+                <img src="../../../assets/icon/whatsapp.gif" alt="" />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="border-bottom border-dark pb-4">
+            <p class="display-6">Looking For a Excellent Business Idea?</p>
+          </div>
+          <div class="pt-4">
+            <h4 style="font-weight: 500">Our Headquaters</h4>
+            <p class="pb-2s">
+              Challenge House, 616 Mitcham Road, <br />
+              CR0 3AA, London
+            </p>
+            <p>+44 7411 455885</p>
+            <a href="mailto:Sales@alvisfashion.co.uk"
+              >Sales@alvisfashion.co.uk</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
