@@ -1,20 +1,28 @@
 .parallex {
-    /* The image used */
-    background-image: url('../../../../../../assets/images/2-1.png');
-    /* Set a specific height */
-    min-height: 500px;
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    filter: grayscale(0.5) blur(2px);
+  /* The image used */
+  background-image: url("../../../../../../assets/images/2-1.png");
+  /* Set a specific height */
+  min-height: 500px;
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: grayscale(0.5) blur(2px);
 }
 
 .pb-100 {
-    padding-bottom: 100px;
+  padding-bottom: 32px;
 }
 
 .pt-100 {
-    padding-top: 100px;
+  padding-top: 32px;
+}
+.b2b-goal-section-wrapper {
+  .b2b-goal-section {
+    width: 50%;
+    @media screen and (min-width: 340px) and (max-width: 1024px) {
+      width: 100%;
+    }
+  }
 }

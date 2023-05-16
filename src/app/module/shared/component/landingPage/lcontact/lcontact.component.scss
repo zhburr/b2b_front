@@ -1,11 +1,16 @@
 .p-50 {
-    padding: 50px;
+  padding: 50px;
 }
 
 .pt-50 {
-    padding-top: 50px;
+  padding-top: 50px;
 }
 
 .mb-100 {
-    margin-bottom: 100px;
+  margin-bottom: 100px;
+}
+.bsd-idea-heading {
+  @media screen and (min-width: 340px) and (max-width: 768px) {
+    font-size: 20px;
+  }
 }

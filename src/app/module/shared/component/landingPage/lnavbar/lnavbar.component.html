@@ -1,5 +1,5 @@
-<mat-toolbar class="w-100" id="lnavbar">
-  <span class="logo" (click)="clickOnMenu('logo')">
+<mat-toolbar class="w-100" id="">
+  <!-- <span class="logo" (click)="clickOnMenu('logo')">
     <img src="../../../../../../assets/images/logo.png" alt="" />
   </span>
   <span class="spacer"></span>
@@ -12,10 +12,49 @@
   <a (click)="clickOnMenu('services')">
     <span>Services</span>
   </a>
-  <!-- <a (click)="clickOnMenu('team')">
+  <a (click)="clickOnMenu('team')">
     <span>Meet our team</span>
-  </a> -->
+  </a>
   <a (click)="clickOnMenu('contact')">
     <span>Contact</span>
-  </a>
+  </a> -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light w-100 py-0">
+    <div class="container-fluid header-wrapper">
+      <a class="navbar-brand logo" (click)="clickOnMenu('logo')" href="#">
+        <img src="../../../../../../assets/images/logo.png" alt="" />
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarText"
+        aria-controls="navbarText"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarText">
+        <span class="navbar-text"
+          ><ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item" (click)="clickOnMenu('about')">
+              <a class="nav-link active" aria-current="page">About</a>
+            </li>
+            <li class="nav-item" (click)="clickOnMenu('process')">
+              <a class="nav-link">Our Process</a>
+            </li>
+            <li class="nav-item" (click)="clickOnMenu('services')">
+              <a class="nav-link">Services</a>
+            </li>
+            <li class="nav-item" (click)="clickOnMenu('team')">
+              <a class="nav-link">Meet our team</a>
+            </li>
+            <li class="nav-item" (click)="clickOnMenu('contact')">
+              <a class="nav-link">Contact</a>
+            </li>
+          </ul>
+        </span>
+      </div>
+    </div>
+  </nav>
 </mat-toolbar>

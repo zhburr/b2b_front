@@ -89,7 +89,7 @@
     </div> -->
   <div class="container-fluid" style="background-color: black">
     <div class="row">
-      <div class="col-6 p-0">
+      <div class="col-sm-12 col-xs-12 col-md-4 col-lg-6 p-0">
         <img
           style="
             width: 100%;
@@ -102,17 +102,23 @@
           alt=""
         />
       </div>
-      <div class="col-6 p-4" style="max-height: 550px">
+      <div
+        class="col-sm-12 col-xs-12 col-md-8 col-lg-6 p-4"
+        style="max-height: 550px"
+      >
         <div class="row border-bottom border-light mb-4">
           <div class="col-12">
             <p class="display-6 text-white" style="font-weight: 600">
-              We're small but impressive.
+              We're efficient and effective.
             </p>
             <p class="h5 text-white">Experience the power of B2B Direct.</p>
           </div>
         </div>
         <div class="row">
-          <div class="col-12 text-white d-flex flex-row justify-content-around">
+          <div
+            style="gap: 4px"
+            class="col-12 text-white d-flex flex-row justify-content-around"
+          >
             <p
               style="cursor: pointer"
               [ngClass]="tabs.mission ? 'active-tab' : ''"
