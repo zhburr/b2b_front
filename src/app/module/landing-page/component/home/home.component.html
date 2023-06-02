@@ -1,0 +1,61 @@
+<app-lnavbar (callback)="gotoView($event)"></app-lnavbar>
+
+<div style="padding-top: 68px" class="h-100 w-100">
+  <app-lmain></app-lmain>
+  <app-labout></app-labout>
+  <app-lprocess></app-lprocess>
+  <app-lservice></app-lservice>
+  <app-lteam></app-lteam>
+  <app-lcontact></app-lcontact>
+
+  <footer
+    class="pb-4 bg-white builder-bg footer-style8 padding-60px-tb xs-padding-40px-tb"
+  >
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-md-6 col-sm-12 col-xs-12 sm-text-center sm-margin-five-bottom footer-content"
+        >
+          <a class="margin-eight-bottom display-inline-block inner-link">
+            <img
+              style="height: 60px"
+              src="../../../../../../assets/images/logo.png"
+              alt=""
+            />
+          </a>
+
+          <div class="tz-text width-80 sm-width-100">
+            <p class="no-margin-bottom">Experience the power of B2B Direct.</p>
+          </div>
+        </div>
+
+        <div class="col text-center">
+          <ul class="links" style="list-style: none">
+            <li
+              class="text-medium margin-seven-bottom font-weight-600 text-dark-gray tz-text xs-margin-one-half-bottom"
+              style="font-weight: 600"
+            >
+              Company
+            </li>
+            <li (click)="gotoView('about')" style="cursor: pointer">
+              <a class="tz-text text-medium-gray inner-link">About Us</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col text-center">
+          <ul class="links" style="list-style: none">
+            <li
+              class="text-medium margin-seven-bottom font-weight-600 text-dark-gray tz-text xs-margin-one-half-bottom"
+              style="font-weight: 600"
+            >
+              Useful Links
+            </li>
+            <li (click)="gotoView('process')" style="cursor: pointer">
+              <a class="tz-text text-medium-gray inner-link">Our process</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
