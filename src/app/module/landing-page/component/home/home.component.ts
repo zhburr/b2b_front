@@ -1,6 +1,4 @@
-import { ViewportScroller } from '@angular/common';
 import { Component } from '@angular/core';
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -17,11 +15,7 @@ export class HomeComponent {
   href: string = '';
   msg: string = '';
   aboutUsReadmore: boolean = false;
-  constructor(caruselConfig: NgbCarouselConfig) {
-    caruselConfig.interval = 10000;
-    caruselConfig.animation = true;
-    caruselConfig.pauseOnHover = true;
-  }
+  constructor() {}
 
   changeTab(type: any) {
     Object.keys(this.tabs).forEach((res: any) => {

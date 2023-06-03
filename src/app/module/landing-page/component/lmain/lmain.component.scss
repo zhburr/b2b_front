@@ -1,7 +1,8 @@
-ngb-carousel img {
+#carouselExampleCaptions img {
   width: 100vw !important;
   object-fit: cover;
   height: calc(100vh - 100px);
+
   @media screen and (max-width: 768px) {
     aspect-ratio: 16/9;
     height: 273px;
@@ -9,9 +10,10 @@ ngb-carousel img {
 }
 
 .carousel-indicators button {
-  border-radius: 50% !important;
+  height: 7px !important;
   width: 7px !important;
-  height: 3px !important;
+  border-radius: 50% !important;
+  background-color: black !important;
 }
 
 .right-middle-carousel-text {
@@ -19,9 +21,11 @@ ngb-carousel img {
   right: 125px;
   left: auto;
   bottom: 195px;
+
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     bottom: 0;
   }
+
   @media screen and (min-width: 340px) and (max-width: 768px) {
     right: unset;
     left: 58px;
@@ -33,9 +37,11 @@ ngb-carousel img {
   left: 195px;
   right: auto;
   bottom: 180px;
+
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     bottom: 0;
   }
+
   @media screen and (min-width: 340px) and (max-width: 768px) {
     right: unset;
     left: 58px;
@@ -47,26 +53,32 @@ ngb-carousel img {
   font-size: 60px;
   color: #374a8a;
   font-weight: bolder;
+
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     font-size: 36px;
   }
+
   @media screen and (min-width: 340px) and (max-width: 768px) {
     font-size: 20px;
   }
 }
+
 .caption-text {
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     max-width: 80%;
   }
+
   @media screen and (min-width: 340px) and (max-width: 548px) {
     font-size: 9px !important;
     max-width: 75%;
   }
+
   @media screen and (min-width: 548px) and (max-width: 768px) {
     font-size: 12px !important;
     max-width: 75%;
   }
 }
+
 .green-aqua {
   color: #3ed6a2;
 }
@@ -82,19 +94,17 @@ ngb-carousel img {
 .trans-scale-1-7 {
   transform: scale(1.7);
 }
+
 .card-wrapper-lmain {
   display: flex;
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
+
   &-text {
     color: #000;
     opacity: 0.7;
     font-size: 14px;
     line-height: 21px;
   }
-  //   .card {
-  //     flex: 1;
-  //     width: 25%;
-  //   }
 }

@@ -11,6 +11,8 @@ import { LteamComponent } from './component/lteam/lteam.component';
 import { LprocessComponent } from './component/lprocess/lprocess.component';
 import { LcontactComponent } from './component/lcontact/lcontact.component';
 import { LserviceComponent } from './component/lservice/lservice.component';
+import { LoginComponent } from './component/login/login.component';
+import { RegisterComponent } from './component/register/register.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { LserviceComponent } from './component/lservice/lservice.component';
     LprocessComponent,
     LcontactComponent,
     LserviceComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [CommonModule, LandingPageRoutingModule, SharedModule],
 })

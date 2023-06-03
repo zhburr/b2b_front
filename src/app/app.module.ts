@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './module/shared/shared.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
@@ -14,7 +13,6 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
-    NgbModule,
   ],
   providers: [
     [Location, { provide: LocationStrategy, useClass: HashLocationStrategy }],

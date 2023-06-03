@@ -1,6 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.css";
-@import 'bootstrap/scss/bootstrap';
 @import 'animate.css';
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 
@@ -28,15 +26,6 @@ body {
 
 .text-left {
     text-align: left !important;
-}
-
-/* Importing Bootstrap SCSS file. */
-
-.carousel-indicators button {
-    height: 7px !important;
-    width: 7px !important;
-    border-radius: 50% !important;
-    background-color: black !important;
 }
 
 mat-icon {
