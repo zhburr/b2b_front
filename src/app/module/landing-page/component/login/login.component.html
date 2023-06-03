@@ -1,8 +1,15 @@
 <div class="d-flex">
   <div
     class="flex-shrink sidebar me-4 d-none d-md-block d-xl-block d-xxl-block"
-  ></div>
-  <div class="p-4">
+  >
+    <div
+      class="d-flex flex-column justify-content-center align-items-center h-100"
+    >
+      <p class="text-white display-1">B2b Direct.</p>
+      <p class="text-white">Let's Digitalize things together.</p>
+    </div>
+  </div>
+  <div class="p-4 w-100">
     <div class="d-flex justify-content-center align-items-center h-100">
       <form>
         <!-- Email input -->
@@ -42,29 +49,13 @@
         </div>
 
         <!-- Submit button -->
-        <button type="button" class="btn btn-primary btn-block mb-4">
+        <button type="button" class="btn btn-primary btn-block mb-4 w-100">
           Sign in
         </button>
 
         <!-- Register buttons -->
         <div class="text-center">
-          <p>Not a member? <a href="#!">Register</a></p>
-          <p>or sign up with:</p>
-          <button type="button" class="btn btn-link btn-floating mx-1">
-            <i class="fab fa-facebook-f"></i>
-          </button>
-
-          <button type="button" class="btn btn-link btn-floating mx-1">
-            <i class="fab fa-google"></i>
-          </button>
-
-          <button type="button" class="btn btn-link btn-floating mx-1">
-            <i class="fab fa-twitter"></i>
-          </button>
-
-          <button type="button" class="btn btn-link btn-floating mx-1">
-            <i class="fab fa-github"></i>
-          </button>
+          <p>Not a member? <a routerLink="/register">Register</a></p>
         </div>
       </form>
     </div>

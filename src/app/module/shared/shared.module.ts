@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
-
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [PageNotFoundComponent],
   imports: [
@@ -18,6 +18,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     MatButtonModule,
     FormsModule,
     LazyLoadImageModule,
+    MatSelectModule,
   ],
   exports: [
     MatToolbarModule,
@@ -26,6 +27,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     FormsModule,
     ScrollingModule,
     LazyLoadImageModule,
+    MatSelectModule,
   ],
 })
 export class SharedModule {}

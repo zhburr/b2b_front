@@ -13,6 +13,7 @@ import { LcontactComponent } from './component/lcontact/lcontact.component';
 import { LserviceComponent } from './component/lservice/lservice.component';
 import { LoginComponent } from './component/login/login.component';
 import { RegisterComponent } from './component/register/register.component';
+import { OtpComponent } from './component/otp/otp.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { RegisterComponent } from './component/register/register.component';
     LserviceComponent,
     LoginComponent,
     RegisterComponent,
+    OtpComponent,
   ],
   imports: [CommonModule, LandingPageRoutingModule, SharedModule],
 })
