@@ -14,6 +14,9 @@ import { LserviceComponent } from './component/lservice/lservice.component';
 import { LoginComponent } from './component/login/login.component';
 import { RegisterComponent } from './component/register/register.component';
 import { OtpComponent } from './component/otp/otp.component';
+import { ForgetpasswordComponent } from './component/forgetpassword/forgetpassword.component';
+import { TermsAndConditionComponent } from './component/terms-and-condition/terms-and-condition.component';
+import { PrivacyPolicyComponent } from './component/privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,9 @@ import { OtpComponent } from './component/otp/otp.component';
     LoginComponent,
     RegisterComponent,
     OtpComponent,
+    ForgetpasswordComponent,
+    TermsAndConditionComponent,
+    PrivacyPolicyComponent,
   ],
   imports: [CommonModule, LandingPageRoutingModule, SharedModule],
 })

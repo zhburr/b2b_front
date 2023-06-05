@@ -5,7 +5,7 @@
     <div
       class="d-flex flex-column justify-content-center align-items-center h-100"
     >
-      <p class="display-1 text-white">B2b Direct.</p>
+      <p class="display-1 text-white">B2B Direct.</p>
       <p class="text-white">Let's Digitalize things together.</p>
     </div>
   </div>
@@ -15,13 +15,25 @@
         <!-- Email input -->
         <div class="form-outline mb-4">
           <label class="form-label" for="form2Example1">Email address</label>
-          <input type="email" id="form2Example1" class="form-control" />
+          <input
+            type="email"
+            id="form2Example1"
+            class="form-control"
+            [(ngModel)]="email"
+            [ngModelOptions]="{ standalone: true }"
+          />
         </div>
 
         <!-- Password input -->
         <div class="form-outline mb-4">
           <label class="form-label" for="form2Example2">Password</label>
-          <input type="password" id="form2Example2" class="form-control" />
+          <input
+            type="password"
+            id="form2Example2"
+            class="form-control"
+            [(ngModel)]="password"
+            [ngModelOptions]="{ standalone: true }"
+          />
         </div>
 
         <!-- 2 column grid layout for inline styling -->
@@ -44,12 +56,21 @@
 
           <div class="col">
             <!-- Simple link -->
-            <a href="#!">Forgot password?</a>
+            <a
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+              style="color: blue; text-decoration: underline; cursor: pointer"
+              >Forgot password?</a
+            >
           </div>
         </div>
 
         <!-- Submit button -->
-        <button type="button" class="btn btn-primary btn-block mb-4 w-100">
+        <button
+          type="button"
+          (click)="login()"
+          class="btn btn-primary btn-block mb-4 w-100"
+        >
           Sign in
         </button>
 
@@ -58,6 +79,45 @@
           <p>Not a member? <a routerLink="/register">Register</a></p>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Password Reset
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          id="clode-modal"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Enter your email address and we'll send you an email with instructions
+          to reset your password.
+        </p>
+        <div class="d-flex flex-row gap-3">
+          <input type="email" [(ngModel)]="forgetEmail" class="form-control" />
+          <button class="btn btn-primary" (click)="sendForgetPasswordEmail()">
+            Send
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

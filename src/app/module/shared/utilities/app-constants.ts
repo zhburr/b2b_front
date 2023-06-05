@@ -58,4 +58,11 @@ export class AppConstants {
   public static STATUS = 'status';
   public static TRANSLATION = 'translation';
   public static INPUT = 'input';
+
+  //auth
+  public static REGISTER_USER = 'api/auth/register';
+  public static VERIFY_EMAIL = 'api/auth/emailVerified';
+  public static LOGIN = 'api/auth/login';
+  public static EMAIL_FORGET_PASSWORD = 'api/auth/emailForgetPassword';
+  public static RESET_PASSWORD = 'api/auth/resetPassword';
 }

@@ -16,6 +16,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: '',
+    loadChildren: () =>
+      import('./module/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
+      ),
+  },
+  {
     path: '**',
     component: PageNotFoundComponent,
   },

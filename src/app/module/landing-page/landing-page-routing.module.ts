@@ -4,6 +4,9 @@ import { HomeComponent } from './component/home/home.component';
 import { LoginComponent } from './component/login/login.component';
 import { RegisterComponent } from './component/register/register.component';
 import { OtpComponent } from './component/otp/otp.component';
+import { TermsAndConditionComponent } from './component/terms-and-condition/terms-and-condition.component';
+import { PrivacyPolicyComponent } from './component/privacy-policy/privacy-policy.component';
+import { ForgetpasswordComponent } from './component/forgetpassword/forgetpassword.component';
 
 const routes: Routes = [
   {
@@ -22,8 +25,20 @@ const routes: Routes = [
         component: RegisterComponent,
       },
       {
-        path: 'verify',
+        path: 'verify/:email',
         component: OtpComponent,
+      },
+      {
+        path: 'terms-and-condition',
+        component: TermsAndConditionComponent,
+      },
+      {
+        path: 'privacy-policy',
+        component: PrivacyPolicyComponent,
+      },
+      {
+        path: 'reset-password/:otp/:email',
+        component: ForgetpasswordComponent,
       },
     ],
   },
