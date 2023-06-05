@@ -7,7 +7,7 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, finalize, mergeMap } from 'rxjs/operators';
+import { catchError, finalize } from 'rxjs/operators';
 import { LoaderService } from '../services/loader.service';
 import { SharedService } from '../services/shared.service';
 

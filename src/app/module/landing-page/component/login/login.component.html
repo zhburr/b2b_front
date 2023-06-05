@@ -67,6 +67,7 @@
 
         <!-- Submit button -->
         <button
+          [disabled]="!email || !password"
           type="button"
           (click)="login()"
           class="btn btn-primary btn-block mb-4 w-100"
