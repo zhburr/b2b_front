@@ -7,37 +7,45 @@
         Please enter the one time password <br />
         to verify your account
       </h6>
-      <div><span>A code has been sent to</span> <small>*******9897</small></div>
+      <div>
+        <span>A code has been sent to</span>&nbsp; <small>{{ demail }}</small>
+      </div>
       <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
         <input
           class="m-2 text-center form-control rounded"
           type="text"
           id="first"
           maxlength="1"
+          autofocus
+          (keypress)="gotoNext('second')"
         />
         <input
           class="m-2 text-center form-control rounded"
           type="text"
           id="second"
           maxlength="1"
+          (keypress)="gotoNext('third')"
         />
         <input
           class="m-2 text-center form-control rounded"
           type="text"
           id="third"
           maxlength="1"
+          (keypress)="gotoNext('fourth')"
         />
         <input
           class="m-2 text-center form-control rounded"
           type="text"
           id="fourth"
           maxlength="1"
+          (keypress)="gotoNext('fifth')"
         />
         <input
           class="m-2 text-center form-control rounded"
           type="text"
           id="fifth"
           maxlength="1"
+          (keypress)="gotoNext('sixth')"
         />
         <input
           class="m-2 text-center form-control rounded"

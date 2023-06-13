@@ -16,10 +16,8 @@ export class LandingService {
     return this.http.post(AppConstants.LOGIN, { email, password });
   }
 
-  verifyEmail(email: string): Promise<any> {
-    console.log(email);
-
-    return this.http.get(`${AppConstants.VERIFY_EMAIL}?email=${email}`);
+  verifyEmail(payload: { email: string; otp: string }): Promise<any> {
+    return this.http.post(AppConstants.VERIFY_EMAIL, payload);
   }
 
   sendEmailForgetPassword(email: string): Promise<any> {
@@ -29,5 +27,9 @@ export class LandingService {
   }
   resetPassword(payload: any): Promise<any> {
     return this.http.post(AppConstants.RESET_PASSWORD, payload);
+  }
+
+  partiallyHideEmail(email: string) {
+    return email.replace(/(\w{3})[\w.-]+@([\w.]+\w)/, '$1***@$2');
   }
 }

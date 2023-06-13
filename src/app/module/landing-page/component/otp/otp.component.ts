@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { BaseComponent } from 'src/app/module/shared/utilities/base.component';
 import { LandingService } from '../../services/landing.service';
+import { ActivatedRoute } from '@angular/router';
+import { SharedService } from 'src/app/module/shared/services/shared.service';
 
 @Component({
   selector: 'app-otp',
@@ -9,9 +11,16 @@ import { LandingService } from '../../services/landing.service';
 })
 export class OtpComponent extends BaseComponent {
   otpValue: string = '';
-
-  constructor(private landingService: LandingService) {
+  email: string = '';
+  demail: string = '';
+  constructor(
+    private landingService: LandingService,
+    private route: ActivatedRoute,
+    private sharedService: SharedService
+  ) {
     super();
+    this.email = this.route.snapshot.paramMap.get('email')!;
+    this.demail = this.landingService.partiallyHideEmail(this.email);
   }
   async OTPInput() {
     let array: any = [];
@@ -20,16 +29,27 @@ export class OtpComponent extends BaseComponent {
       array.push(inputs[i].value);
     }
     this.otpValue = array.join('');
+    await this.verifyEmail(this.otpValue);
+  }
 
-    let user = JSON.parse(localStorage.getItem('user')!);
-    console.log(user);
+  gotoNext(id: string) {
+    document.getElementById(id)?.focus();
+  }
 
-    if (user.otp == this.otpValue) {
-      const res: any = await this.landingService.verifyEmail(user.email);
+  async verifyEmail(otp: string) {
+    try {
+      const res: any = await this.landingService.verifyEmail({
+        email: this.email,
+        otp,
+      });
       if (res.Succeed) {
-        localStorage.setItem('user', JSON.stringify(res.Content));
+        this.sharedService.showSuccessToast(res.message);
         this.navigate('/login');
+      } else {
+        this.sharedService.showErrorToast(res.message);
       }
+    } catch (error: any) {
+      this.sharedService.showErrorToast(error);
     }
   }
 }

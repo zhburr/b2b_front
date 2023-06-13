@@ -48,17 +48,18 @@ export class Interceptor implements HttpInterceptor {
         if (this.shared.apiStack.length === 0) this.loaderService.hide();
       }),
       catchError((error: HttpErrorResponse) => {
-        let errorMsg = '';
-        if (error.status === 401) {
-          this.shared.showErrorToast('Session has expired. ');
-        }
-        if (error.error.text) {
-          errorMsg = error.error.text;
-        } else if (error.error.Message) {
-          errorMsg = error.error.Message;
-        }
-        this.shared.showErrorToast(errorMsg);
-        return throwError(errorMsg);
+        // let errorMsg = '';
+        // if (error.status === 401) {
+        //   this.shared.showErrorToast('Session has expired. ');
+        // }
+        // if (error.error.text) {
+        //   errorMsg = error.error.text;
+        // } else if (error.error.Message) {
+        //   errorMsg = error.error.Message;
+        // }
+        // this.shared.showErrorToast(errorMsg);
+        // return throwError(errorMsg);
+        return throwError(error);
       })
     );
   }

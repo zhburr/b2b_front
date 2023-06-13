@@ -22,26 +22,37 @@ export class LoginComponent extends BaseComponent {
   }
 
   async login() {
-    const res: any = await this.landingService.login(this.email, this.password);
-    if (res.Succeed) {
-      console.log('login sucessful');
-      this.navigate('/dashboard');
-    } else {
-      this.sharedService.showErrorToast(res.message);
+    try {
+      const res: any = await this.landingService.login(
+        this.email,
+        this.password
+      );
+      if (res.Succeed) {
+        this.navigate('/dashboard');
+      } else {
+        this.sharedService.showErrorToast(res.message);
+        if (res.message === 'Verify your account first') {
+          this.navigate('verify/' + this.email);
+        }
+      }
+    } catch (error: any) {
+      this.sharedService.showErrorToast(error.message);
     }
   }
 
   async sendForgetPasswordEmail() {
-    const res: any = await this.landingService.sendEmailForgetPassword(
-      this.forgetEmail
-    );
-    if (res.Succeed) {
-      this.sharedService.showSuccessToast(
-        `Reset password email has been sent to ${this.forgetEmail}`
+    try {
+      const res: any = await this.landingService.sendEmailForgetPassword(
+        this.forgetEmail
       );
-      document.getElementById('clode-modal')!.click();
-    } else {
-      this.sharedService.showErrorToast(res.message);
+      if (res.Succeed) {
+        this.sharedService.showSuccessToast(res.message);
+        document.getElementById('clode-modal')!.click();
+      } else {
+        this.sharedService.showErrorToast(res.message);
+      }
+    } catch (error: any) {
+      this.sharedService.showErrorToast(error.message);
     }
   }
 }

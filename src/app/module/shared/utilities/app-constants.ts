@@ -60,9 +60,9 @@ export class AppConstants {
   public static INPUT = 'input';
 
   //auth
-  public static REGISTER_USER = 'api/auth/register';
-  public static VERIFY_EMAIL = 'api/auth/emailVerified';
-  public static LOGIN = 'api/auth/login';
-  public static EMAIL_FORGET_PASSWORD = 'api/auth/emailForgetPassword';
-  public static RESET_PASSWORD = 'api/auth/resetPassword';
+  public static REGISTER_USER = 'auth/register';
+  public static VERIFY_EMAIL = 'auth/verifyEmail';
+  public static LOGIN = 'auth/login';
+  public static EMAIL_FORGET_PASSWORD = 'auth/emailForgetPassword';
+  public static RESET_PASSWORD = 'auth/resetPassword';
 }

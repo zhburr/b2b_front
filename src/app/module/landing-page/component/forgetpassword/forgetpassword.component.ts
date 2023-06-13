@@ -46,19 +46,21 @@ export class ForgetpasswordComponent extends BaseComponent {
   }
 
   async resetPassword() {
-    const res: any = await this.landingService.resetPassword({
-      otp: this.otp,
-      email: this.email,
-      password: this.resetPasswordFormValue['password'].value,
-    });
+    try {
+      const res: any = await this.landingService.resetPassword({
+        otp: this.otp,
+        email: this.email,
+        password: this.resetPasswordFormValue['password'].value,
+      });
 
-    console.log(res);
-
-    if (res.Succeed) {
-      this.shareService.showSuccessToast(res.message);
-      this.navigate('/login');
-    } else {
-      this.shareService.showErrorToast(res.message);
+      if (res.Succeed) {
+        this.shareService.showSuccessToast(res.message);
+        this.navigate('/login');
+      } else {
+        this.shareService.showErrorToast(res.message);
+      }
+    } catch (error: any) {
+      this.shareService.showErrorToast(error.message);
     }
   }
 }

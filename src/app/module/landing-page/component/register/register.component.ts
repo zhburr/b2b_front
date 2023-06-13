@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { LandingService } from '../../services/landing.service';
 import { Route, Router } from '@angular/router';
 import { BaseComponent } from 'src/app/module/shared/utilities/base.component';
+import { SharedService } from 'src/app/module/shared/services/shared.service';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,11 @@ export class RegisterComponent extends BaseComponent implements OnInit {
 
   registerationForm!: FormGroup;
   user: any = {};
-  constructor(private fb: FormBuilder, private landingService: LandingService) {
+  constructor(
+    private fb: FormBuilder,
+    private landingService: LandingService,
+    private sharedService: SharedService
+  ) {
     super();
   }
 
@@ -60,15 +65,13 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   }
 
   async registeration() {
-    console.log(this.registerationForm.value);
     const res: any = await this.landingService.registerUser(
       this.registerationForm.value
     );
     if (res.Succeed) {
       this.user = res.Content;
-      localStorage.setItem('user', JSON.stringify(this.user));
       this.navigate('verify/' + this.user.email);
-    } else {
+      this.sharedService.showSuccessToast(res.Message);
     }
   }
 
