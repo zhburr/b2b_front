@@ -2,6 +2,7 @@ import { environment } from 'src/environments/environment';
 
 export class AppConstants {
   public static baseUrl = environment.baseURL;
+  public static JWT_SK = environment.jwtSk;
 
   // Actions
   public static EDIT = 'edit';
@@ -58,6 +59,9 @@ export class AppConstants {
   public static STATUS = 'status';
   public static TRANSLATION = 'translation';
   public static INPUT = 'input';
+  public static SELECT = 'select';
+  public static HAND_RAISE = 'handRaise';
+  public static CHECK = 'check';
 
   //auth
   public static REGISTER_USER = 'auth/register';

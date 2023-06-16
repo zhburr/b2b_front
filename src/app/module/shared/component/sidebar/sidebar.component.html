@@ -1,0 +1,110 @@
+<div id="side-menu">
+  <img class="demo-bg" src="assets/images/1.png" alt="" />
+  <div class="menu-head border-bottom">
+    <a class="logo-menu-head nav-link">
+      <span class="left-icon">
+        <img class="img" src="assets/images/logo.png" alt="" />
+      </span>
+      <span class="content text-nowrap text-dark"> B2B Direct </span>
+    </a>
+  </div>
+  <div class="menu-head border-bottom" [routerLink]="profile">
+    <a class="logo-menu-head nav-link">
+      <span class="left-icon">
+        <img
+          class="user-img"
+          [src]="'assets/images/dummy-profile.jpg'"
+          alt=""
+        />
+      </span>
+      <span class="content text-nowrap text-dark">
+        {{ sharedService.userData$.value.firstName }}
+        {{ sharedService.userData$.value.lastName }}
+      </span>
+    </a>
+  </div>
+  <div class="scroll">
+    <ng-container>
+      <ul class="nav flex-grow-1">
+        <span class="w-100" *ngFor="let item of sideNav; index as i">
+          <span *ngIf="!item?.ChildPages?.length">
+            <li
+              [routerLink]="item.PageName"
+              [ngClass]="{ 'nav-link-active': i === selected }"
+              (click)="getSideMenu(i, item)"
+              class="nav-item nav-link"
+            >
+              <a class="nav-links">
+                <span class="left-icon">
+                  <mat-icon class="material-icons">{{ item.Icon }}</mat-icon>
+                </span>
+                <span class="content text-nowrap">
+                  {{ item.NameEn }}
+                </span>
+              </a>
+            </li>
+          </span>
+          <span *ngIf="item?.ChildPages?.length">
+            <li>
+              <mat-accordion class="mat-nav-link">
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title
+                      (click)="item.PageName ? $event.stopPropagation() : ''"
+                      (click)="getSideMenu(i, item)"
+                      [ngClass]="{
+                        'nav-link-active-mat':
+                          i === selected && !(selectedNest! >= 0)
+                      }"
+                    >
+                      <a class="nav-links">
+                        <span class="left-icon">
+                          <mat-icon class="material-icons">{{
+                            item.Icon
+                          }}</mat-icon>
+                        </span>
+                        <span class="content text-nowrap font-weight-light">{{
+                          item.NameEn
+                        }}</span>
+                      </a>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <span>
+                    <ul class="list-unstyled p-0">
+                      <ng-container
+                        *ngFor="let sub of item?.ChildPages; index as nestIndex"
+                      >
+                        <li
+                          class="nested-nav-link"
+                          (click)="
+                            $event.stopPropagation();
+                            getSideMenu(i, sub, true, nestIndex)
+                          "
+                          [ngClass]="{
+                            'nav-link-active-mat-nested':
+                              nestIndex === selectedNest && selected == i
+                          }"
+                        >
+                          <a class="nav-links">
+                            <span class="left-icon">
+                              <mat-icon class="material-icons nested-icon">{{
+                                sub.Icon
+                              }}</mat-icon>
+                            </span>
+                            <span class="content text-nowrap">{{
+                              sub.NameEn
+                            }}</span>
+                          </a>
+                        </li>
+                      </ng-container>
+                    </ul>
+                  </span>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </li>
+          </span>
+        </span>
+      </ul>
+    </ng-container>
+  </div>
+</div>

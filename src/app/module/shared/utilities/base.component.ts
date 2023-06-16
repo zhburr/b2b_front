@@ -4,15 +4,18 @@ import { Router } from '@angular/router';
 // import { TableHeadField } from '../interfaces/tableHeadFields.model';
 // import { SharedService } from '../services/shared.service';
 import { SharedModule } from '../shared.module';
+import { Button } from '../interface/button.model';
+import { TableData } from '../interface/table.model';
+import { TableHeadField } from '../interface/table-head-field.model';
 
 export class BaseComponent {
   protected static sharedService: any;
   protected static router: any;
   protected location: any;
+  buttons: Button[] = [];
 
-  // buttons: Button[] = [];
-  // tableData: TableData | undefined;
-  // tableHeader: TableHeadField[] = [];
+  tableData: TableData | undefined;
+  tableHeader: TableHeadField[] = [];
   // nestedTableHeader: TableHeadField[] = [];
 
   navigate(route: string, param: any = {}) {

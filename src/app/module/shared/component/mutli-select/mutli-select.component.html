@@ -1,0 +1,45 @@
+<mat-form-field [ngStyle]="{ width: inputWidth }" appearance="outline">
+  <mat-label *ngIf="!!placeholder">{{ placeholder | transloco }}</mat-label>
+  <mat-select
+    matNativeControl
+    [multiple]="isMultiple"
+    [id]="id"
+    [disabled]="disabled"
+    [(ngModel)]="selectedValue"
+    (keydown)="keyPress($event)"
+    (selectionChange)="options?.length ? changed() : ''"
+  >
+    <ng-container *ngIf="options?.length">
+      <ng-container *ngIf="!isGrouped">
+        <mat-option
+          *ngFor="let item of options"
+          [value]="item[primaryValue] ? item[primaryValue] : item"
+          [disabled]="cantSelect"
+          >{{ displayValue ? item[displayValue] : item }}</mat-option
+        >
+      </ng-container>
+      <ng-container *ngIf="isGrouped">
+        <mat-optgroup
+          *ngFor="let items of options"
+          [label]="
+            transloco.getActiveLang() === appConstants.EN_LANG
+              ? items.DescriptionEn
+              : items.DescriptionFr
+          "
+          [disabled]="items.disabled"
+        >
+          <mat-option *ngFor="let item of items.data" [value]="item.Code">
+            {{
+              transloco.getActiveLang() === appConstants.EN_LANG
+                ? item.DescriptionEn
+                : item.DescriptionFr
+            }}
+          </mat-option>
+        </mat-optgroup>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="!options?.length">
+      <mat-option>{{ "general.noDataAvailabel" | transloco }} </mat-option>
+    </ng-container>
+  </mat-select>
+</mat-form-field>

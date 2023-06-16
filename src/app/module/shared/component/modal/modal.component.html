@@ -1,0 +1,14 @@
+<div id="overlay">
+  <div
+    [ngStyle]="{
+      width: customWidth ? customWidth : 'auto',
+      'max-width': customMaxWidth ? customMaxWidth : '',
+      height: customHeight ? customHeight : 'auto',
+      'max-height': customMaxHeight ? customMaxHeight : ''
+    }"
+    class="bridge-modal"
+  >
+    <span (click)="close()" class="close">&times;</span>
+    <ng-container *ngTemplateOutlet="template_!"></ng-container>
+  </div>
+</div>

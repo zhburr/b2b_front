@@ -1,1 +1,8 @@
-<button class="btn btn-primary" (click)="signOut()">SignOut</button>
+<app-navbar></app-navbar>
+<app-sidebar
+  [sideNav]="getSideNavPage()"
+  [profile]="profileRoute()"
+></app-sidebar>
+<div class="app-container">
+  <router-outlet></router-outlet>
+</div>

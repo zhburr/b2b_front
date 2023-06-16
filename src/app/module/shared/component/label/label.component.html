@@ -1,0 +1,19 @@
+<label
+  title="{{ label }}"
+  [ngStyle]="{
+    width: labelWidth,
+    'padding-bottom': spacingBottom,
+    'font-weight': fontWeight,
+    'font-size': fontSize
+  }"
+  class="position-relative  {{ classes }}"
+  for="{{ for }}"
+  (click)="click()"
+>
+  {{ label }}
+  <span
+    class="text-danger position-absolute top-0 start-100 translate-middle fs-12"
+    *ngIf="isRequired"
+    >*</span
+  >
+</label>

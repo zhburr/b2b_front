@@ -37,3 +37,218 @@ mat-icon {
     font-family: Montserrat, sans-serif !important;
 
 }
+
+
+#side-menu {
+    .mat-expansion-panel-body {
+        padding: 0 0 0 5px;
+    }
+
+    .mat-expansion-indicator::after {
+        display: inline-block;
+    }
+
+    .mat-content {
+        overflow: visible !important;
+    }
+}
+
+.open-sidemenu {
+    overflow-y: auto !important;
+    min-width: 300px !important;
+
+    .content {
+        opacity: 1 !important;
+    }
+
+    .mat-expansion-panel-header {
+        padding-right: 24px !important;
+    }
+}
+
+.p-l-350 {
+    transition: 0.8s;
+    padding-left: 350px !important;
+}
+
+.p-l-200 {
+    transition: 0.8s;
+    padding-left: 235px !important;
+}
+
+.card {
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
+    border: 0;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    border-radius: 6px;
+    color: #333333;
+    background: #fff;
+    width: 100%;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+
+    font-size: 0.875rem;
+}
+
+hr {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.card [class*="card-header-"],
+.card[class*="bg-"] {
+    color: #fff;
+}
+
+.card .card-header {
+    border-bottom: none;
+    background: transparent;
+}
+
+.card-header:first-child {
+    border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+}
+
+.card [class*="card-header-"] .card-icon,
+.card [class*="card-header-"] .card-text {
+    border-radius: 3px;
+    background-color: #999999;
+    padding: 15px;
+    margin-top: -20px;
+    margin-right: 15px;
+    float: left;
+}
+
+.card .card-header-primary .card-icon,
+.card .card-header-primary:not(.card-header-icon):not(.card-header-text),
+.card .card-header-primary .card-text {
+    box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%),
+        0 7px 10px -5px rgb(251 192 45 / 40%);
+}
+
+.card .card-header-primary .card-icon,
+.card .card-header-primary .card-text,
+.card .card-header-primary:not(.card-header-icon):not(.card-header-text),
+.card.bg-primary,
+.card.card-rotate.bg-primary .front,
+.card.card-rotate.bg-primary .back {
+    background: linear-gradient(60deg, #fdd835, #fbc02d);
+}
+
+.card .card-header.card-header-icon .card-title,
+.card .card-header.card-header-text .card-title {
+    margin-top: 15px;
+    color: #3c4858;
+    font-size: 20px;
+}
+
+.card .card-header.card-header-icon h4,
+.card .card-header.card-header-text h4 {
+    font-weight: 300;
+}
+
+.card .card-title:last-child {
+    margin-bottom: 0;
+}
+
+.card-body {
+    padding: 0.2rem 20px;
+    position: relative;
+}
+
+.card-body-height {
+    min-height: 100%;
+    overflow: auto;
+}
+
+.tabs-container {
+    background-color: white;
+    width: 100%;
+    border-radius: 5px;
+    padding: 18px;
+    box-shadow: 0px 0px 20px 0 rgb(0 0 0 / 14%);
+    position: relative;
+    margin-top: 50px;
+    padding-top: 60px;
+
+    .tabs-head {
+        position: absolute;
+        background: linear-gradient(60deg, #fdd835, #fbc02d);
+        top: -25px;
+        left: 20px;
+        right: 20px;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 5px;
+    }
+
+    .tab {
+        padding: 10px;
+        border-radius: 3px;
+        color: white;
+        cursor: pointer;
+        margin-right: 10px;
+
+        &:hover {
+            background: #ffffff2b;
+            color: white;
+        }
+    }
+
+    .active {
+        color: #aaaaaa;
+        background-color: white;
+
+        &:hover {
+            background: white;
+            color: #aaaaaa;
+        }
+    }
+
+    .tabs-body {
+        // overflow: hidden;
+        margin-top: 25px;
+    }
+}
+
+.tab-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+
+    .tabs-head {
+        background: linear-gradient(60deg, #fdd835, #fbc02d);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 5px;
+    }
+
+    .tab {
+        padding: 10px;
+        border-radius: 3px;
+        color: white;
+        cursor: pointer;
+        margin-right: 10px;
+
+        &:hover {
+            background: #ffffff2b;
+            color: white;
+        }
+    }
+
+    .active {
+        color: #aaaaaa;
+        background-color: white;
+
+        &:hover {
+            background: white;
+            color: #aaaaaa;
+        }
+    }
+}

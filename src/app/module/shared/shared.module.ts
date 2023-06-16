@@ -9,8 +9,34 @@ import { PageNotFoundComponent } from './component/page-not-found/page-not-found
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NavbarComponent } from './component/navbar/navbar.component';
+import { ButtonComponent } from './component/button/button.component';
+import { SidebarComponent } from './component/sidebar/sidebar.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { RouterModule } from '@angular/router';
+import { LabelComponent } from './component/label/label.component';
+import { InputComponent } from './component/input/input.component';
+import { TableComponent } from './component/table/table.component';
+import { CheckboxComponent } from './component/checkbox/checkbox.component';
+import { ToggleComponent } from './component/toggle/toggle.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { SearchPipe } from './pipes/search/search.pipe';
+import { OderByPipe } from './pipes/oderBy/oder-by.pipe';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
-  declarations: [PageNotFoundComponent],
+  declarations: [
+    PageNotFoundComponent,
+    NavbarComponent,
+    ButtonComponent,
+    SidebarComponent,
+    LabelComponent,
+    InputComponent,
+    TableComponent,
+    CheckboxComponent,
+    ToggleComponent,
+  ],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -22,6 +48,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatSelectModule,
     ReactiveFormsModule,
     MatCheckboxModule,
+    MatExpansionModule,
+    RouterModule,
+    MatSlideToggleModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   exports: [
     MatToolbarModule,
@@ -33,7 +65,22 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatSelectModule,
     ReactiveFormsModule,
     MatCheckboxModule,
+    NavbarComponent,
+    ButtonComponent,
+    SidebarComponent,
+    MatExpansionModule,
+    RouterModule,
+    LabelComponent,
+    InputComponent,
+    TableComponent,
+    CheckboxComponent,
+    ToggleComponent,
+    MatSlideToggleModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
+  providers: [SearchPipe, OderByPipe],
 })
 export class SharedModule {
   static injector: Injector;

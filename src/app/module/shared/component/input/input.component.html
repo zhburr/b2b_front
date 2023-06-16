@@ -1,0 +1,26 @@
+<mat-form-field [ngStyle]="{ width: inputWidth }" [appearance]="appearance">
+  <input
+    matInput
+    type="{{ type ? type : 'text' }}"
+    placeholder="{{ placeholder }}"
+    [id]="id!"
+    [ngClass]="{ disabled: disabled }"
+    class="fs-14 {{ class_ }}"
+    [(ngModel)]="value"
+    (input)="!blur ? inputOnChange($event) : ''"
+    [maxlength]="maxlength!"
+    (keydown)="keyPress($event)"
+    [min]="minValue"
+    [disabled]="disabled!"
+    (blur)="blur ? inputOnChange($event) : ''"
+    [readonly]="readonly"
+  />
+  <div
+    matSuffix
+    [ngClass]="{ disabled: disabled }"
+    class="position-relative"
+    *ngIf="matSuffix"
+  >
+    <span> {{ matSuffix }} &nbsp; </span>
+  </div>
+</mat-form-field>

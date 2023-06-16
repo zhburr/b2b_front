@@ -1,0 +1,12 @@
+<mat-checkbox
+  class=" {{ classes }} checkbox "
+  [(ngModel)]="value"
+  [labelPosition]="labelPosition"
+  [disabled]="disabled!"
+  (change)="changed($event)"
+  title=" {{ label }}"
+>
+  <ng-container *ngIf="showLabel && label">
+    {{ label }}
+  </ng-container>
+</mat-checkbox>

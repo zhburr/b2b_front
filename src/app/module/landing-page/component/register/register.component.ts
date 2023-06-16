@@ -4,6 +4,8 @@ import { LandingService } from '../../services/landing.service';
 import { Route, Router } from '@angular/router';
 import { BaseComponent } from 'src/app/module/shared/utilities/base.component';
 import { SharedService } from 'src/app/module/shared/services/shared.service';
+import { ApiResponse } from 'src/app/module/shared/interface/response.type';
+import { User } from 'src/app/module/shared/interface/user.type';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +19,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   registerAs: string[] = ['Client', 'Customer'];
 
   registerationForm!: FormGroup;
-  user: any = {};
+  user: User = {};
   constructor(
     private fb: FormBuilder,
     private landingService: LandingService,
@@ -65,13 +67,16 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   }
 
   async registeration() {
-    const res: any = await this.landingService.registerUser(
+    const res: ApiResponse<User> = await this.landingService.registerUser(
       this.registerationForm.value
     );
+
     if (res.Succeed) {
       this.user = res.Content;
       this.navigate('verify/' + this.user.email);
-      this.sharedService.showSuccessToast(res.Message);
+      this.sharedService.showSuccessToast(res.message!);
+    } else {
+      this.sharedService.showErrorToast(res.message!);
     }
   }
 

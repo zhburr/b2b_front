@@ -1,0 +1,388 @@
+<div
+  *ngIf="buttons?.length || tableData?.showSearch"
+  class="search-warpper"
+  [ngClass]="{
+    'd-flex': !tableData?.showTableLabel
+  }"
+  [ngStyle]="{
+    padding: tableData?.showTableLabel ? '' : '0px 16px'
+  }"
+>
+  <div *ngIf="tableData?.showSearch" class="d-flex">
+    <div *ngIf="tableData?.showTableLabel" class="my-auto">
+      <app-label [label]="tableLabel"></app-label>
+    </div>
+    <div
+      [ngStyle]="{
+        'margin-left': tableData?.showTableLabel ? 'auto' : ''
+      }"
+    >
+      <mat-form-field [appearance]="searchAppearence">
+        <input
+          matInput
+          *ngIf="tableData?.showSearch"
+          type="search"
+          [(ngModel)]="searchKey"
+          (input)="searchClick($event)"
+          placeholder="{{ 'Search' }} ..."
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <div *ngIf="buttons?.length">
+    <app-button
+      *ngFor="let button of buttons; index as i"
+      class="mx-1"
+      [button]="button"
+      (callBack)="buttonClick(i)"
+      [disabled]="button.disabled ? true : false"
+    ></app-button>
+  </div>
+</div>
+
+<div>
+  <div class="table">
+    <table
+      class="table-bordered custom-table hover"
+      aria-describedby="tableHeader"
+    >
+      <thead class="table-head">
+        <tr class="table-head-row">
+          <th *ngIf="isNested"></th>
+          <th
+            class="th-class"
+            *ngFor="let element of tableData?.tableHeader; index as i"
+            [ngClass]="{
+              'text-center': element.alignCenter,
+              'cursor-pointer': element.sortable
+            }"
+            (click)="sortCol(element, i)"
+          >
+            <div
+              class="d-flex justify-content-between align-items-center align-self-center text-nowrap"
+            >
+              <div>{{ element.text }}</div>
+              <div class="sort">
+                <img
+                  class="sort-image"
+                  *ngIf="element.sortable"
+                  [ngClass]="{
+                    'sort-active':
+                      order == appConstants.ASC && selectedIndex == i,
+                    'sort-inactive':
+                      order != appConstants.ASC || selectedIndex != i
+                  }"
+                  src="assets/icon/down-sort.svg"
+                  alt=""
+                />
+                <img
+                  class="sort-image"
+                  *ngIf="element.sortable"
+                  [ngClass]="{
+                    'sort-active':
+                      order == appConstants.DEC && selectedIndex == i,
+                    'sort-inactive':
+                      order != appConstants.DEC || selectedIndex != i
+                  }"
+                  src="assets/icon/up-sort.svg"
+                  alt=""
+                />
+              </div>
+            </div>
+          </th>
+          <th *ngIf="tableData?.showDownload">
+            {{ "general.download" }}
+          </th>
+
+          <th *ngIf="tableData?.showDelete">
+            {{ "general.delete" }}
+          </th>
+          <th *ngIf="tableData?.showActions">
+            {{ "general.action" }}
+          </th>
+          <th *ngIf="tableData?.showDetails">Details</th>
+        </tr>
+      </thead>
+      <tbody class="table-body">
+        <ng-container *ngFor="let row of queriedData; index as i">
+          <tr
+            class="table-body-row"
+            [ngClass]="{ active_row: selectedRow.includes(i) }"
+          >
+            <td
+              *ngFor="let element of tableData?.tableHeader"
+              [ngClass]="{ 'text-center': element.alignCenter }"
+              [ngStyle]="{ 'min-width': element?.minWidth }"
+              (click)="tableClick(appConstants.EDIT, row, i)"
+            >
+              <div
+                [ngClass]="{ 'text-end': element.alignEnd }"
+                [ngStyle]="{ 'white-space': element.whiteSpace }"
+                *ngIf="element.type === appConstants.TEXT"
+              >
+                {{
+                  element.subField1 && element.subField
+                    ? row?.[element.field]?.[element.subField]?.[element.subField1]
+                    : element.subField
+                    ? row?.[element.field]?.[element.subField]
+                    : row?.[element.field]
+                }}
+              </div>
+              <div
+                [ngClass]="{ 'text-end': element.alignEnd }"
+                [ngStyle]="{ 'white-space': element.whiteSpace }"
+                *ngIf="element.type === appConstants.COLORSPOT"
+              >
+                <div class="d-flex">
+                  <div class="m-l-1">
+                    <div
+                      class="color-spot-circle"
+                      [ngStyle]="{'background-color' : row?.[element.field] ? row?.[element.field] : 'white'}"
+                    ></div>
+                  </div>
+                  <div class="m-l-2">
+                    {{
+                      row?.[element.field]
+                    }}
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="element.type === appConstants.INPUT">
+                <app-input
+                  [value]="element.subField1 && element.subField
+                ? row?.[element.field]?.[element.subField]?.[element.subField1]
+                : element.subField
+                ? row?.[element.field]?.[element.subField]
+                : row?.[element.field] | number:'1.2-2'"
+                  (callBack)="inputCallback(element.field, $event, row, i)"
+                  [disabled]="element.disabled!"
+                  [blur]="element.inputBlur!"
+                  (click)="$event.stopPropagation()"
+                ></app-input>
+              </div>
+              <div *ngIf="element.type === appConstants.TRANSLATION">
+                {{
+                  element.subField1 && element.subField
+                    ? row?.[element.field]?.[element.subField]?.[element.subField1]
+                    : element.subField
+                    ? row?.[element.field]?.[element.subField]
+                    : row?.[element.field]
+                }}
+              </div>
+              <div *ngIf="element.type === appConstants.TEXT_ARRAY">
+                <div
+                  *ngFor="let item of  element.subField1 && element.subField
+                ? row?.[element.field]?.[element.subField]?.[element.subField1]
+                : element.subField
+                ? row?.[element.field]?.[element.subField]
+                : row?.[element.field] 
+                "
+                >
+                  {{  item?.[element.arrayField!] }}
+                  <br />
+                </div>
+              </div>
+              <div *ngIf="element.type === appConstants.ADD">
+                {{ row[element.field] }}
+              </div>
+              <div *ngIf="element.type === appConstants.INDEX">
+                {{
+                  doPaginate
+                    ? paginator!.pageIndex * paginator!.pageSize + (i + 1)
+                    : i + 1
+                }}
+              </div>
+              <div *ngIf="element.type === appConstants.CHECKBOX">
+                <app-checkbox
+                  [id]="i + '-' + row[element.field]"
+                  [value]="row[element.field]"
+                  [disabled]="element.disabled ? true : false"
+                  (callBack)="checkboxCallback(element.field, $event, row, i)"
+                  (click)="$event.stopPropagation()"
+                >
+                </app-checkbox>
+              </div>
+              <div *ngIf="element.type === 'toggle'">
+                <app-toggle
+                  [id]="i + '-' + row[element.field]"
+                  [checked]="row[element.field]"
+                  [disabled]="element.disabled"
+                  (callBack)="toggleCallback(element.field, $event, row, i)"
+                  (click)="$event.stopPropagation()"
+                >
+                </app-toggle>
+              </div>
+              <div
+                style="margin: -6px 0px"
+                *ngIf="element.type === 'heading-and-email'"
+              >
+                <h6>{{ row[element.field]?.heading }}</h6>
+                <label class="h6-email">{{ row[element.field]?.email }}</label>
+              </div>
+              <div
+                [ngClass]="{ 'text-end': element.alignEnd }"
+                *ngIf="element.type === appConstants.NUMBER"
+              >
+                {{
+                  element.subField
+                    ? (row[element.field][element.subField]
+                      | number : (element.isDeciaml ? "1.2-2" : "1.0-0"))
+                    : (row[element.field]
+                      | number : (element.isDeciaml ? "1.2-2" : "1.0-0"))
+                }}
+              </div>
+              <div
+                [ngClass]="{ 'text-end': element.alignEnd }"
+                *ngIf="element.type === appConstants.NUMBER_FIXED"
+              >
+                {{
+                  element.subField
+                    ? utilities.fixedDecimalsWithOutrounding(
+                        row[element.field][element.subField]
+                      )
+                    : utilities.fixedDecimalsWithOutrounding(row[element.field])
+                }}
+              </div>
+              <div *ngIf="element.type === appConstants.BADGE">
+                <span
+                  *ngIf="row[element.field]"
+                  class="badge badge-pill badge-success"
+                  >{{ "general.yes" }}</span
+                >
+                <span
+                  *ngIf="!row[element.field]"
+                  class="badge badge-pill badge-danger"
+                  >{{ "general.no" }}</span
+                >
+              </div>
+              <div *ngIf="element.type === appConstants.TAG">
+                <span class="inner-tag">{{ row[element.field] }}</span>
+              </div>
+              <div
+                class="white-space-nowrap"
+                [ngStyle]="{
+                  width: element.width ? element.width : 'auto'
+                }"
+                *ngIf="element.type === appConstants.TAG_ARRAY"
+              >
+                <span
+                  class="inner-tag"
+                  *ngFor="let item of row[element.field]"
+                  >{{ item[element.field] }}</span
+                >
+              </div>
+              <div *ngIf="element.type === appConstants.DATE">
+                {{ row?.[element.field] ? utilities.converDateToDMYFormat(row[element.field])  : '' }}
+              </div>
+              <div *ngIf="element.type === appConstants.STATUS">
+                <span
+                  [ngStyle]="{
+                    width: element.width ? element.width : 'auto'
+                  }"
+                  class="bridge bridge-{{ row[element.field].type }}"
+                  >{{ row[element.field].text }}</span
+                >
+              </div>
+            </td>
+            <td *ngIf="tableData?.showDownload">
+              <div class="audience-icons">
+                <img
+                  style="cursor: pointer"
+                  (click)="tableClick(appConstants.DOWNLOAD, row, i)"
+                  src="assets/download-icon.svg"
+                  alt=""
+                />
+              </div>
+            </td>
+
+            <td *ngIf="tableData?.showDelete">
+              <div class="audience-icons">
+                <img
+                  title="{{ 'icon.delete' }}"
+                  *ngIf="tableData?.showDelete"
+                  class="cursor-pointer"
+                  (click)="
+                    $event.stopPropagation();
+                    tableClick(appConstants.DELETE, row, i)
+                  "
+                  src="assets/delete.svg"
+                  alt=""
+                />
+              </div>
+            </td>
+            <td *ngIf="tableData?.showActions">
+              <div style="display: flex">
+                <div *ngIf="tableData?.showHand">
+                  <span
+                    title="{{ 'icon.handRaise' }}"
+                    *ngIf="row.handRaise"
+                    (click)="
+                      actionCallbackButton(appConstants.ENVELOP, $event, row, i)
+                    "
+                    class="material-icons hand-raise"
+                    >front_hand</span
+                  >
+                </div>
+                <div *ngIf="tableData?.showEnvelop">
+                  <span
+                    title="{{ 'icon.envelop' }}"
+                    *ngIf="row.envelop"
+                    (click)="
+                      actionCallbackButton(appConstants.ENVELOP, $event, row, i)
+                    "
+                    class="material-icons envelop"
+                    >mail</span
+                  >
+                </div>
+
+                <div *ngIf="tableData?.showFiles">
+                  <span
+                    [ngClass]="row?.[tableData?.showFileCondition!] ? 'color-green-filter' : 'color-black-filter'"
+                    title="{{ 'icon.files' }}"
+                    (click)="
+                      actionCallbackButton(appConstants.FILE, $event, row, i)
+                    "
+                    class="material-icons"
+                    >folder</span
+                  >
+                </div>
+              </div>
+            </td>
+            <td *ngIf="tableData?.showDetails">
+              <img
+                title="{{ 'icon.orderLinesStatus' }}"
+                class="icon"
+                style="cursor: pointer"
+                (click)="tableClick(appConstants.DETAIL, row, i)"
+                src="assets/details.svg"
+                alt=""
+              />
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+      <tbody *ngIf="!queriedData?.length" class="table-body">
+        <tr>
+          <td *ngIf="isNested"></td>
+          <td
+            [attr.colspan]="tableData?.tableHeader?.length"
+            class="no-data-available"
+          >
+            No data Available!
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="doPaginate">
+    <mat-paginator
+      [id]="'pagg'"
+      [length]="!isSearching ? totalLength : searchedLength"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="tablePagination($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>

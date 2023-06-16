@@ -1,0 +1,19 @@
+<div id="header" class="flex-grow-1">
+  <div id="slide-right">
+    <div class="d-flex">
+      <button class="ms-1" mat-mini-fab (click)="sidebarToggle()">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <div class="ms-4 align-self-center">
+        <p class="navbar-brand fw-lighter">
+          {{ title }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex flex-fill justify-content-end">
+    <div class="me-4">
+      <app-button [button]="buttons[0]" (callBack)="logOut()"> </app-button>
+    </div>
+  </div>
+</div>

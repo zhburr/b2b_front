@@ -30,8 +30,6 @@ export class HomeComponent {
   }
 
   gotoView(event: string) {
-    console.log(event);
-
     document
       .getElementById(event)
       ?.scrollIntoView({ behavior: 'smooth', block: 'start' });

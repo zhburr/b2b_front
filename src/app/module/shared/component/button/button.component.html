@@ -1,0 +1,21 @@
+<button
+  [ngStyle]="{
+    'min-width': button?.minWidth,
+    'min-height': button?.minHeight
+  }"
+  class="btn btn-{{ button?.type }} {{ button?.class }}"
+  [disabled]="disabled"
+  (keydown)="keyPress($event)"
+  type="button"
+  (click)="fire()"
+>
+  <img
+    *ngIf="button?.icon"
+    class="icon-svg {{ button?.iconClass }}"
+    src="{{ 'assets/' + button?.icon }}"
+    alt=""
+  />
+  <div *ngIf="button?.text">
+    {{ button?.text }}
+  </div>
+</button>
