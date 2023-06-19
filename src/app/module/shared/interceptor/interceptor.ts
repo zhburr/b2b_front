@@ -42,6 +42,14 @@ export class Interceptor implements HttpInterceptor {
 
     this.loaderService.show();
 
+    if (!request.url.includes('auth')) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+    }
+
     return next.handle(request).pipe(
       finalize(() => {
         this.shared.apiStack.pop();

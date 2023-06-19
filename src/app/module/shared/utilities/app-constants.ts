@@ -62,6 +62,8 @@ export class AppConstants {
   public static SELECT = 'select';
   public static HAND_RAISE = 'handRaise';
   public static CHECK = 'check';
+  public static APPROVE = 'approve';
+  public static REJECT = 'rejecct';
 
   //auth
   public static REGISTER_USER = 'auth/register';
@@ -69,4 +71,14 @@ export class AppConstants {
   public static LOGIN = 'auth/login';
   public static EMAIL_FORGET_PASSWORD = 'auth/emailForgetPassword';
   public static RESET_PASSWORD = 'auth/resetPassword';
+
+  //product
+  public static UPLOAD_PRODUCT_LISTING = 'product/uploadListing';
+  public static ALL_PRODUCT_LISTING_OF_USER =
+    'product/allProductApprovalOfUser';
+  public static ALL_USER_PRODUCT_LISTING = 'product/getAllUserProductApproval';
+  public static UPDATE_PRODUCT_LISTING_STATUS =
+    'product/updateProductApprovalStatus';
+  //productFileURl
+  public static PRODUCT_FILE_URL = `${this.baseUrl}uploads/products/`;
 }

@@ -10,7 +10,10 @@
       <hr />
       <div class="card-body card-body-height">
         <div>
-          <app-table [tableData]="tableData"></app-table>
+          <app-table
+            [tableData]="tableData"
+            (tableCallback)="tableCallBack($event)"
+          ></app-table>
         </div>
       </div>
     </div>

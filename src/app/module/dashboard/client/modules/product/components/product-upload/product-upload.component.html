@@ -12,7 +12,10 @@
         <div class="mb-4">
           <p class="h6">
             Sample CSV for uploading the products
-            <a href="assets/sampleFile/a.txt" download="a.txt" target="_blank"
+            <a
+              href="assets/sampleFile/product _sample.csv"
+              download="product_sample.csv"
+              target="_blank"
               >sample file</a
             >
           </p>
@@ -25,11 +28,19 @@
             type="file"
             #formFile
             (change)="checkFile($event)"
+            accept=".csv"
           />
-          <app-button [button]="buttons[0]"></app-button>
+          <app-button
+            [button]="buttons[0]"
+            [disabled]="!fileToUpload"
+            (callBack)="uploadProductListing()"
+          ></app-button>
         </div>
         <div>
-          <app-table [tableData]="tableData"></app-table>
+          <app-table
+            [tableData]="tableData"
+            (tableCallback)="tableCallBack($event)"
+          ></app-table>
         </div>
       </div>
     </div>

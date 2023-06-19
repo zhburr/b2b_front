@@ -1,14 +1,11 @@
 <div
-  *ngIf="buttons?.length || tableData?.showSearch"
+  *ngIf="buttons?.length || tableData?.showSearch || tableData?.showTableLabel"
   class="search-warpper"
   [ngClass]="{
     'd-flex': !tableData?.showTableLabel
   }"
-  [ngStyle]="{
-    padding: tableData?.showTableLabel ? '' : '0px 16px'
-  }"
 >
-  <div *ngIf="tableData?.showSearch" class="d-flex">
+  <div class="d-flex">
     <div *ngIf="tableData?.showTableLabel" class="my-auto">
       <app-label [label]="tableLabel"></app-label>
     </div>
@@ -17,7 +14,10 @@
         'margin-left': tableData?.showTableLabel ? 'auto' : ''
       }"
     >
-      <mat-form-field [appearance]="searchAppearence">
+      <mat-form-field
+        *ngIf="tableData?.showSearch"
+        [appearance]="searchAppearence"
+      >
         <input
           matInput
           *ngIf="tableData?.showSearch"
@@ -90,17 +90,10 @@
               </div>
             </div>
           </th>
-          <th *ngIf="tableData?.showDownload">
-            {{ "general.download" }}
-          </th>
 
-          <th *ngIf="tableData?.showDelete">
-            {{ "general.delete" }}
+          <th *ngIf="tableData?.showActions" class="text-center">
+            {{ "Action" }}
           </th>
-          <th *ngIf="tableData?.showActions">
-            {{ "general.action" }}
-          </th>
-          <th *ngIf="tableData?.showDetails">Details</th>
         </tr>
       </thead>
       <tbody class="table-body">
@@ -109,11 +102,38 @@
             class="table-body-row"
             [ngClass]="{ active_row: selectedRow.includes(i) }"
           >
+            <td *ngIf="isNested">
+              <ng-container
+                *ngIf="
+                  row?.[tableData!.nestedTableBodyField] &&
+                  row?.[tableData!.nestedTableBodyField]?.length
+                "
+              >
+                <a
+                  class="expand-row"
+                  *ngIf="!hideme[i]"
+                  (click)="$event.stopPropagation(); expandRow(i)"
+                >
+                  <button class="button-add-minus add-btn" role="button">
+                    <img width="10px" src="assets/icons/plus.svg" alt="" />
+                  </button>
+                </a>
+                <a
+                  class="expand-row"
+                  *ngIf="hideme[i]"
+                  (click)="$event.stopPropagation(); hideme[i] = !hideme[i]"
+                >
+                  <button class="button-add-minus minus-btn" role="button">
+                    <img width="10px" src="assets/icons/minus.svg" alt="" />
+                  </button>
+                </a>
+              </ng-container>
+            </td>
             <td
               *ngFor="let element of tableData?.tableHeader"
               [ngClass]="{ 'text-center': element.alignCenter }"
               [ngStyle]="{ 'min-width': element?.minWidth }"
-              (click)="tableClick(appConstants.EDIT, row, i)"
+              (click)="tableClick(appConstants.SELECT, row, i)"
             >
               <div
                 [ngClass]="{ 'text-end': element.alignEnd }"
@@ -149,25 +169,17 @@
               </div>
               <div *ngIf="element.type === appConstants.INPUT">
                 <app-input
+                  [appearance]="'fill'"
                   [value]="element.subField1 && element.subField
                 ? row?.[element.field]?.[element.subField]?.[element.subField1]
                 : element.subField
                 ? row?.[element.field]?.[element.subField]
-                : row?.[element.field] | number:'1.2-2'"
+                : row?.[element.field] "
                   (callBack)="inputCallback(element.field, $event, row, i)"
                   [disabled]="element.disabled!"
                   [blur]="element.inputBlur!"
                   (click)="$event.stopPropagation()"
                 ></app-input>
-              </div>
-              <div *ngIf="element.type === appConstants.TRANSLATION">
-                {{
-                  element.subField1 && element.subField
-                    ? row?.[element.field]?.[element.subField]?.[element.subField1]
-                    : element.subField
-                    ? row?.[element.field]?.[element.subField]
-                    : row?.[element.field]
-                }}
               </div>
               <div *ngIf="element.type === appConstants.TEXT_ARRAY">
                 <div
@@ -272,7 +284,7 @@
                 >
               </div>
               <div *ngIf="element.type === appConstants.DATE">
-                {{ row?.[element.field] ? utilities.converDateToDMYFormat(row[element.field])  : '' }}
+                {{ row?.[element.field] ?  utilities.converDateToDMYFormat(row[element.field]) : '' }}
               </div>
               <div *ngIf="element.type === appConstants.STATUS">
                 <span
@@ -284,79 +296,104 @@
                 >
               </div>
             </td>
-            <td *ngIf="tableData?.showDownload">
-              <div class="audience-icons">
-                <img
-                  style="cursor: pointer"
-                  (click)="tableClick(appConstants.DOWNLOAD, row, i)"
-                  src="assets/download-icon.svg"
-                  alt=""
-                />
-              </div>
-            </td>
-
-            <td *ngIf="tableData?.showDelete">
-              <div class="audience-icons">
-                <img
-                  title="{{ 'icon.delete' }}"
-                  *ngIf="tableData?.showDelete"
-                  class="cursor-pointer"
-                  (click)="
-                    $event.stopPropagation();
-                    tableClick(appConstants.DELETE, row, i)
-                  "
-                  src="assets/delete.svg"
-                  alt=""
-                />
-              </div>
-            </td>
             <td *ngIf="tableData?.showActions">
-              <div style="display: flex">
-                <div *ngIf="tableData?.showHand">
+              <div class="d-flex justify-content-center">
+                <div *ngIf="row.tableActions?.showHand">
                   <span
-                    title="{{ 'icon.handRaise' }}"
-                    *ngIf="row.handRaise"
                     (click)="
-                      actionCallbackButton(appConstants.ENVELOP, $event, row, i)
+                      actionCallbackButton(
+                        appConstants.HAND_RAISE,
+                        $event,
+                        row,
+                        i
+                      )
                     "
-                    class="material-icons hand-raise"
+                    class="material-icons me-2"
                     >front_hand</span
                   >
                 </div>
-                <div *ngIf="tableData?.showEnvelop">
+                <div *ngIf="row.tableActions?.canEdit">
                   <span
-                    title="{{ 'icon.envelop' }}"
-                    *ngIf="row.envelop"
                     (click)="
-                      actionCallbackButton(appConstants.ENVELOP, $event, row, i)
+                      actionCallbackButton(appConstants.EDIT, $event, row, i)
                     "
-                    class="material-icons envelop"
-                    >mail</span
+                    class="material-icons me-2"
+                    >edit</span
                   >
                 </div>
-
-                <div *ngIf="tableData?.showFiles">
+                <div *ngIf="row.tableActions?.showCheck">
                   <span
-                    [ngClass]="row?.[tableData?.showFileCondition!] ? 'color-green-filter' : 'color-black-filter'"
-                    title="{{ 'icon.files' }}"
                     (click)="
-                      actionCallbackButton(appConstants.FILE, $event, row, i)
+                      actionCallbackButton(appConstants.CHECK, $event, row, i)
+                    "
+                    class="material-icons me-2"
+                    >check_box</span
+                  >
+                </div>
+                <div *ngIf="row.tableActions?.canAdd">
+                  <span
+                    (click)="
+                      actionCallbackButton(appConstants.ADD, $event, row, i)
                     "
                     class="material-icons"
-                    >folder</span
+                    >add</span
+                  >
+                </div>
+                <div *ngIf="row.tableActions?.canView">
+                  <span
+                    (click)="
+                      actionCallbackButton(appConstants.VIEW, $event, row, i)
+                    "
+                    class="material-icons ms-3"
+                    >visibility</span
+                  >
+                </div>
+                <div *ngIf="row.tableActions?.canDelete">
+                  <span
+                    (click)="
+                      actionCallbackButton(appConstants.DELETE, $event, row, i)
+                    "
+                    class="material-icons"
+                    >delete</span
+                  >
+                </div>
+                <div *ngIf="row.tableActions?.canApprove">
+                  <mat-icon
+                    title="Approve"
+                    style="color: green"
+                    (click)="
+                      actionCallbackButton(appConstants.APPROVE, $event, row, i)
+                    "
+                    class="material-icons"
+                    >check</mat-icon
+                  >
+                </div>
+                <div *ngIf="row.tableActions?.canApprove">
+                  <mat-icon
+                    title="Reject"
+                    style="color: red"
+                    (click)="
+                      actionCallbackButton(appConstants.REJECT, $event, row, i)
+                    "
+                    class="material-icons"
+                    >close</mat-icon
+                  >
+                </div>
+                <div *ngIf="row.tableActions?.canDownload">
+                  <mat-icon
+                    (click)="
+                      actionCallbackButton(
+                        appConstants.DOWNLOAD,
+                        $event,
+                        row,
+                        i
+                      )
+                    "
+                    class="material-icons"
+                    >download</mat-icon
                   >
                 </div>
               </div>
-            </td>
-            <td *ngIf="tableData?.showDetails">
-              <img
-                title="{{ 'icon.orderLinesStatus' }}"
-                class="icon"
-                style="cursor: pointer"
-                (click)="tableClick(appConstants.DETAIL, row, i)"
-                src="assets/details.svg"
-                alt=""
-              />
             </td>
           </tr>
         </ng-container>
@@ -374,8 +411,7 @@
       </tbody>
     </table>
   </div>
-
-  <div *ngIf="doPaginate">
+  <div [ngStyle]="{ visibility: doPaginate ? 'visible' : 'hidden' }">
     <mat-paginator
       [id]="'pagg'"
       [length]="!isSearching ? totalLength : searchedLength"
