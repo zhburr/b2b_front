@@ -50,6 +50,13 @@ export class ProductUploadComponent extends BaseComponent implements OnInit {
         text: 'Status',
         type: AppConstants.TEXT,
         sortable: true,
+      },
+      {
+        field: 'remarks',
+        text: 'Remarks',
+        minWidth: '250px',
+        type: AppConstants.TEXT,
+        sortable: true,
       }
     );
 
@@ -68,14 +75,13 @@ export class ProductUploadComponent extends BaseComponent implements OnInit {
   checkFile(event: any) {
     const files: FileList = event.target.files;
     this.fileToUpload = files.item(0);
-    console.log(this.fileToUpload);
 
     if (!this.fileToUpload?.name) {
       this.sharedService.showErrorToast('File name is required');
       this.resetFileInput();
     } else if (
-      !this.fileToUpload?.type ||
-      this.fileToUpload.type !== 'text/csv'
+      !this.fileToUpload?.type
+      // this.fileToUpload.type !== 'text/csv'
     ) {
       this.sharedService.showErrorToast(
         'Only file with extension CSV is allowed'
@@ -97,14 +103,15 @@ export class ProductUploadComponent extends BaseComponent implements OnInit {
       const res: any = await this.productService.uploadProductListing(formData);
       if (res.Succeed) {
         this.getAllProductListing();
+        this.resetFileInput();
         this.sharedService.showSuccessToast(res.message);
       } else {
-        console.log('failed', res);
         this.resetFileInput();
         this.sharedService.showErrorToast(res.message);
       }
     } catch (error: any) {
-      console.log('error', error);
+      console.log('in catch', error);
+
       this.resetFileInput();
       this.sharedService.showErrorToast(
         error.error.message[0].constraints.isNotEmpty
@@ -121,12 +128,10 @@ export class ProductUploadComponent extends BaseComponent implements OnInit {
         });
         this.initializeTable();
       }
-      console.log(res);
     } catch (error: any) {}
   }
 
   tableCallBack(event: any) {
-    console.log(event);
     if (event.key === AppConstants.DOWNLOAD) {
       this.downloadProductFile(event.object.csv);
     }

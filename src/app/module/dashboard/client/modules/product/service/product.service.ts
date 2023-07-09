@@ -9,10 +9,17 @@ export class ProductService {
   constructor(private http: HttpService) {}
 
   getAllProductsApproval(): Promise<any> {
-    return this.http.get(AppConstants.ALL_PRODUCT_LISTING_OF_USER);
+    return this.http.get(AppConstants.ALL_PRODUCT_APPROVAL_LISTING_OF_USER);
   }
 
-  uploadProductListing(payload: any) {
-    return this.http.post(AppConstants.UPLOAD_PRODUCT_LISTING, payload);
+  uploadProductListing(payload: any): Promise<any> {
+    return this.http.post(
+      AppConstants.UPLOAD_PRODUCT_APPROVAL_LISTING,
+      payload
+    );
+  }
+
+  getProductList(payload: any): Promise<any> {
+    return this.http.post(AppConstants.GET_PRODUCT_LISTING, payload);
   }
 }

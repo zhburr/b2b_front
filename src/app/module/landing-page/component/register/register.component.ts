@@ -52,9 +52,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     });
   }
 
-  selectionChange(event: any) {
-    console.log(event);
-  }
+  selectionChange(event: any) {}
 
   changed(event: any) {
     if (this.registerationForm.value.registerAsa === 'Client') {

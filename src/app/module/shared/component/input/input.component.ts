@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class InputComponent {
   @Input() value: any;
   @Input() placeholder?: string;
+  @Input() lablel?: string;
   @Input() appearance: 'outline' | 'fill' = 'outline';
   @Input() type: any;
   @Input() class_: any;

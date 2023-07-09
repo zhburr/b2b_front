@@ -1,0 +1,30 @@
+<mat-form-field
+  [ngStyle]="{ width: inputWidth }"
+  class="example-full-width"
+  appearance="outline"
+>
+  <mat-label *ngIf="label">{{ label }}</mat-label>
+  <textarea
+    matInput
+    type="{{ type ? type : 'text' }}"
+    placeholder="{{ placeholder }}"
+    [ngClass]="{ disabled: disabled }"
+    class="{{ class_ }}"
+    [(ngModel)]="value"
+    (change)="inputOnChange($event)"
+    [maxlength]="maxlength!"
+    [disabled]="disabled!"
+    [rows]="rows"
+  ></textarea>
+</mat-form-field>
+
+<!-- <mat-form-field appearance="outline">
+  <mat-label>Autosize textarea</mat-label>
+  <textarea
+    matInput
+    cdkTextareaAutosize
+    #autosize="cdkTextareaAutosize"
+    cdkAutosizeMinRows="1"
+    cdkAutosizeMaxRows="rows"
+  ></textarea>
+</mat-form-field> -->

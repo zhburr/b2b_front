@@ -52,12 +52,12 @@ export class ValidatorService {
     return new Promise((resolve, reject) => {
       fields.forEach((element: any, index: any) => {
         if (
-          fields[index] === 'email' &&
+          fields[index][0] === 'email' &&
           !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
             body[fields[index][0]]
           )
         ) {
-          reject('Enter a valid email address');
+          reject({ message: 'Enter a valid email address' });
         }
       });
       resolve(true);

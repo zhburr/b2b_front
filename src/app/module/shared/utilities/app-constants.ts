@@ -3,6 +3,8 @@ import { environment } from 'src/environments/environment';
 export class AppConstants {
   public static baseUrl = environment.baseURL;
   public static JWT_SK = environment.jwtSk;
+  public static PAYPAL_SK = environment.paypalSecretKey;
+  public static PAYPAL_CLIENT_ID = environment.paypalClientId;
 
   // Actions
   public static EDIT = 'edit';
@@ -64,6 +66,7 @@ export class AppConstants {
   public static CHECK = 'check';
   public static APPROVE = 'approve';
   public static REJECT = 'rejecct';
+  public static COMMENT = 'comment';
 
   //auth
   public static REGISTER_USER = 'auth/register';
@@ -73,12 +76,14 @@ export class AppConstants {
   public static RESET_PASSWORD = 'auth/resetPassword';
 
   //product
-  public static UPLOAD_PRODUCT_LISTING = 'product/uploadListing';
-  public static ALL_PRODUCT_LISTING_OF_USER =
+  public static UPLOAD_PRODUCT_APPROVAL_LISTING = 'product/uploadListing';
+  public static ALL_PRODUCT_APPROVAL_LISTING_OF_USER =
     'product/allProductApprovalOfUser';
-  public static ALL_USER_PRODUCT_LISTING = 'product/getAllUserProductApproval';
-  public static UPDATE_PRODUCT_LISTING_STATUS =
+  public static ALL_USER_PRODUCT_APPROVAL_LISTING =
+    'product/getAllUserProductApproval';
+  public static UPDATE_PRODUCT_APPROVAL_LISTING_STATUS =
     'product/updateProductApprovalStatus';
+  public static GET_PRODUCT_LISTING = 'product/getProductListing';
   //productFileURl
   public static PRODUCT_FILE_URL = `${this.baseUrl}uploads/products/`;
 }

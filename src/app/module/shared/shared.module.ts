@@ -25,6 +25,14 @@ import { SearchPipe } from './pipes/search/search.pipe';
 import { OderByPipe } from './pipes/oderBy/oder-by.pipe';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { ModalComponent } from './component/modal/modal.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DateInputComponent } from './component/date-input/date-input.component';
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { TextareaComponent } from './component/textarea/textarea.component';
+import { NgxPayPalModule } from 'ngx-paypal';
+
 @NgModule({
   declarations: [
     PageNotFoundComponent,
@@ -36,6 +44,9 @@ import { MatInputModule } from '@angular/material/input';
     TableComponent,
     CheckboxComponent,
     ToggleComponent,
+    ModalComponent,
+    DateInputComponent,
+    TextareaComponent,
   ],
   imports: [
     CommonModule,
@@ -54,6 +65,10 @@ import { MatInputModule } from '@angular/material/input';
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCardModule,
+    MatDatepickerModule,
+    TextFieldModule,
+    NgxPayPalModule,
   ],
   exports: [
     MatToolbarModule,
@@ -79,6 +94,13 @@ import { MatInputModule } from '@angular/material/input';
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCardModule,
+    ModalComponent,
+    MatDatepickerModule,
+    DateInputComponent,
+    TextFieldModule,
+    TextareaComponent,
+    NgxPayPalModule,
   ],
   providers: [SearchPipe, OderByPipe],
 })

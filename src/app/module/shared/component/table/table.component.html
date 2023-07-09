@@ -368,7 +368,7 @@
                     >check</mat-icon
                   >
                 </div>
-                <div *ngIf="row.tableActions?.canApprove">
+                <div *ngIf="row.tableActions?.canReject">
                   <mat-icon
                     title="Reject"
                     style="color: red"
@@ -379,6 +379,17 @@
                     >close</mat-icon
                   >
                 </div>
+                <div *ngIf="row.tableActions?.canComment">
+                  <mat-icon
+                    title="Comment"
+                    (click)="
+                      actionCallbackButton(appConstants.COMMENT, $event, row, i)
+                    "
+                    class="material-icons"
+                    >chat_bubble</mat-icon
+                  >
+                </div>
+
                 <div *ngIf="row.tableActions?.canDownload">
                   <mat-icon
                     (click)="

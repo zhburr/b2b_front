@@ -9,9 +9,12 @@ export class AdminProductService {
   constructor(private http: HttpService) {}
 
   getAllProductsApproval(): Promise<any> {
-    return this.http.get(AppConstants.ALL_USER_PRODUCT_LISTING);
+    return this.http.get(AppConstants.ALL_USER_PRODUCT_APPROVAL_LISTING);
   }
   updateProductApprovalStatus(payload: any): Promise<any> {
-    return this.http.post(AppConstants.UPDATE_PRODUCT_LISTING_STATUS, payload);
+    return this.http.post(
+      AppConstants.UPDATE_PRODUCT_APPROVAL_LISTING_STATUS,
+      payload
+    );
   }
 }

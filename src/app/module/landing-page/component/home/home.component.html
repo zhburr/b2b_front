@@ -59,3 +59,129 @@
     </div>
   </footer>
 </div>
+
+<ng-template #listingRemoval>
+  <div>
+    <div class="row mb-2">
+      <div class="col-12">
+        <mat-toolbar class="p-0 w-100 mat-toolbar">
+          <mat-toolbar-row>
+            <span>Listing removal</span>
+
+            <div class="row flex-fill">
+              <div class="d-flex justify-content-end">
+                <app-button
+                  class="mr-2"
+                  [button]="buttons[0]"
+                  (callBack)="buttonCallback(0)"
+                ></app-button>
+              </div>
+            </div>
+          </mat-toolbar-row>
+        </mat-toolbar>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <p>
+          Unauthorized sellers on online marketplaces can harm your brand
+          reputation and reduce customer trust. Our product listing removal
+          services can help protect your brand by identifying and removing
+          unauthorized sellers from online marketplace
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <app-input
+          [lablel]="'Name'"
+          [inputWidth]="'100%'"
+          [value]="paypalForm.name"
+          (callBack)="paypalForm.name = $event"
+        ></app-input>
+      </div>
+      <div class="col-6">
+        <app-input
+          [lablel]="'Email'"
+          [inputWidth]="'100%'"
+          [value]="paypalForm.email"
+          (callBack)="paypalForm.email = $event"
+        ></app-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <app-input
+          [lablel]="'Marketplace name'"
+          [inputWidth]="'100%'"
+          [value]="paypalForm.marketplace"
+          (callBack)="paypalForm.marketplace = $event"
+        ></app-input>
+      </div>
+      <div class="col">
+        <app-input
+          [lablel]="'Product name'"
+          [inputWidth]="'100%'"
+          [value]="paypalForm.productName"
+          (callBack)="paypalForm.productName = $event"
+        ></app-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <app-input
+          [lablel]="'Product URL'"
+          [inputWidth]="'100%'"
+          [value]="paypalForm.productURL"
+          (callBack)="paypalForm.productURL = $event"
+        ></app-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <app-date-input
+          [placeholder]="'Schedule meeting'"
+          [value]="paypalForm.meeting"
+          (callBack)="paypalForm.meeting = $event"
+        ></app-date-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <app-textarea
+          [rows]="5"
+          [label]="'Additional comments'"
+          [inputWidth]="'100%'"
+          [value]="paypalForm.comment"
+          (callBack)="paypalForm.comment = $event"
+        ></app-textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p class="fw-bold">Note : You need to pay 35£ to continue</p>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center w-100">
+      <button
+        *ngIf="!isPaypalFormaValidated"
+        class="btn btn-dark rounded-pill"
+        (click)="buttonCallback(1)"
+      >
+        Continue to pay
+      </button>
+      <ngx-paypal [config]="payPalConfig" *ngIf="isPaypalFormaValidated">
+      </ngx-paypal>
+    </div>
+  </div>
+</ng-template>
+
+<app-modal
+  *ngIf="removalModal"
+  [template_]="listingRemoval"
+  (callback)="removalModal = false"
+  [customHeight]="modalHeight"
+  [customMaxHeight]="modalMaxHeight"
+  [customWidth]="'50%'"
+></app-modal>

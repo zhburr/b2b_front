@@ -3,6 +3,10 @@ import { SharedService } from 'src/app/module/shared/services/shared.service';
 import { AppConstants } from 'src/app/module/shared/utilities/app-constants';
 import { BaseComponent } from 'src/app/module/shared/utilities/base.component';
 import { AdminProductService } from '../../service/admin-product.service';
+import { ApiResponse } from 'src/app/module/shared/interface/response.type';
+import { ProductApproval } from 'src/app/module/shared/interface/productApproval.type';
+import { ProductStatus } from 'src/app/module/shared/enum/productApprovalStatus.enum';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-approval',
@@ -10,7 +14,7 @@ import { AdminProductService } from '../../service/admin-product.service';
   styleUrls: ['./product-approval.component.scss'],
 })
 export class ProductApprovalComponent extends BaseComponent implements OnInit {
-  approvalListing: any[] = [];
+  approvalListing: ProductApproval[] = [];
   constructor(
     private sharedService: SharedService,
     private productService: AdminProductService
@@ -57,6 +61,12 @@ export class ProductApprovalComponent extends BaseComponent implements OnInit {
         text: 'Status',
         type: AppConstants.TEXT,
         sortable: true,
+      },
+      {
+        field: 'remarks',
+        text: 'Remarks',
+        type: AppConstants.TEXT,
+        sortable: true,
       }
     );
 
@@ -65,10 +75,10 @@ export class ProductApprovalComponent extends BaseComponent implements OnInit {
 
   async getAllProductsApproval() {
     try {
-      const res: any = await this.productService.getAllProductsApproval();
-      console.log(res);
+      const res: ApiResponse<ProductApproval[]> =
+        await this.productService.getAllProductsApproval();
       if (res.Succeed) {
-        this.approvalListing = res.Content.map((list: any) => {
+        this.approvalListing = res.Content.map((list) => {
           return {
             ...list,
             user: {
@@ -77,26 +87,96 @@ export class ProductApprovalComponent extends BaseComponent implements OnInit {
             },
             tableActions: {
               canDownload: true,
-              canApprove: true,
-              canReject: true,
+              canApprove: list.status === ProductStatus.Pending,
+              canReject: list.status === ProductStatus.Pending,
             },
           };
         });
 
         this.initializeTable();
-
-        console.log(this.approvalListing);
       }
     } catch (error) {}
   }
 
   async tableCallBack(event: any) {
-    if (event.key === AppConstants.DOWNLOAD) {
-      this.downloadProductFile(event.object.csv);
-    } else if (event.key === AppConstants.APPROVE) {
-      await this.updateProductApprovalStatus(event.object.id, 'Approved');
-    } else if (event.key === AppConstants.REJECT) {
-      await this.updateProductApprovalStatus(event.object.id, 'Rejected');
+    switch (event.key) {
+      case AppConstants.DOWNLOAD:
+        this.downloadProductFile(event.object.csv);
+        break;
+      case AppConstants.APPROVE:
+        Swal.fire({
+          title: 'Do you want to add remarks?',
+          icon: 'question',
+          showCancelButton: true,
+          cancelButtonText: 'No',
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes',
+          allowOutsideClick: false,
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            const { value: text } = await Swal.fire({
+              input: 'textarea',
+              inputLabel: 'Add remarks',
+              inputPlaceholder: 'Type your remarks here',
+              inputAttributes: {
+                'aria-label': 'Type your remarks here',
+              },
+              allowOutsideClick: false,
+            });
+
+            await this.updateProductApprovalStatus(
+              event.object.id,
+              ProductStatus.Approved,
+              text
+            );
+          } else {
+            await this.updateProductApprovalStatus(
+              event.object.id,
+              ProductStatus.Approved,
+              ''
+            );
+          }
+        });
+
+        break;
+      case AppConstants.REJECT:
+        Swal.fire({
+          title: 'Do you want to add remarks?',
+          icon: 'question',
+          showCancelButton: true,
+          cancelButtonText: 'No',
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes',
+          allowOutsideClick: false,
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            const { value: text } = await Swal.fire({
+              input: 'textarea',
+              inputLabel: 'Add remarks',
+              inputPlaceholder: 'Type your remarks here',
+              inputAttributes: {
+                'aria-label': 'Type your remarks here',
+              },
+              allowOutsideClick: false,
+            });
+
+            await this.updateProductApprovalStatus(
+              event.object.id,
+              ProductStatus.Rejected,
+              text
+            );
+          } else {
+            await this.updateProductApprovalStatus(
+              event.object.id,
+              ProductStatus.Rejected,
+              ''
+            );
+          }
+        });
+
+        break;
     }
   }
 
@@ -110,15 +190,20 @@ export class ProductApprovalComponent extends BaseComponent implements OnInit {
     link.remove();
   }
 
-  async updateProductApprovalStatus(id: number, status: string) {
+  async updateProductApprovalStatus(
+    id: number,
+    status: string,
+    remarks: string
+  ) {
     try {
-      const data = { id, status };
-      const res: any = await this.productService.updateProductApprovalStatus(
-        data
-      );
+      const data = { id, status, remarks };
+      const res: ApiResponse<{}> =
+        await this.productService.updateProductApprovalStatus(data);
       if (res.Succeed) {
         this.getAllProductsApproval();
-        this.sharedService.showSuccessToast(res.message);
+        this.sharedService.showSuccessToast(res.message!);
+      } else {
+        this.sharedService.showErrorToast(res.message!);
       }
     } catch (error) {}
   }

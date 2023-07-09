@@ -1,4 +1,5 @@
 <mat-form-field [ngStyle]="{ width: inputWidth }" [appearance]="appearance">
+  <mat-label *ngIf="lablel">{{ lablel }}</mat-label>
   <input
     matInput
     type="{{ type ? type : 'text' }}"

@@ -1,6 +1,7 @@
 <router-outlet></router-outlet>
 
 <ngx-loading
+  [ngClass]="isLoading ? 'loader' : ''"
   [show]="isLoading"
   [config]="{ backdropBorderRadius: '3px' }"
 ></ngx-loading>

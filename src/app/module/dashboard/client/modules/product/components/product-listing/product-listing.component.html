@@ -8,7 +8,40 @@
         <h4 class="card-title pull-left">Product Listing</h4>
       </div>
       <hr />
-      <div class="card-body card-body-height"></div>
+      <div class="card-body card-body-height">
+        <div class="row">
+          <div
+            style="cursor: pointer"
+            class="p-2 col-lg-3 col-md-4 col-sm-6 col-xs-12"
+            *ngFor="let item of products"
+          >
+            <div class="card">
+              <img
+                [src]="'assets/images/no_image_availabel.svg'"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <p class="card-title fw-bold">{{ item.title }}</p>
+                <p>SKU : {{ item.sku }}</p>
+                <p class="card-text">{{ item.description }}</p>
+                <div class="mt-4">
+                  <p class="m-0">Quantity : {{ item.quantity }}</p>
+                  <p>Price : {{ item.price }}£</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <mat-paginator
+          [id]="'pagg'"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+          [length]="totalProducts"
+          (page)="pagination($event)"
+        >
+        </mat-paginator>
+      </div>
     </div>
   </div>
 </div>
