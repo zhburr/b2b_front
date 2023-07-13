@@ -1,0 +1,89 @@
+<div #template>
+  <div class="col">
+    <div class="card">
+      <div class="card-header card-header-primary card-header-icon">
+        <div class="card-icon">
+          <mat-icon class="material-icons">local_parking</mat-icon>
+        </div>
+        <h4 class="card-title pull-left">
+          Product Listing of ({{ user.firstName }})
+        </h4>
+      </div>
+      <hr />
+      <div class="card-body card-body-height">
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let item of products; let i = index">
+              <td class="align-middle">
+                <img
+                  [src]="'assets/images/no_image_availabel.svg'"
+                  class="product-image"
+                  alt="..."
+                />
+              </td>
+              <td class="align-middle">
+                <div class="d-flex flex-column">
+                  <div>SKU : {{ item.sku }}</div>
+                  <div>Title : {{ item.title }}</div>
+                  <div>Description : {{ item.description }}</div>
+                </div>
+              </td>
+              <td>
+                <div>
+                  <div>
+                    <app-input
+                      [value]="item.quantity"
+                      lablel="Quantity"
+                      (callBack)="item.quantity = $event"
+                      [type]="'number'"
+                    ></app-input>
+                  </div>
+                  <div>
+                    <app-input
+                      [value]="item.weight"
+                      [lablel]="'Weight'"
+                      (callBack)="item.weight = $event"
+                    ></app-input>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>
+                  <div>
+                    <app-input
+                      [value]="item.location"
+                      lablel="Location"
+                      (callBack)="item.location = $event"
+                    ></app-input>
+                  </div>
+                  <div>
+                    <app-mutli-select
+                      [options]="packagingType"
+                      [placeholder]="'Packaging type'"
+                    ></app-mutli-select>
+                  </div>
+                </div>
+              </td>
+              <td class="align-middle">
+                <app-button
+                  [button]="buttons[0]"
+                  [disabled]="changesProduct(item, i)"
+                  (callBack)="test()"
+                ></app-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <mat-paginator
+          *ngIf="totalProducts > 10"
+          [id]="'pagg'"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+          [length]="totalProducts"
+          (page)="pagination($event)"
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

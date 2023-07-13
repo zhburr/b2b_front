@@ -1,0 +1,127 @@
+<div class="card">
+  <div class="card-header card-header-primary card-header-icon">
+    <div class="card-icon">
+      <mat-icon class="material-icons">manage_accounts</mat-icon>
+    </div>
+  </div>
+  <div class="card-body card-body-height ms-2">
+    <div class="row">
+      <div class="col-6">
+        <div class="row">
+          <div class="col-3 my-auto">
+            <app-label [label]="'FirstName'"></app-label>
+          </div>
+          <div class="col">
+            <app-input [readonly]="true" [value]="user.firstName"></app-input>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-3 my-auto">
+            <app-label [label]="'LastName'"></app-label>
+          </div>
+          <div class="col">
+            <app-input [readonly]="true" [value]="user.lastName"></app-input>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="row">
+          <div class="col-3 my-auto">
+            <app-label [label]="'Email'"></app-label>
+          </div>
+          <div class="col">
+            <app-input [readonly]="true" [value]="user.email"></app-input>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-3 my-auto">
+            <app-label [label]="'Role'"></app-label>
+          </div>
+          <div class="col">
+            <app-input [readonly]="true" [value]="user.role"></app-input>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="row mt-3">
+          <div class="col-4">
+            <app-label [label]="'VAT certified'"></app-label>
+          </div>
+          <div class="col">
+            <app-toggle
+              [checked]="user.isVat"
+              (callBack)="user.isVat = $event"
+            ></app-toggle>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-3 my-auto">
+            <app-label [label]="'Balance'"></app-label>
+          </div>
+          <div class="col">
+            <app-input
+              [value]="user.balance"
+              (callBack)="user.balance = $event"
+              [matSuffix]="'£'"
+            ></app-input>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col" colspan="2">Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Products</td>
+              <td>
+                <a
+                  style="cursor: pointer"
+                  class="link-underline-primary link-offset-1"
+                  (click)="goToPage('dashboard/admin/users/products')"
+                >
+                  View
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td>Orders</td>
+              <td>
+                <a
+                  style="cursor: pointer"
+                  class="link-underline-primary link-offset-1"
+                >
+                  View
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-6">
+        <div class="d-flex justify-content-end me-5">
+          <app-button
+            [button]="buttons[0]"
+            (callBack)="updateUser()"
+          ></app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

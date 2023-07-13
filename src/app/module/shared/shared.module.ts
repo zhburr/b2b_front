@@ -32,6 +32,7 @@ import { DateInputComponent } from './component/date-input/date-input.component'
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { TextareaComponent } from './component/textarea/textarea.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { MutliSelectComponent } from './component/mutli-select/mutli-select.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { NgxPayPalModule } from 'ngx-paypal';
     ModalComponent,
     DateInputComponent,
     TextareaComponent,
+    MutliSelectComponent,
   ],
   imports: [
     CommonModule,
@@ -101,6 +103,7 @@ import { NgxPayPalModule } from 'ngx-paypal';
     TextFieldModule,
     TextareaComponent,
     NgxPayPalModule,
+    MutliSelectComponent,
   ],
   providers: [SearchPipe, OderByPipe],
 })

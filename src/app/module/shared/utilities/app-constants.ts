@@ -84,6 +84,12 @@ export class AppConstants {
   public static UPDATE_PRODUCT_APPROVAL_LISTING_STATUS =
     'product/updateProductApprovalStatus';
   public static GET_PRODUCT_LISTING = 'product/getProductListing';
+  public static GET_PRODUCT_LISTING_OF_SELECTED_USER =
+    'product/getSelectedUserProduct';
   //productFileURl
   public static PRODUCT_FILE_URL = `${this.baseUrl}uploads/products/`;
+
+  //user
+  public static GET_ALL_USERS = 'user/getAllUsers';
+  public static UPDATE_USER = 'user/updateUser';
 }

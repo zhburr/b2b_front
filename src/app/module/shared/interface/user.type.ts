@@ -10,4 +10,5 @@ export interface User {
   createdAt?: string;
   updateAt?: string;
   access_toke?: string;
+  productsCount?: number;
 }

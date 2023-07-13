@@ -5,6 +5,7 @@ import { AdminComponent } from './admin.component';
 const routes: Routes = [
   {
     path: 'admin',
+    component: AdminComponent,
     children: [
       {
         path: '',
@@ -19,6 +20,11 @@ const routes: Routes = [
           import('./module/product/product.module').then(
             (m) => m.ProductModule
           ),
+      },
+      {
+        path: '',
+        loadChildren: () =>
+          import('./module/user/user.module').then((m) => m.UserModule),
       },
     ],
   },

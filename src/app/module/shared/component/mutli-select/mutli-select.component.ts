@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TranslocoService } from '@ngneat/transloco';
 import { AppConstants } from '../../utilities/app-constants';
 
 @Component({
@@ -9,16 +8,16 @@ import { AppConstants } from '../../utilities/app-constants';
 })
 export class MutliSelectComponent implements OnInit {
   @Input() disabled: boolean = false;
-  @Input() placeholder: string;
+  @Input() placeholder?: string;
   @Input() selectedValue: any;
   @Input() primaryValue: any;
   @Input() displayValue: any;
-  @Input() id: string;
+  @Input() id?: string;
   @Input() options: any = [];
-  @Input() isMultiple: boolean;
-  @Input() isGrouped: boolean;
-  @Input() inputWidth: string;
-  @Input() cantSelect: boolean;
+  @Input() isMultiple?: boolean;
+  @Input() isGrouped?: boolean;
+  @Input() inputWidth?: string;
+  @Input() cantSelect?: boolean;
   @Output() selected: EventEmitter<any> = new EventEmitter();
   @Output() keyUp: EventEmitter<any> = new EventEmitter();
   public appConstants = AppConstants;
@@ -26,8 +25,6 @@ export class MutliSelectComponent implements OnInit {
   changed() {
     this.selected.emit(this.selectedValue);
   }
-
-  constructor(public transloco: TranslocoService) {}
 
   ngOnInit(): void {}
   keyPress(ev: any) {

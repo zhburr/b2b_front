@@ -7,11 +7,12 @@ import { SharedModule } from '../shared.module';
 import { Button } from '../interface/button.model';
 import { TableData } from '../interface/table.model';
 import { TableHeadField } from '../interface/table-head-field.model';
-
+import { Location } from '@angular/common';
 export class BaseComponent {
   protected static sharedService: any;
   protected static router: any;
   protected location: any;
+  // protected static location: any;
   buttons: Button[] = [];
 
   tableData: TableData | undefined;
@@ -34,6 +35,9 @@ export class BaseComponent {
   back() {
     this.location = SharedModule.injector.get(Location);
     this.location.back();
+    // if (BaseComponent.location == null)
+    //   BaseComponent.location = SharedModule.injector.get(Location);
+    // BaseComponent.location.back();
   }
 
   getMinifiedObject(obj: any, keys: any[]) {

@@ -1,1 +1,8 @@
-<router-outlet></router-outlet>
+<app-navbar></app-navbar>
+<app-sidebar
+  [sideNav]="adminSideNavPages"
+  [profile]="'/dashboard/admin/profile'"
+></app-sidebar>
+<div class="app-container">
+  <router-outlet></router-outlet>
+</div>

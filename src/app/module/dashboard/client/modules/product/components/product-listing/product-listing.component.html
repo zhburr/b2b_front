@@ -33,7 +33,9 @@
             </div>
           </div>
         </div>
+
         <mat-paginator
+          *ngIf="totalProducts > 10"
           [id]="'pagg'"
           [pageSize]="pageSize"
           [pageSizeOptions]="pageSizeOptions"

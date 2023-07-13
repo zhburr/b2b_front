@@ -4,8 +4,10 @@ export interface Product {
   sku: string;
   description: string;
   quantity: number;
+  weight: number;
+  location: string;
   price: number;
-  userId: 1;
+  userId: number;
   image: string;
   createdAt: string;
   updateAt: string;

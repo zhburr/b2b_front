@@ -5,6 +5,7 @@ import { ClientComponent } from './client.component';
 const routes: Routes = [
   {
     path: 'client',
+    component: ClientComponent,
     children: [
       {
         path: '',

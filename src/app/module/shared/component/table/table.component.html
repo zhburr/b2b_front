@@ -56,7 +56,7 @@
               'text-center': element.alignCenter,
               'cursor-pointer': element.sortable
             }"
-            (click)="sortCol(element, i)"
+            (click)="element.sortable ? sortCol(element, i) : ''"
           >
             <div
               class="d-flex justify-content-between align-items-center align-self-center text-nowrap"

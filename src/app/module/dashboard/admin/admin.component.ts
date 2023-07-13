@@ -3,8 +3,46 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent {
-
+  adminSideNavPages: any[] = [
+    {
+      Id: 1,
+      Code: 'ADMIN',
+      Active: true,
+      NameEn: 'Product',
+      Icon: 'inventory_2',
+      MasterPageId: 0,
+      IsMaster: true,
+      CanRead: true,
+      CanWrite: true,
+      ChildPages: [
+        {
+          Id: 4,
+          Code: 'USERS',
+          Active: true,
+          NameEn: 'Approval',
+          PageName: 'dashboard/admin/product/approval',
+          Icon: 'check_circle',
+          MasterPageId: 1,
+          IsMaster: false,
+          CanRead: true,
+          CanWrite: true,
+        },
+      ],
+    },
+    {
+      Id: 1,
+      Code: 'ADMIN',
+      Active: true,
+      NameEn: 'User',
+      PageName: 'dashboard/admin/users/listing',
+      Icon: 'group',
+      MasterPageId: 0,
+      IsMaster: true,
+      CanRead: true,
+      CanWrite: true,
+    },
+  ];
 }

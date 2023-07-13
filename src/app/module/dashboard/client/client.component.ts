@@ -3,8 +3,46 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
-  styleUrls: ['./client.component.scss']
+  styleUrls: ['./client.component.scss'],
 })
 export class ClientComponent {
-
+  clientSideNavPages: any[] = [
+    {
+      Id: 1,
+      Code: 'ADMIN',
+      Active: true,
+      NameEn: 'Product',
+      Icon: 'inventory_2',
+      MasterPageId: 0,
+      IsMaster: true,
+      CanRead: true,
+      CanWrite: true,
+      ChildPages: [
+        {
+          Id: 4,
+          Code: 'USERS',
+          Active: true,
+          NameEn: 'Listing',
+          PageName: 'dashboard/client/product/listing',
+          Icon: 'reorder',
+          MasterPageId: 1,
+          IsMaster: false,
+          CanRead: true,
+          CanWrite: true,
+        },
+        {
+          Id: 5,
+          Code: 'SYSPARAMS',
+          Active: true,
+          NameEn: 'Upload',
+          PageName: 'dashboard/client/product/upload',
+          Icon: 'upload',
+          MasterPageId: 1,
+          IsMaster: false,
+          CanRead: true,
+          CanWrite: true,
+        },
+      ],
+    },
+  ];
 }

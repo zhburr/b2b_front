@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { BaseComponent } from '../shared/utilities/base.component';
+import { Component } from '@angular/core';
 import { SharedService } from '../shared/services/shared.service';
 import { Roles } from '../shared/interface/role.model';
 
