@@ -52,7 +52,7 @@
                   <div>
                     <app-input
                       [value]="item.location"
-                      lablel="Location"
+                      lablel="In store location"
                       (callBack)="item.location = $event"
                     ></app-input>
                   </div>
@@ -60,6 +60,8 @@
                     <app-mutli-select
                       [options]="packagingType"
                       [placeholder]="'Packaging type'"
+                      [selectedValue]="item.packaging"
+                      (selected)="item.packaging = $event"
                     ></app-mutli-select>
                   </div>
                 </div>
@@ -68,7 +70,7 @@
                 <app-button
                   [button]="buttons[0]"
                   [disabled]="changesProduct(item, i)"
-                  (callBack)="test()"
+                  (callBack)="updateProduct(item, i)"
                 ></app-button>
               </td>
             </tr>

@@ -101,7 +101,7 @@ export class ValidatorService {
   validateGreaterThanZero(fields: any, body: any) {
     return new Promise((resolve, reject) => {
       fields.forEach((element: any, index: any) => {
-        if (body[fields[index][0]] <= 0) {
+        if (Number(body[fields[index][0]]) <= 0) {
           let errorMessage = `${fields[index][1]} should be greater than zero`;
           errorMessage =
             errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);

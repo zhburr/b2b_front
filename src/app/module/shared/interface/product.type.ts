@@ -9,6 +9,7 @@ export interface Product {
   price: number;
   userId: number;
   image: string;
+  packaging: string;
   createdAt: string;
   updateAt: string;
 }

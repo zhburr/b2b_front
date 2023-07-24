@@ -22,4 +22,8 @@ export class UserService {
   updateUser(payload: any): Promise<any> {
     return this.http.post(AppConstants.UPDATE_USER, payload);
   }
+
+  updateUserProductByAdmin(payload: any): Promise<any> {
+    return this.http.post(AppConstants.UPDATE_USER_PRODUCT_BY_ADMIN, payload);
+  }
 }

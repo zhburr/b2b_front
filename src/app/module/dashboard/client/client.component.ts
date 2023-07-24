@@ -44,5 +44,18 @@ export class ClientComponent {
         },
       ],
     },
+    {
+      Id: 1,
+      Code: 'ADMIN',
+      Active: true,
+      NameEn: 'Orders',
+      Icon: 'local_shipping',
+      PageName: 'dashboard/client/order/listing',
+      MasterPageId: 0,
+      IsMaster: true,
+      CanRead: true,
+      CanWrite: true,
+      ChildPages: [],
+    },
   ];
 }

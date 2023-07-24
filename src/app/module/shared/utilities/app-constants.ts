@@ -86,10 +86,17 @@ export class AppConstants {
   public static GET_PRODUCT_LISTING = 'product/getProductListing';
   public static GET_PRODUCT_LISTING_OF_SELECTED_USER =
     'product/getSelectedUserProduct';
+  public static UPDATE_USER_PRODUCT_BY_ADMIN =
+    'product/updateUserProductByAdmin';
   //productFileURl
   public static PRODUCT_FILE_URL = `${this.baseUrl}uploads/products/`;
 
   //user
   public static GET_ALL_USERS = 'user/getAllUsers';
   public static UPDATE_USER = 'user/updateUser';
+
+  //order
+  public static UPLOAD_ORDER_LISTING = 'order/uploadOrder';
+  public static GET_ALL_POSTAGE = 'order/getAllPostage';
+  public static UPSERT_POSTAGE = 'order/upsertPostage';
 }

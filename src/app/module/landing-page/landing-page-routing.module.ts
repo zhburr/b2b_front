@@ -7,10 +7,12 @@ import { OtpComponent } from './component/otp/otp.component';
 import { TermsAndConditionComponent } from './component/terms-and-condition/terms-and-condition.component';
 import { PrivacyPolicyComponent } from './component/privacy-policy/privacy-policy.component';
 import { ForgetpasswordComponent } from './component/forgetpassword/forgetpassword.component';
+import { LandingPageComponent } from './landing-page.component';
 
 const routes: Routes = [
   {
     path: '',
+
     children: [
       {
         path: 'home',

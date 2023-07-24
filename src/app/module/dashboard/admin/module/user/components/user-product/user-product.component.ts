@@ -9,6 +9,7 @@ import { AppConstants } from 'src/app/module/shared/utilities/app-constants';
 import { UtilitiesService } from 'src/app/module/shared/utilities/utilities.service';
 import html2canvas from 'html2canvas';
 import * as jspdf from 'jspdf';
+import { SharedService } from 'src/app/module/shared/services/shared.service';
 
 @Component({
   selector: 'app-user-product',
@@ -18,6 +19,7 @@ import * as jspdf from 'jspdf';
 export class UserProductComponent extends BaseComponent implements OnInit {
   @ViewChild('template', { static: true }) template?: ElementRef;
   pageSize: number = 10;
+  pageIndex: number = 0;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   products: Product[] = [];
   savedProducts: Product[] = [];
@@ -28,14 +30,15 @@ export class UserProductComponent extends BaseComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: UserService,
-    private utilitiesService: UtilitiesService
+    private utilitiesService: UtilitiesService,
+    private sharedService: SharedService
   ) {
     super();
     if (this.router.getCurrentNavigation()?.extras?.state) {
       let data: any = this.router.getCurrentNavigation()?.extras?.state;
       this.user = data.data;
       console.log(this.user);
-      this.getSelectedUserProduct(this.pageSize, 0);
+      this.getSelectedUserProduct(this.pageSize, this.pageIndex);
     } else {
       this.back();
     }
@@ -66,23 +69,43 @@ export class UserProductComponent extends BaseComponent implements OnInit {
   }
 
   async pagination(event: any) {
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
     await this.getSelectedUserProduct(event.pageSize, event.pageIndex);
   }
 
   changesProduct(product: Product, index: number) {
-    console.log(
-      this.utilitiesService.compareObjects(this.savedProducts[index], product)
-    );
+    console.log(product, 'product');
+    console.log(this.savedProducts[index], 'savedProduct');
 
-    console.log(product, this.savedProducts[index]);
-
-    // return (
-    //   JSON.stringify(product) !== JSON.stringify(this.savedProducts[index])
-    // );
     return this.utilitiesService.compareObjects(
       this.savedProducts[index],
       product
     );
+  }
+
+  async updateProduct(product: Product, index: number) {
+    try {
+      const data = {
+        productId: product.id,
+        productWeight: product.weight ?? 0,
+        productLocation: product.location ?? '',
+        productPackaging: product.packaging ?? '',
+        productQuantity: product.quantity ?? 0,
+      };
+
+      console.log(data);
+
+      const res: ApiResponse<Product> =
+        await this.userService.updateUserProductByAdmin(data);
+      if (res.Succeed) {
+        this.sharedService.showSuccessToast(res.message!);
+        // product = res.Content;
+        this.savedProducts[index] = res.Content;
+        product = res.Content;
+        // this.getSelectedUserProduct(this.pageSize, this.pageIndex);
+      }
+    } catch (error) {}
   }
 
   test() {

@@ -313,12 +313,12 @@
                   >
                 </div>
                 <div *ngIf="row.tableActions?.canEdit">
-                  <span
+                  <mat-icon
                     (click)="
                       actionCallbackButton(appConstants.EDIT, $event, row, i)
                     "
                     class="material-icons me-2"
-                    >edit</span
+                    >edit</mat-icon
                   >
                 </div>
                 <div *ngIf="row.tableActions?.showCheck">

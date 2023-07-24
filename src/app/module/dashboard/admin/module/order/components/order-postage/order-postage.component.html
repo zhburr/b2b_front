@@ -1,0 +1,93 @@
+<div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header card-header-primary card-header-icon">
+        <div class="card-icon">
+          <mat-icon class="material-icons">local_parking</mat-icon>
+        </div>
+        <h4 class="card-title pull-left">Postage</h4>
+      </div>
+      <hr />
+      <div class="card-body card-body-height">
+        <app-table
+          [tableData]="tableData"
+          [buttons]="[buttons[0]]"
+          (buttonCallback)="buttonCallback($event)"
+          (tableCallback)="tableCallback($event)"
+          [oderBy]="orderBy"
+        ></app-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #upsertPostage>
+  <div>
+    <div class="row mb-2">
+      <div class="col-12">
+        <mat-toolbar class="p-0 w-100 mat-toolbar">
+          <mat-toolbar-row>
+            <span>Listing removal</span>
+
+            <div class="row flex-fill">
+              <div class="d-flex justify-content-end">
+                <app-button
+                  class="mr-2"
+                  [button]="buttons[2]"
+                  (callBack)="buttonCallback(2)"
+                ></app-button>
+              </div>
+            </div>
+          </mat-toolbar-row>
+        </mat-toolbar>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <app-input
+          [lablel]="'Weight from'"
+          [placeholder]="'Weight in grams'"
+          [value]="selectedPostage.weight_from"
+          (callBack)="selectedPostage.weight_from = $event"
+          [type]="'number'"
+        ></app-input>
+      </div>
+      <div class="col-6">
+        <app-input
+          [lablel]="'Weight to'"
+          [placeholder]="'Weight in grams'"
+          [value]="selectedPostage.weight_to"
+          (callBack)="selectedPostage.weight_to = $event"
+          [type]="'number'"
+        ></app-input>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <app-input
+          [lablel]="'Price'"
+          [matSuffix]="'£'"
+          [value]="selectedPostage.price"
+          (callBack)="selectedPostage.price = $event"
+          [type]="'number'"
+        ></app-input>
+      </div>
+      <div class="col-auto my-auto ms-auto me-4">
+        <app-button
+          [button]="buttons[1]"
+          (callBack)="buttonCallback(1)"
+        ></app-button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<app-modal
+  *ngIf="myModal"
+  [template_]="upsertPostage"
+  (callback)="myModal = false"
+  [customHeight]="modalHeight"
+  [customMaxHeight]="modalMaxHeight"
+  [customWidth]="'50%'"
+></app-modal>
