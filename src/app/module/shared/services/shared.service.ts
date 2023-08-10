@@ -28,4 +28,19 @@ export class SharedService {
     const payload = jwt_decode(token);
     this.userData$.next(payload!);
   }
+
+  /**
+   * This method verifies all the fields that are required in a form.
+   * @param file
+   * @returns
+   */
+  downloadFile(file: string) {
+    const link = document.createElement('a');
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', file);
+    link.setAttribute('download', file);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
 }

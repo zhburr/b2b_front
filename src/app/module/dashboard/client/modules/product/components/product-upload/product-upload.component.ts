@@ -4,6 +4,7 @@ import { SharedService } from 'src/app/module/shared/services/shared.service';
 import { AppConstants } from 'src/app/module/shared/utilities/app-constants';
 import { BaseComponent } from 'src/app/module/shared/utilities/base.component';
 import { ProductService } from '../../service/product.service';
+import { TableOrderby } from 'src/app/module/shared/interface/tableOrderBy.type';
 
 @Component({
   selector: 'app-product-upload',
@@ -14,6 +15,10 @@ export class ProductUploadComponent extends BaseComponent implements OnInit {
   @ViewChild('formFile') fileInput?: ElementRef;
   fileToUpload: File | null = null;
   listingApproval: any[] = [];
+  tableOrder: TableOrderby = {
+    HeaderIndex: 1,
+    Sort: AppConstants.ASC,
+  };
   constructor(
     private sharedService: SharedService,
     private productService: ProductService

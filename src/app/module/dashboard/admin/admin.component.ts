@@ -60,7 +60,7 @@ export class AdminComponent {
           Code: 'USERS',
           Active: true,
           NameEn: 'Listing',
-          PageName: 'dashboard/admin/product/approval',
+          PageName: 'dashboard/admin/order/listing',
           Icon: 'reorder',
           MasterPageId: 1,
           IsMaster: false,

@@ -11,4 +11,12 @@ export class OrderService {
   uploadOrder(payload: any): Promise<any> {
     return this.http.post(AppConstants.UPLOAD_ORDER_LISTING, payload);
   }
+
+  getUserOrderList() : Promise<any>{
+    return this.http.get(AppConstants.GET_USER_ORDER_LIST)
+  }
+
+  getOrderById(orderId:number):Promise<any>{
+    return this.http.get(`${AppConstants.GET_ORDER_BY_ID}?orderId=${orderId}`)
+  }
 }

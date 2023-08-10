@@ -259,12 +259,12 @@
                 <span
                   *ngIf="row[element.field]"
                   class="badge badge-pill badge-success"
-                  >{{ "general.yes" }}</span
+                  >{{ "Yes" }}</span
                 >
                 <span
                   *ngIf="!row[element.field]"
                   class="badge badge-pill badge-danger"
-                  >{{ "general.no" }}</span
+                  >{{ "No" }}</span
                 >
               </div>
               <div *ngIf="element.type === appConstants.TAG">
@@ -284,7 +284,7 @@
                 >
               </div>
               <div *ngIf="element.type === appConstants.DATE">
-                {{ row?.[element.field] ?  utilities.converDateToDMYFormat(row[element.field]) : '' }}
+                {{ row?.[element.field] ?  utilities.convertToDateTime(row[element.field]) : '' }}
               </div>
               <div *ngIf="element.type === appConstants.STATUS">
                 <span
@@ -340,13 +340,12 @@
                   >
                 </div>
                 <div *ngIf="row.tableActions?.canView">
-                  <span
+                  <mat-icon
                     (click)="
                       actionCallbackButton(appConstants.VIEW, $event, row, i)
                     "
                     class="material-icons ms-3"
-                    >visibility</span
-                  >
+                    >visibility</mat-icon>
                 </div>
                 <div *ngIf="row.tableActions?.canDelete">
                   <span

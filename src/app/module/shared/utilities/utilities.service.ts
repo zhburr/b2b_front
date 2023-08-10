@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SharedService } from '../services/shared.service';
+import * as moment from 'moment';
 
 @Injectable({ providedIn: 'root' })
 export class UtilitiesService {
@@ -36,6 +37,12 @@ export class UtilitiesService {
       d.getFullYear(),
     ].join(' ');
   }
+
+  convertToDateTime(timestamp: string) {
+    const dateTime = moment.utc(timestamp).format('YYYY-MM-DD hh:mm A');
+    return dateTime;
+  }
+
   compareDates(start: any, end: any) {
     start = new Date(start);
     end = new Date(end);

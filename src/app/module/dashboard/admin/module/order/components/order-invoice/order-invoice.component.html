@@ -1,0 +1,104 @@
+<div class="card" #orderInvoice style="background-color: white">
+  <div class="card-body card-body-height" style="background-color: white">
+    <div class="container mt-2 mb-4 pb-4" style="background-color: white">
+      <div class="row" style="background-color: white">
+        <div
+          *ngIf="userData.isVat"
+          class="col-3 fs-6"
+          style="background-color: white"
+        >
+          <p style="color: rgb(129, 125, 125)" class="fw-bold">
+            Alvis's Fashion Ltd
+          </p>
+          <p style="color: rgb(134, 134, 134)">Unit 147 Maddision</p>
+          <p style="color: rgb(134, 134, 134)" class="text-wrap">
+            226 High Street London, United Kingdom CR9 1DF
+          </p>
+          <p style="color: rgb(134, 134, 134)">www.wholesalersdirect.co.uk</p>
+          <p style="color: rgb(134, 134, 134)">
+            Email : sales@alvifashion.co.uk
+          </p>
+          <p style="color: rgb(134, 134, 134)">Contact : 08600752</p>
+          <p style="color: rgb(134, 134, 134)">VAT number : GB 241917509</p>
+        </div>
+        <div
+          *ngIf="!userData.isVat"
+          class="col-3 fs-6"
+          style="background-color: white"
+        >
+          <p style="color: rgb(129, 125, 125)" class="fw-bold">B2B Direct</p>
+          <p style="color: rgb(134, 134, 134)">CR0 3AA, London</p>
+          <p style="color: rgb(134, 134, 134)" class="text-wrap">
+            Challenge House, 616 Mitcham Road
+          </p>
+          <p style="color: rgb(134, 134, 134)">www.b2bdirect.co.uk</p>
+          <p style="color: rgb(134, 134, 134)">Email : sales@b2bdirect.co.uk</p>
+          <p style="color: rgb(134, 134, 134)">Contact : +44 7411 455885</p>
+        </div>
+        <div
+          class="col-6 d-flex justify-content-center"
+          style="background-color: white"
+        >
+          <img
+            *ngIf="!userData.isVat"
+            src="assets/images/logo.png"
+            alt=""
+            height="200"
+          />
+          <img
+            *ngIf="userData.isVat"
+            src="assets/images/under4.png"
+            alt=""
+            height="200"
+          />
+        </div>
+        <div class="col-3 align-self-center" style="background-color: white">
+          <p class="float-end fs-3 fw-bold" style="color: rgb(240, 198, 62)">
+            INVOICE
+          </p>
+        </div>
+      </div>
+    </div>
+    <ng-container class="mt-4 pt-4" *ngIf="invoice">
+      <table class="table fs-4" style="background-color: white">
+        <thead>
+          <tr>
+            <th>Product SKU</th>
+            <th>Product Weight</th>
+            <th>Total quantity</th>
+            <th>Total Weight</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of invoice.invoiceList">
+            <td>{{ item.sku }}</td>
+            <td>{{ item.weight }}</td>
+            <td>{{ item.totalOrderQuantity }}</td>
+            <td>{{ item.totalWeight }}</td>
+            <td>
+              <input
+                class="p-2 border border-0 fs-6 fw-bold"
+                type="text"
+                [(ngModel)]="item.totalPrice"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-end" style="background-color: white">
+        <div class="fs-5">
+          <p><span class="fw-bold">Subtotal :</span> {{ subtotalOfInvoice }}</p>
+          <p *ngIf="userData.isVat">
+            <span class="fw-bold">Tax :</span> {{ tax }}
+          </p>
+          <p><span class="fw-bold">Total :</span> {{ total }}</p>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<div *ngIf="invoice" class="d-flex justify-content-end">
+  <app-button [button]="buttons[0]" (callBack)="sendInvoice()"></app-button>
+</div>

@@ -1,0 +1,33 @@
+<div>
+    <div class="col">
+      <div class="card">
+        <div class="card-header card-header-primary card-header-icon">
+          <div class="card-icon">
+            <mat-icon class="material-icons">local_parking</mat-icon>
+          </div>
+          <h4 class="card-title pull-left">Order Details</h4>
+        </div>
+        <hr />
+        <div class="card-body card-body-height">
+          <div>
+            <div class="row">
+              <div class="col-6">
+
+              </div>
+              <div class="col-6">
+                
+              </div>
+            </div>
+          </div>
+          <div>
+            <app-table
+              [tableData]="tableData"
+              (tableCallback)="tableCallBack($event)"
+              [oderBy]="tableOrder"
+            ></app-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -56,6 +56,8 @@ export class Interceptor implements HttpInterceptor {
         if (this.shared.apiStack.length === 0) this.loaderService.hide();
       }),
       catchError((error: HttpErrorResponse) => {
+        console.log(error);
+
         // let errorMsg = '';
         // if (error.status === 401) {
         //   this.shared.showErrorToast('Session has expired. ');
@@ -67,7 +69,7 @@ export class Interceptor implements HttpInterceptor {
         // }
         // this.shared.showErrorToast(errorMsg);
         // return throwError(errorMsg);
-        return throwError(error);
+        return throwError(error.error);
       })
     );
   }

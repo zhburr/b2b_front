@@ -95,8 +95,17 @@ export class AppConstants {
   public static GET_ALL_USERS = 'user/getAllUsers';
   public static UPDATE_USER = 'user/updateUser';
 
-  //order
+  //order updateOrderLine
   public static UPLOAD_ORDER_LISTING = 'order/uploadOrder';
   public static GET_ALL_POSTAGE = 'order/getAllPostage';
   public static UPSERT_POSTAGE = 'order/upsertPostage';
+  public static GET_USER_ORDER_LIST = 'order/getUserOrderList';
+  public static GET_ORDER_BY_ID = 'order/getOrderById';
+  public static GET_PENDING_ORDER_LIST = 'order/getAllPendingOrderList';
+  public static GET_INVOICE_DATA = 'order/getInVoiceData';
+  public static UPLOAD_INVOICE = `order/uploadInvoice`;
+  public static UPDATE_ORDER = `order/updateOrder`;
+  public static UPDATE_ORDER_LINE = `order/updateOrderLine`;
+  public static ORDER_FILE_URL = `${this.baseUrl}uploads/orders/`;
+  public static INVOICE_FILE_URL = `${this.baseUrl}uploads/invoices/`;
 }

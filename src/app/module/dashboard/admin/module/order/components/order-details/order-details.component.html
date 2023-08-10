@@ -1,0 +1,92 @@
+<div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header card-header-primary card-header-icon">
+        <div class="card-icon">
+          <mat-icon class="material-icons">local_parking</mat-icon>
+        </div>
+        <h4 class="card-title pull-left">Order Details</h4>
+      </div>
+      <hr />
+      <div class="card-body card-body-height">
+        <div class="d-flex flex-row justify-content-between">
+          <div class="w-100">
+            <div class="row">
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-4 my-auto">
+                    <app-label [label]="'Total Amount'"></app-label>
+                  </div>
+                  <div class="col-8">
+                    <app-input
+                      [value]="orderDetail.totalAmount"
+                      (callBack)="orderDetail.totalAmount = $event"
+                      [disabled]="true"
+                    ></app-input>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                <div class="row">
+                  <div class="col-4">
+                    <app-label [label]="'Paid'"></app-label>
+                  </div>
+                  <div class="col-8">
+                    <app-toggle
+                      [checked]="orderDetail.paid"
+                      (callBack)="orderDetail.paid = $event"
+                    ></app-toggle>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="row">
+                  <div class="col-4">
+                    <app-label [label]="'Delivered'"></app-label>
+                  </div>
+                  <div class="col-8">
+                    <app-toggle
+                      [checked]="orderDetail.delivered"
+                      (callBack)="orderDetail.delivered = $event"
+                    ></app-toggle>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-column gap-1">
+            <div>
+              <app-button
+                [button]="buttons[1]"
+                (callBack)="buttonCallback(1)"
+              ></app-button>
+            </div>
+            <div>
+              <app-button
+                *ngIf="!orderDetail.invoice"
+                [button]="buttons[2]"
+                (callBack)="buttonCallback(2)"
+              ></app-button>
+            </div>
+            <div>
+              <app-button
+                [button]="buttons[0]"
+                (callBack)="buttonCallback(0)"
+              ></app-button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <app-table
+            [tableData]="tableData"
+            (tableCallback)="tableCallBack($event)"
+            [oderBy]="tableOrder"
+          ></app-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,6 +7,7 @@ import { ApiResponse } from 'src/app/module/shared/interface/response.type';
 import { ProductApproval } from 'src/app/module/shared/interface/productApproval.type';
 import { ProductStatus } from 'src/app/module/shared/enum/productApprovalStatus.enum';
 import Swal from 'sweetalert2';
+import { TableOrderby } from 'src/app/module/shared/interface/tableOrderBy.type';
 
 @Component({
   selector: 'app-product-approval',
@@ -15,6 +16,10 @@ import Swal from 'sweetalert2';
 })
 export class ProductApprovalComponent extends BaseComponent implements OnInit {
   approvalListing: ProductApproval[] = [];
+  tableOrder: TableOrderby = {
+    HeaderIndex: 2,
+    Sort: AppConstants.ASC,
+  };
   constructor(
     private sharedService: SharedService,
     private productService: AdminProductService
