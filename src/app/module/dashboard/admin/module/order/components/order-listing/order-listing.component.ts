@@ -8,6 +8,7 @@ import { OrderService } from '../../services/order.service';
 import { SharedService } from 'src/app/module/shared/services/shared.service';
 import { OrderLines } from 'src/app/module/shared/interface/order-line.type';
 import Swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-order-listing',
@@ -20,12 +21,15 @@ export class OrderListingComponent extends BaseComponent implements OnInit {
     HeaderIndex: 4,
     Sort: AppConstants.DEC,
   };
+  userEmail: string | undefined;
 
   constructor(
     private orderService: OrderService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private route: ActivatedRoute
   ) {
     super();
+    this.userEmail = route.snapshot.paramMap.get('email')!;
   }
 
   ngOnInit(): void {
@@ -40,13 +44,13 @@ export class OrderListingComponent extends BaseComponent implements OnInit {
         type: AppConstants.TEXT,
         sortable: true,
       },
-      {
-        field: 'user',
-        subField: 'name',
-        text: 'User',
-        type: AppConstants.TEXT,
-        sortable: true,
-      },
+      // {
+      //   field: 'user',
+      //   subField: 'name',
+      //   text: 'User',
+      //   type: AppConstants.TEXT,
+      //   sortable: true,
+      // },
       {
         field: 'csv',
         text: 'Order file',
@@ -73,8 +77,22 @@ export class OrderListingComponent extends BaseComponent implements OnInit {
       }
     );
 
+    if (!this.userEmail) {
+      this.tableHeader.splice(1, 0, {
+        field: 'user',
+        subField: 'name',
+        text: 'User',
+        type: AppConstants.TEXT,
+        sortable: true,
+      });
+    }
+
     this.initializeTable();
-    await this.getAllPendingOrderList();
+    this.userEmail
+      ? await this.getUserAllOrders(this.userEmail)
+      : await this.getAllPendingOrderList();
+
+    if (this.userEmail) this.tableOrder.HeaderIndex = 3;
   }
 
   initializeTable() {
@@ -149,6 +167,34 @@ export class OrderListingComponent extends BaseComponent implements OnInit {
       console.log(error);
     }
   }
+
+  async getUserAllOrders(email: string) {
+    try {
+      const res: ApiResponse<Order[]> = await this.orderService.getUserOrders(
+        email
+      );
+
+      if (res.Succeed) {
+        this.orderListing = res.Content;
+        this.orderListing = this.orderListing.map((order) => {
+          return {
+            ...order,
+            user: {
+              ...order.user,
+              name: `${order.user?.firstName} ${order.user?.lastName}`,
+            },
+            tableActions: { canEdit: true, canDownload: true },
+          };
+        });
+        this.initializeTable();
+      } else {
+        this.sharedService.showErrorToast(res.message!);
+      }
+    } catch (error: any) {
+      this.sharedService.showErrorToast(error.message!);
+    }
+  }
+
   async downloadOrderLine(orderId: number) {
     try {
       const res: ApiResponse<Order> = await this.orderService.getOrderById(

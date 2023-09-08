@@ -38,6 +38,7 @@ export class UserDetailsComponent extends BaseComponent implements OnInit {
         selectedUserId: this.user.id,
         selectedUserVat: this.user.isVat ?? false,
         selecteUserBalance: this.user.balance ?? 0,
+        selectedUserCanUploadOrder: this.user.canUploadOrder,
       };
 
       const res: ApiResponse<User> = await this.userService.updateUser(data);

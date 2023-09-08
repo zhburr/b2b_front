@@ -66,6 +66,12 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
 
     this.tableHeader.push(
       {
+        field: 'id',
+        text: 'Order id',
+        type: AppConstants.TEXT,
+        sortable: true,
+      },
+      {
         field: 'productSku',
         text: 'Product SKU',
         type: AppConstants.TEXT,
@@ -231,8 +237,6 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
   }
 
   async updateOrderLine(event: any) {
-    console.log(event);
-
     const orderLine: OrderLines = event as OrderLines;
     try {
       const data = {

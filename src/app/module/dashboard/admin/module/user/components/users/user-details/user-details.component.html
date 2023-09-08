@@ -62,6 +62,18 @@
             ></app-toggle>
           </div>
         </div>
+
+        <div class="row mt-3">
+          <div class="col-4">
+            <app-label [label]="'Order upload'"></app-label>
+          </div>
+          <div class="col">
+            <app-toggle
+              [checked]="user.canUploadOrder"
+              (callBack)="user.canUploadOrder = $event"
+            ></app-toggle>
+          </div>
+        </div>
       </div>
       <div class="col-6">
         <div class="row">
@@ -72,6 +84,24 @@
             <app-input
               [value]="user.balance"
               (callBack)="user.balance = $event"
+              [matSuffix]="'£'"
+            ></app-input>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6"></div>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-3 my-auto">
+            <app-label [label]="'Credit'"></app-label>
+          </div>
+          <div class="col">
+            <app-input
+              [value]="user.credit"
+              (callBack)="user.credit = $event"
               [matSuffix]="'£'"
             ></app-input>
           </div>
@@ -106,6 +136,9 @@
                 <a
                   style="cursor: pointer"
                   class="link-underline-primary link-offset-1"
+                  (click)="
+                    goToPage('dashboard/admin/users/orders/' + user.email)
+                  "
                 >
                   View
                 </a>

@@ -22,4 +22,8 @@ export class ProductService {
   getProductList(payload: any): Promise<any> {
     return this.http.post(AppConstants.GET_PRODUCT_LISTING, payload);
   }
+
+  updateProductQuantity(payload: any): Promise<any> {
+    return this.http.post(AppConstants.UPDATE_PRODUCT_QUANTITY, payload);
+  }
 }

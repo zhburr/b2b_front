@@ -88,9 +88,11 @@ export class AppConstants {
     'product/getSelectedUserProduct';
   public static UPDATE_USER_PRODUCT_BY_ADMIN =
     'product/updateUserProductByAdmin';
+  // updateProductQuantity
+  public static UPDATE_PRODUCT_QUANTITY = 'product/updateProductQuantity';
   //productFileURl
   public static PRODUCT_FILE_URL = `${this.baseUrl}uploads/products/`;
-
+  public static PRODUCT_IMAGE_URL = `${this.baseUrl}uploads/productsImage/`;
   //user
   public static GET_ALL_USERS = 'user/getAllUsers';
   public static UPDATE_USER = 'user/updateUser';
@@ -106,6 +108,8 @@ export class AppConstants {
   public static UPLOAD_INVOICE = `order/uploadInvoice`;
   public static UPDATE_ORDER = `order/updateOrder`;
   public static UPDATE_ORDER_LINE = `order/updateOrderLine`;
+  public static GET_USER_ORDERS = `order/getUserOrders`;
+  //order file urls
   public static ORDER_FILE_URL = `${this.baseUrl}uploads/orders/`;
   public static INVOICE_FILE_URL = `${this.baseUrl}uploads/invoices/`;
 }

@@ -67,7 +67,7 @@
             <th>Product Weight</th>
             <th>Total quantity</th>
             <th>Total Weight</th>
-            <th>Price</th>
+            <th>Postage price</th>
           </tr>
         </thead>
         <tbody>
@@ -88,11 +88,13 @@
       </table>
       <div class="d-flex justify-content-end" style="background-color: white">
         <div class="fs-5">
-          <p><span class="fw-bold">Subtotal :</span> {{ subtotalOfInvoice }}</p>
-          <p *ngIf="userData.isVat">
-            <span class="fw-bold">Tax :</span> {{ tax }}
+          <p>
+            <span class="fw-bold">Subtotal :</span> {{ subtotalOfInvoice }}£
           </p>
-          <p><span class="fw-bold">Total :</span> {{ total }}</p>
+          <p *ngIf="userData.isVat">
+            <span class="fw-bold">VAT :</span> {{ tax }}£
+          </p>
+          <p><span class="fw-bold">Total :</span> {{ total }}£</p>
         </div>
       </div>
     </ng-container>

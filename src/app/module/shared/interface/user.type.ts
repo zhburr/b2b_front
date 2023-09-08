@@ -7,8 +7,10 @@ export interface User {
   emailVerified?: boolean;
   role?: string;
   balance?: number;
+  credit?: number;
   createdAt?: string;
   updateAt?: string;
   access_toke?: string;
   productsCount?: number;
+  canUploadOrder?: boolean;
 }

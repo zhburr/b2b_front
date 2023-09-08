@@ -22,6 +22,10 @@ export class OrderService {
     return this.http.get(AppConstants.GET_PENDING_ORDER_LIST);
   }
 
+  getUserOrders(email: string): Promise<any> {
+    return this.http.get(`${AppConstants.GET_USER_ORDERS}?email=${email}`);
+  }
+
   getOrderById(orderId: number): Promise<any> {
     return this.http.get(`${AppConstants.GET_ORDER_BY_ID}?orderId=${orderId}`);
   }

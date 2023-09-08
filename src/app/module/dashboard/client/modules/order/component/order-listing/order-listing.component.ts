@@ -18,8 +18,8 @@ export class OrderListingComponent extends BaseComponent implements OnInit {
   fileToUpload: File | null = null;
   orderListing: Order[] = [];
   tableOrder: TableOrderby = {
-    HeaderIndex: 2,
-    Sort: AppConstants.ASC,
+    HeaderIndex: 3,
+    Sort: AppConstants.DEC,
   };
   constructor(
     private sharedService: SharedService,
@@ -47,7 +47,13 @@ export class OrderListingComponent extends BaseComponent implements OnInit {
       },
       {
         field: 'csv',
-        text: 'File',
+        text: 'Order file',
+        type: AppConstants.TEXT,
+        sortable: true,
+      },
+      {
+        field: 'invoice',
+        text: 'Invoice',
         type: AppConstants.TEXT,
         sortable: true,
       },

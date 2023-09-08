@@ -41,6 +41,12 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
   initializePage() {
     this.tableHeader.push(
       {
+        field: 'id',
+        text: 'Order id',
+        type: AppConstants.TEXT,
+        sortable: true,
+      },
+      {
         field: 'productSku',
         text: 'Product SKU',
         type: AppConstants.TEXT,
@@ -85,6 +91,18 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
       {
         field: 'buyerAddress2',
         text: 'Buyer address 2',
+        type: AppConstants.TEXT,
+        sortable: true,
+      },
+      {
+        field: 'trackingCompany',
+        text: 'Tracking company',
+        type: AppConstants.TEXT,
+        sortable: true,
+      },
+      {
+        field: 'trackingNo',
+        text: 'Tracking no.',
         type: AppConstants.TEXT,
         sortable: true,
       }

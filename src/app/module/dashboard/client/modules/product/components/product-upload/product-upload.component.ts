@@ -104,6 +104,7 @@ export class ProductUploadComponent extends BaseComponent implements OnInit {
     try {
       const formData: FormData = new FormData();
       formData.append('file', this.fileToUpload!, this.fileToUpload!.name);
+      console.log(formData.get('file'));
 
       const res: any = await this.productService.uploadProductListing(formData);
       if (res.Succeed) {

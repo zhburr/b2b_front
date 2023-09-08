@@ -139,6 +139,8 @@ export class OrderPostageComponent extends BaseComponent implements OnInit {
         id: this.selectedPostage.id ?? 0,
       };
 
+      console.log(data);
+
       await this.validatorService.validateRequired(
         [
           ['weightFrom', 'Wieght from'],

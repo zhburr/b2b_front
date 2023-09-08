@@ -27,7 +27,7 @@
       <div class="col-12">
         <mat-toolbar class="p-0 w-100 mat-toolbar">
           <mat-toolbar-row>
-            <span>Listing removal</span>
+            <span>Add order postage</span>
 
             <div class="row flex-fill">
               <div class="d-flex justify-content-end">
@@ -49,7 +49,7 @@
           [lablel]="'Weight from'"
           [placeholder]="'Weight in grams'"
           [value]="selectedPostage.weight_from"
-          (callBack)="selectedPostage.weight_from = $event"
+          (callBack)="selectedPostage.weight_from = $event.trim()"
           [type]="'number'"
         ></app-input>
       </div>
@@ -58,7 +58,7 @@
           [lablel]="'Weight to'"
           [placeholder]="'Weight in grams'"
           [value]="selectedPostage.weight_to"
-          (callBack)="selectedPostage.weight_to = $event"
+          (callBack)="selectedPostage.weight_to = $event.trim()"
           [type]="'number'"
         ></app-input>
       </div>

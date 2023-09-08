@@ -11,13 +11,16 @@
       <div class="card-body card-body-height">
         <div class="row">
           <div
-            style="cursor: pointer"
             class="p-2 col-lg-3 col-md-4 col-sm-6 col-xs-12"
             *ngFor="let item of products"
           >
-            <div class="card">
+            <div class="card" style="cursor: pointer" (click)="openModal(item)">
               <img
-                [src]="'assets/images/no_image_availabel.svg'"
+                [src]="
+                  !item.image
+                    ? 'assets/images/no_image_availabel.svg'
+                    : appConstants.PRODUCT_IMAGE_URL + item.image
+                "
                 class="card-img-top"
                 alt="..."
               />
@@ -27,7 +30,9 @@
                 <p class="card-text">{{ item.description }}</p>
                 <div class="mt-4">
                   <p class="m-0">Quantity : {{ item.quantity }}</p>
-                  <p>Price : {{ item.price }}£</p>
+                  <p class="m-0">Price : {{ item.price }}£</p>
+                  <p class="m-0">Weight : {{ item.weight }}g</p>
+                  <p class="m-0">Location in warehouse : {{ item.location }}</p>
                 </div>
               </div>
             </div>
@@ -47,3 +52,133 @@
     </div>
   </div>
 </div>
+
+<ng-template #editProduct>
+  <div>
+    <div class="row mb-2">
+      <div class="col-12">
+        <mat-toolbar class="p-0 w-100 mat-toolbar">
+          <mat-toolbar-row>
+            <span>Edit product</span>
+
+            <div class="row flex-fill">
+              <div class="d-flex justify-content-end">
+                <app-button
+                  class="mr-2"
+                  [button]="buttons[1]"
+                  (callBack)="buttonCallback(1)"
+                ></app-button>
+              </div>
+            </div>
+          </mat-toolbar-row>
+        </mat-toolbar>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-cebter">
+      <img
+        [src]="
+          !selectedProduct.image
+            ? 'assets/images/no_image_availabel.svg'
+            : appConstants.PRODUCT_IMAGE_URL + selectedProduct.image
+        "
+        class="card-img-top avatar"
+        height="200"
+        alt="..."
+      />
+    </div>
+  </div>
+  <div class="card-body">
+    <p class="card-title fw-bold">{{ selectedProduct.title }}</p>
+    <p>SKU : {{ selectedProduct.sku }}</p>
+    <p class="card-text">Description : {{ selectedProduct.description }}</p>
+    <p class="m-0">Quantity : {{ selectedProduct.quantity }}</p>
+    <p class="m-0">Price : {{ selectedProduct.price }}£</p>
+    <p class="m-0">Weight : {{ selectedProduct.weight }}g</p>
+    <p class="m-0">Location in warehouse : {{ selectedProduct.location }}</p>
+  </div>
+
+  <div class="d-flex flex-row justify-content-end gap-1">
+    <app-button
+      [button]="buttons[2]"
+      (callBack)="openUpdateQuantityModal()"
+    ></app-button>
+    <app-button [button]="buttons[0]"></app-button>
+  </div>
+</ng-template>
+
+<app-modal
+  *ngIf="myModal"
+  [template_]="editProduct"
+  (callback)="myModal = false"
+  [customHeight]="modalHeight"
+  [customMaxHeight]="modalMaxHeight"
+  [customWidth]="'50%'"
+></app-modal>
+
+<ng-template #updateQuantity>
+  <div>
+    <div class="row mb-2">
+      <div class="col-12">
+        <mat-toolbar class="p-0 w-100 mat-toolbar">
+          <mat-toolbar-row>
+            <span>Update product quantity</span>
+
+            <div class="row flex-fill">
+              <div class="d-flex justify-content-end">
+                <app-button
+                  class="mr-2"
+                  [button]="buttons[1]"
+                  (callBack)="
+                    updateQuantityModal = false; updateQuantityObj = {}
+                  "
+                ></app-button>
+              </div>
+            </div>
+          </mat-toolbar-row>
+        </mat-toolbar>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-3 my-auto">
+        <app-label [label]="'Current quantity'"></app-label>
+      </div>
+      <div class="col">
+        <app-input
+          [value]="updateQuantityObj.previousQuantity"
+          [readonly]="true"
+        ></app-input>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3 my-auto">
+        <app-label [label]="'Add quantity'"></app-label>
+      </div>
+      <div class="col">
+        <app-input
+          [value]="updateQuantityObj.newQuantity"
+          (callBack)="updateQuantityObj.newQuantity = $event"
+        ></app-input>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row justify-content-end gap-1">
+    <app-button
+      [button]="buttons[0]"
+      (callBack)="updateProductQuantity()"
+    ></app-button>
+  </div>
+</ng-template>
+
+<app-modal
+  *ngIf="updateQuantityModal"
+  [template_]="updateQuantity"
+  (callback)="updateQuantityModal = false"
+  [customHeight]="modalHeight"
+  [customMaxHeight]="modalMaxHeight"
+  [customWidth]="'30%'"
+></app-modal>
