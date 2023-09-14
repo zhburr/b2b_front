@@ -247,7 +247,7 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
                     const res: ApiResponse<null> =
                       await this.orderService.addOrderTracking(formData);
                     if (res.Succeed) {
-                      this.sharedService.showErrorToast(res.message!);
+                      this.sharedService.showSuccessToast(res.message!);
                       this.getOrderById();
                     } else {
                       this.sharedService.showErrorToast(res.message!);
