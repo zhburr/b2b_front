@@ -81,9 +81,10 @@
 
         <div>
           <app-table
+            [buttons]="[buttons[3]]"
             [tableData]="tableData"
-            (tableCallback)="tableCallBack($event)"
             [oderBy]="tableOrder"
+            (buttonCallback)="buttonCallback(3)"
           ></app-table>
         </div>
       </div>

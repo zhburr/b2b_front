@@ -178,7 +178,9 @@ export class OrderPostageComponent extends BaseComponent implements OnInit {
     } catch (error: any) {
       console.log(error);
 
-      this.sharedService.showErrorToast(error.message);
+      this.sharedService.showErrorToast(
+        error.message ?? 'Something went wrong. Please try again'
+      );
     }
   }
 }

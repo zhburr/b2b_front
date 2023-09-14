@@ -108,6 +108,7 @@ export class AppConstants {
   public static UPLOAD_INVOICE = `order/uploadInvoice`;
   public static UPDATE_ORDER = `order/updateOrder`;
   public static UPDATE_ORDER_LINE = `order/updateOrderLine`;
+  public static ADD_ORDER_LINE_TRACKING = `order/addOrderTracking`;
   public static GET_USER_ORDERS = `order/getUserOrders`;
   //order file urls
   public static ORDER_FILE_URL = `${this.baseUrl}uploads/orders/`;

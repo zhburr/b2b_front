@@ -63,6 +63,7 @@
       <table class="table fs-4" style="background-color: white">
         <thead>
           <tr>
+            <th>Order Line</th>
             <th>Product SKU</th>
             <th>Product Weight</th>
             <th>Total quantity</th>
@@ -71,10 +72,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of invoice.invoiceList">
-            <td>{{ item.sku }}</td>
-            <td>{{ item.weight }}</td>
-            <td>{{ item.totalOrderQuantity }}</td>
+          <tr *ngFor="let item of invoice">
+            <td>{{ item.id }}</td>
+            <td>{{ item.productSku }}</td>
+            <td>{{ item.product.weight }}</td>
+            <td>{{ item.productQuantity }}</td>
             <td>{{ item.totalWeight }}</td>
             <td>
               <input
@@ -89,9 +91,12 @@
       <div class="d-flex justify-content-end" style="background-color: white">
         <div class="fs-5">
           <p>
+            <span class="fw-bold">Pick & Pack :</span> {{ pickAndPack }}£
+          </p>
+          <p>
             <span class="fw-bold">Subtotal :</span> {{ subtotalOfInvoice }}£
           </p>
-          <p *ngIf="userData.isVat">
+          <p>
             <span class="fw-bold">VAT :</span> {{ tax }}£
           </p>
           <p><span class="fw-bold">Total :</span> {{ total }}£</p>

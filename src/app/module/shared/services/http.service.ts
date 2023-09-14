@@ -16,6 +16,17 @@ export class HttpService {
       })
     );
   }
+
+  postfile(url: any, body: any) {
+    return firstValueFrom(
+      this.http.post(AppConstants.baseUrl + url, body, {
+        responseType: 'json',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+    );
+  }
   put(url: any, body: any) {
     return firstValueFrom(
       this.http.post(AppConstants.baseUrl + url, body, { responseType: 'json' })

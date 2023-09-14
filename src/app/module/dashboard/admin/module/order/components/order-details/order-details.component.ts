@@ -9,6 +9,7 @@ import { SharedService } from 'src/app/module/shared/services/shared.service';
 import { BaseComponent } from 'src/app/module/shared/utilities/base.component';
 import { ApiResponse } from 'src/app/module/shared/interface/response.type';
 import Swal from 'sweetalert2';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-order-details',
@@ -34,10 +35,6 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
     this.orderId = Number(route.snapshot.paramMap.get('Id'));
     console.log(this.orderId);
     if (!this.orderId) this.back();
-
-    this.processChanges = this.debounce((event: string) => {
-      this.updateOrderLine(event), 2000;
-    });
   }
 
   ngOnInit(): void {
@@ -58,8 +55,13 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
         minWidth: '100%',
       },
       {
-        type: AppConstants.SUCCESS,
+        type: AppConstants.SECONDARY,
         text: 'View invoice',
+        minWidth: '100%',
+      },
+      {
+        type: AppConstants.WARNING,
+        text: 'Add tracking ',
         minWidth: '100%',
       }
     );
@@ -122,14 +124,14 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
       {
         field: 'trackingCompany',
         text: 'Tracking Company',
-        type: AppConstants.INPUT,
-        sortable: false,
+        type: AppConstants.TEXT,
+        sortable: true,
       },
       {
         field: 'trackingNo',
         text: 'Tracking no',
-        type: AppConstants.INPUT,
-        sortable: false,
+        type: AppConstants.TEXT,
+        sortable: true,
       }
     );
 
@@ -160,12 +162,6 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
       }
     } catch (error: any) {
       this.sharedService.showErrorToast(error.message!);
-    }
-  }
-
-  tableCallBack(event: any) {
-    if (event.key === AppConstants.INPUT) {
-      this.processChanges(event.object);
     }
   }
 
@@ -210,7 +206,64 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
       case 2:
         this.navigate(`dashboard/admin/order/invoice/${this.orderId}`);
         break;
+      case 3:
+        Swal.fire({
+          title: 'Add tracking',
+          icon: 'question',
+          confirmButtonText: 'Download Order file',
+          showCancelButton: true,
+          cancelButtonText: 'Upload order file',
+          allowOutsideClick: false,
+          showCloseButton: true,
+        }).then((result) => {
+          console.log(result);
+          if (result.isConfirmed) {
+            console.log('i will download the file');
+            this.downloadCsv();
+          } else {
+            if (result.dismiss === Swal.DismissReason.cancel) {
+              console.log('new popup for the file upload is shown');
 
+              Swal.fire({
+                title: 'Upload file',
+                input: 'file',
+                inputAttributes: {
+                  accept: '.csv',
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Upload',
+                allowOutsideClick: false,
+                showCloseButton: true,
+              })
+                .then(async (result) => {
+                  if (result.isConfirmed) {
+                    console.log(result);
+                    const formData: FormData = new FormData();
+                    formData.append('file', result.value, result.value.name);
+                    formData.append('orderId', this.orderId!.toString());
+                    console.log(formData.get('file'));
+                    console.log(formData.get('orderId'));
+
+                    const res: ApiResponse<null> =
+                      await this.orderService.addOrderTracking(formData);
+                    if (res.Succeed) {
+                      this.sharedService.showErrorToast(res.message!);
+                      this.getOrderById();
+                    } else {
+                      this.sharedService.showErrorToast(res.message!);
+                    }
+                  }
+                })
+                .catch((error) => {
+                  this.sharedService.showErrorToast(
+                    error.message! ?? 'Something went wrong.'
+                  );
+                });
+            }
+          }
+        });
+
+        break;
       default:
         break;
     }
@@ -260,5 +313,32 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
     } catch (error: any) {
       this.sharedService.showErrorToast(error.message!);
     }
+  }
+
+  convertArrayToCSV(orderLines: OrderLines[]) {
+    const header = ['Orderline', 'Tracking_number', 'Tracking_company'];
+    const data = orderLines.map((line) => {
+      return {
+        Orderline: line.id,
+        Tracking_number: line.trackingNo,
+        Tracking_company: line.trackingCompany,
+      };
+    });
+
+    const rows = data.map((item: any) =>
+      header.map((fieldName: string) => item[fieldName])
+    );
+
+    const csv = [header.join(','), ...rows.map((row) => row.join(','))].join(
+      '\n'
+    );
+
+    return csv;
+  }
+
+  downloadCsv() {
+    const csvContent = this.convertArrayToCSV(this.orderLinesList);
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    saveAs(blob, 'tracking_data.csv');
   }
 }

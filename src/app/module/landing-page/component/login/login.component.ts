@@ -33,7 +33,9 @@ export class LoginComponent extends BaseComponent {
         this.password
       );
       if (res.Succeed) {
-        localStorage.setItem('token', res.Content.access_toke!);
+        if (res.Content.access_toke)
+          localStorage.setItem('token', res.Content.access_toke!);
+
         if (res.Content.role === Roles.Client) {
           this.navigate('/dashboard/client');
         } else if (res.Content.role === Roles.Admin) {

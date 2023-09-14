@@ -7,6 +7,7 @@ import { Roles } from '../interface/role.model';
 export const loggedinGuard: CanActivateFn = (route, state) => {
   const sharedService = inject(SharedService);
   const router = inject(Router);
+  console.log('in here');
 
   return !localStorage.getItem('token')
     ? true
@@ -15,7 +16,9 @@ export const loggedinGuard: CanActivateFn = (route, state) => {
 
 const getDashboardRoute = (service: SharedService) => {
   if (!Object.keys(service.userData$.value).length) {
-    service.decodeJwtToken();
+    localStorage.getItem('token') !== undefined
+      ? service.decodeJwtToken()
+      : '/home';
   }
 
   const user = service.userData$.value;

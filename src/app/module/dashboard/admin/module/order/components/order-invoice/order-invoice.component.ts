@@ -9,6 +9,7 @@ import html2canvas from 'html2canvas';
 import * as jspdf from 'jspdf';
 import { User } from 'src/app/module/shared/interface/user.type';
 import { ApiResponse } from 'src/app/module/shared/interface/response.type';
+import { OrderLines } from 'src/app/module/shared/interface/order-line.type';
 
 @Component({
   selector: 'app-order-invoice',
@@ -48,27 +49,30 @@ export class OrderInvoiceComponent extends BaseComponent implements OnInit {
 
   async getInvoiceData() {
     try {
-      const res = await this.orderService.getInvoiceDataByOrderId(
-        this.orderId!
-      );
+      const res: ApiResponse<{ invoiceData: OrderLines[]; userData: User }> =
+        await this.orderService.getInvoiceDataByOrderId(this.orderId!);
       console.log(res);
 
       if (res.Succeed) {
         this.invoice = res.Content.invoiceData;
         this.userData = res.Content.userData;
       } else {
-        this.sharedService.showErrorToast(res.message);
+        this.sharedService.showErrorToast(res.message!);
       }
     } catch (error: any) {
       this.sharedService.showErrorToast(error.message);
     }
   }
 
+  get pickAndPack() {
+    return this.deciamlPipe.transform(this.invoice.length * 0.3, '1.2-2');
+  }
+
   get subtotalOfInvoice() {
     return this.deciamlPipe.transform(
-      this.invoice.invoiceList.reduce((acc: number, value: any) => {
+      this.invoice.reduce((acc: number, value: any) => {
         return acc + Number(value.totalPrice);
-      }, 0),
+      }, 0) + Number(this.pickAndPack),
       '1.2-2'
     );
   }
@@ -81,12 +85,17 @@ export class OrderInvoiceComponent extends BaseComponent implements OnInit {
   }
 
   get total() {
-    return this.userData.isVat
-      ? this.deciamlPipe.transform(
-          Number(this.subtotalOfInvoice) + Number(this.tax),
-          '1.2-2'
-        )
-      : this.subtotalOfInvoice;
+    // return this.userData.isVat
+    //   ? this.deciamlPipe.transform(
+    //       Number(this.subtotalOfInvoice) + Number(this.tax),
+    //       '1.2-2'
+    //     )
+    //   : this.subtotalOfInvoice;
+
+    return this.deciamlPipe.transform(
+      Number(this.subtotalOfInvoice) + Number(this.tax),
+      '1.2-2'
+    );
   }
 
   sendInvoice() {

@@ -110,4 +110,8 @@ export class OrderService {
   updateOrderLine(payload: any): Promise<any> {
     return this.http.post(AppConstants.UPDATE_ORDER_LINE, payload);
   }
+
+  addOrderTracking(payload: any): Promise<any> {
+    return this.http.post(AppConstants.ADD_ORDER_LINE_TRACKING, payload);
+  }
 }

@@ -1,4 +1,7 @@
   #side-menu {
+    scrollbar-color: transparent transparent;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
     // height: 100vh;
     transition: 0.5s;
     padding: 10px;
@@ -49,11 +52,17 @@
     }
   }
 
-  ::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 0;
     /* Remove scrollbar space */
     background: transparent;
     /* Optional: just make scrollbar invisible */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  #side-menu::-webkit-scrollbar-thumb {
+    background-color: transparent;
   }
 
   .demo-bg {

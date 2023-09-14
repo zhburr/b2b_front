@@ -10,6 +10,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { LoaderService } from '../services/loader.service';
 import { SharedService } from '../services/shared.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,8 @@ import { SharedService } from '../services/shared.service';
 export class Interceptor implements HttpInterceptor {
   constructor(
     private loaderService: LoaderService,
-    private shared: SharedService // private auth: AuthService,
+    private shared: SharedService, // private auth: AuthService,
+    private router: Router
   ) {}
   /**
    * This method intercepts all the requests and appends the authentication header in them.
@@ -59,9 +61,10 @@ export class Interceptor implements HttpInterceptor {
         console.log(error);
 
         // let errorMsg = '';
-        // if (error.status === 401) {
-        //   this.shared.showErrorToast('Session has expired. ');
-        // }
+        if (error.status === 401) {
+          this.shared.showErrorToast('Session has expired. ');
+          this.router.navigate(['/home']);
+        }
         // if (error.error.text) {
         //   errorMsg = error.error.text;
         // } else if (error.error.Message) {
