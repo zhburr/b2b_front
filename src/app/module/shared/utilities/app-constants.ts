@@ -96,6 +96,8 @@ export class AppConstants {
   //user
   public static GET_ALL_USERS = 'user/getAllUsers';
   public static UPDATE_USER = 'user/updateUser';
+  public static GET_PAYMENT_LIST = 'user/getPaymentList';
+  public static ADD_PAYMENT = 'user/addPayment';
 
   //order updateOrderLine
   public static UPLOAD_ORDER_LISTING = 'order/uploadOrder';

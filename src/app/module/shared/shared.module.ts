@@ -33,6 +33,8 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { TextareaComponent } from './component/textarea/textarea.component';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { MutliSelectComponent } from './component/mutli-select/mutli-select.component';
+import { PaymentComponent } from './component/payment/payment.component';
+import { DateRangeInputComponent } from './component/date-range-input/date-range-input.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { MutliSelectComponent } from './component/mutli-select/mutli-select.comp
     DateInputComponent,
     TextareaComponent,
     MutliSelectComponent,
+    PaymentComponent,
+    DateRangeInputComponent,
   ],
   imports: [
     CommonModule,

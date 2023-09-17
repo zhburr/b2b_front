@@ -177,7 +177,7 @@ export class OrderListingComponent extends BaseComponent implements OnInit {
         await this.orderService.getUserOrderList();
       if (res.Succeed) {
         this.orderListing = res.Content;
-        this.orderListing = this.orderListing.map((order) => {
+        this.orderListing = this.orderListing?.map((order) => {
           return {
             ...order,
             tableActions: { canView: true, canDownload: true },
@@ -188,7 +188,7 @@ export class OrderListingComponent extends BaseComponent implements OnInit {
         this.sharedService.showErrorToast(res.message!);
       }
     } catch (error: any) {
-      this.sharedService.showErrorToast(error.message);
+      this.sharedService.showErrorToast('Somethig went wrong.');
     }
   }
 }

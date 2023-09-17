@@ -1,0 +1,42 @@
+<mat-form-field
+  [ngStyle]="{ width: inputWidth }"
+  class="example-full-width"
+  appearance="outline"
+  (click)="picker.open()"
+>
+  <mat-label *ngIf="placeholder">{{ placeholder }}</mat-label>
+  <mat-date-range-input
+    style="position: relative"
+    [rangePicker]="picker"
+    [min]="min"
+    [max]="max"
+  >
+    <input
+      matStartDate
+      [ngClass]="{ disabled: disabled }"
+      [disabled]="disabled"
+      matInput
+      [(ngModel)]="startDate"
+      readonly
+    />
+    <input
+      matEndDate
+      [(ngModel)]="endDate"
+      [ngClass]="{ disabled: disabled }"
+      [disabled]="disabled"
+      (dateChange)="dateChange($event)"
+      matInput
+      readonly
+    />
+  </mat-date-range-input>
+  <mat-icon
+    style="z-index: 100; position: absolute; right: 0"
+    *ngIf="reset && startDate"
+    class="close-icon clear-icon-style"
+    matDatepickerToggleIcon
+    (click)="$event.stopPropagation(); resetPicker()"
+    >clear</mat-icon
+  >
+  <mat-datepicker-toggle matSuffix [for]="picker"> </mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>

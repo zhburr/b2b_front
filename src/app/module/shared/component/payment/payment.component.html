@@ -5,29 +5,41 @@
         <div class="card-icon">
           <mat-icon class="material-icons">local_parking</mat-icon>
         </div>
-        <h4 class="card-title pull-left">Postage</h4>
+        <h4 class="card-title pull-left"></h4>
       </div>
       <hr />
       <div class="card-body card-body-height">
-        <app-table
-          [tableData]="tableData"
-          [buttons]="[buttons[0]]"
-          (buttonCallback)="buttonCallback($event)"
-          (tableCallback)="tableCallback($event)"
-          [oderBy]="orderBy"
-        ></app-table>
+        <div>
+          <app-date-range-input
+            [placeholder]="'Select date range'"
+            (callBack)="dateChange($event)"
+            [startDate]="startDate"
+            [endDate]="endDate"
+            [max]="endDate"
+          ></app-date-range-input>
+        </div>
+        <div>
+          <app-table
+            [tableData]="tableData"
+            [oderBy]="tableOrder"
+            [buttons]="
+              sharedService.userData$.value.role === 'Admin' ? [buttons[0]] : []
+            "
+            (buttonCallback)="buttonCallback($event)"
+          ></app-table>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<ng-template #upsertPostage>
+<ng-template #addNewPayment>
   <div>
     <div class="row mb-2">
       <div class="col-12">
         <mat-toolbar class="p-0 w-100 mat-toolbar">
           <mat-toolbar-row>
-            <span>Add order postage</span>
+            <span>Add new payment</span>
 
             <div class="row flex-fill">
               <div class="d-flex justify-content-end">
@@ -44,47 +56,41 @@
     </div>
 
     <div class="row">
-      <div class="col-3 my-auto">
-        <app-label [label]="'Weight from'"></app-label>
+      <div class="col-4 my-auto">
+        <app-label [label]="'Payment type'"></app-label>
+      </div>
+      <div class="col">
+        <app-mutli-select
+          (selected)="newPayment.paymentType = $event"
+          [options]="paymentType"
+          [placeholder]="'Select paymment type'"
+        ></app-mutli-select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4 my-auto">
+        <app-label [label]="'Amount'"></app-label>
       </div>
       <div class="col">
         <app-input
-          [lablel]="'Weight from'"
-          [placeholder]="'Weight in grams'"
-          [value]="selectedPostage.weight_from"
-          (callBack)="selectedPostage.weight_from = $event.trim()"
           [type]="'number'"
+          [value]="newPayment.amount"
+          (callBack)="newPayment.amount = $event"
         ></app-input>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-3 my-auto">
-        <app-label [label]="'Weight to'"></app-label>
+      <div class="col-4 my-auto">
+        <app-label [label]="'Description'"></app-label>
       </div>
       <div class="col">
-        <app-input
-          [lablel]="'Weight to'"
-          [placeholder]="'Weight in grams'"
-          [value]="selectedPostage.weight_to"
-          (callBack)="selectedPostage.weight_to = $event.trim()"
-          [type]="'number'"
-        ></app-input>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-3 my-auto">
-        <app-label [label]="'Price'"></app-label>
-      </div>
-      <div class="col">
-        <app-input
-          [lablel]="'Price'"
-          [matSuffix]="'£'"
-          [value]="selectedPostage.price"
-          (callBack)="selectedPostage.price = $event"
-          [type]="'number'"
-        ></app-input>
+        <app-textarea
+          [value]="newPayment.description"
+          [inputWidth]="'100%'"
+          (callBack)="newPayment.description = $event"
+        ></app-textarea>
       </div>
     </div>
 
@@ -99,7 +105,7 @@
 
 <app-modal
   *ngIf="myModal"
-  [template_]="upsertPostage"
+  [template_]="addNewPayment"
   (callback)="myModal = false"
   [customHeight]="modalHeight"
   [customMaxHeight]="modalMaxHeight"

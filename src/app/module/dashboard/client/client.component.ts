@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SharedService } from '../../shared/services/shared.service';
 
 @Component({
   selector: 'app-client',
@@ -51,6 +52,19 @@ export class ClientComponent {
       NameEn: 'Orders',
       Icon: 'local_shipping',
       PageName: 'dashboard/client/order/listing',
+      MasterPageId: 0,
+      IsMaster: true,
+      CanRead: true,
+      CanWrite: true,
+      ChildPages: [],
+    },
+    {
+      Id: 2,
+      Code: 'ADMIN',
+      Active: true,
+      NameEn: 'Statment',
+      Icon: 'payments',
+      PageName: 'dashboard/client/statment',
       MasterPageId: 0,
       IsMaster: true,
       CanRead: true,

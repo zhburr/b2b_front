@@ -29,20 +29,12 @@ export class UserListingComponent extends BaseComponent implements OnInit {
   }
 
   initializeHeaders() {
-    this.tableHeader.push(
-      {
-        field: 'fullName',
-        text: 'Users',
-        type: AppConstants.TEXT,
-        sortable: true,
-      },
-      {
-        field: 'role',
-        text: 'Role',
-        type: AppConstants.TEXT,
-        sortable: false,
-      }
-    );
+    this.tableHeader.push({
+      field: 'fullName',
+      text: 'Users',
+      type: AppConstants.TEXT,
+      sortable: true,
+    });
   }
 
   initializeDataTable() {

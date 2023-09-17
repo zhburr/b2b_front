@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ClientComponent } from './client.component';
+import { PaymentComponent } from '../../shared/component/payment/payment.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
         path: '',
         loadChildren: () =>
           import('./modules/order/order.module').then((m) => m.OrderModule),
+      },
+      {
+        path: 'statment',
+        component: PaymentComponent,
       },
     ],
   },

@@ -9,7 +9,7 @@ export class HttpService {
   get(url: any) {
     return firstValueFrom(this.http.get(AppConstants.baseUrl + url));
   }
-  post(url: any, body: any) {
+  post(url: any, body: any): Promise<any> {
     return firstValueFrom(
       this.http.post(AppConstants.baseUrl + url, body, {
         responseType: 'json',
