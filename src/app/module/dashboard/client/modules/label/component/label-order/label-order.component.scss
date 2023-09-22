@@ -1,0 +1,12 @@
+.ccaad{
+    cursor: pointer;
+
+    &:hover{
+        border: 1px solid skyblue;
+    }
+
+}
+
+.selected{
+    border: 1px solid skyblue;
+}

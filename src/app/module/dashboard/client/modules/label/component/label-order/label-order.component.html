@@ -1,0 +1,44 @@
+<div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header card-header-primary card-header-icon">
+        <div class="card-icon">
+          <mat-icon class="material-icons">local_parking</mat-icon>
+        </div>
+        <h4 class="card-title pull-left">Print label ordering</h4>
+      </div>
+      <hr />
+      <div class="card-body card-body-height">
+        <div
+          class="d-flex justifu-content-around align-items-center gap-1 mb-4"
+        >
+          <input class="form-control" type="file" #formFile accept=".csv" />
+        </div>
+
+        <div>
+          <div class="row">
+            <div
+              class="p-2 col-lg-3 col-md-4 col-sm-6 col-xs-12"
+              *ngFor="let item of [].constructor(5); let i = index"
+            >
+              <div
+                [ngClass]="i === selectedWeightIndex ? 'selected' : ''"
+                class="card p-4 text-center ccaad"
+                (click)="selecteWeight(i)"
+              >
+                <div class="card-body">
+                  <p class="card-title display-6">1-5kg</p>
+                  <h4>Price : 44$</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end mb-4">
+          <a class="btn btn-success">Place order</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

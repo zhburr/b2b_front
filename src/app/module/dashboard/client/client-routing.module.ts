@@ -28,6 +28,11 @@ const routes: Routes = [
           import('./modules/order/order.module').then((m) => m.OrderModule),
       },
       {
+        path: '',
+        loadChildren: () =>
+          import('./modules/label/label.module').then((m) => m.LabelModule),
+      },
+      {
         path: 'statment',
         component: PaymentComponent,
       },

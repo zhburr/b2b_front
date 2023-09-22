@@ -81,5 +81,30 @@ export class AdminComponent {
         },
       ],
     },
+    {
+      Id: 1,
+      Code: 'ADMIN',
+      Active: true,
+      NameEn: 'Print labels',
+      Icon: 'print',
+      MasterPageId: 0,
+      IsMaster: true,
+      CanRead: true,
+      CanWrite: true,
+      ChildPages: [
+        {
+          Id: 4,
+          Code: 'USERS',
+          Active: true,
+          NameEn: 'Price',
+          PageName: 'dashboard/admin/label/prices',
+          Icon: 'point_of_sale',
+          MasterPageId: 1,
+          IsMaster: false,
+          CanRead: true,
+          CanWrite: true,
+        },
+      ],
+    },
   ];
 }

@@ -71,5 +71,31 @@ export class ClientComponent {
       CanWrite: true,
       ChildPages: [],
     },
+    {
+      Id: 3,
+      Code: 'ADMIN',
+      Active: true,
+      NameEn: 'Print Lable',
+      Icon: 'print',
+      PageName: '',
+      MasterPageId: 0,
+      IsMaster: true,
+      CanRead: true,
+      CanWrite: true,
+      ChildPages: [
+        {
+          Id: 4,
+          Code: 'USERS',
+          Active: true,
+          NameEn: 'Place order',
+          PageName: 'dashboard/client/label',
+          Icon: 'reorder',
+          MasterPageId: 1,
+          IsMaster: false,
+          CanRead: true,
+          CanWrite: true,
+        },
+      ],
+    },
   ];
 }

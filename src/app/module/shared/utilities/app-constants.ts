@@ -103,6 +103,10 @@ export class AppConstants {
   public static UPLOAD_ORDER_LISTING = 'order/uploadOrder';
   public static GET_ALL_POSTAGE = 'order/getAllPostage';
   public static UPSERT_POSTAGE = 'order/upsertPostage';
+  //
+  public static GET_ALL_LABEL_PRICE = 'order/getAllLabelPrice';
+  public static UPSERT_LABEL_PRICE = 'order/upsertLabelPrice';
+  //
   public static GET_USER_ORDER_LIST = 'order/getUserOrderList';
   public static GET_ORDER_BY_ID = 'order/getOrderById';
   public static GET_PENDING_ORDER_LIST = 'order/getAllPendingOrderList';
