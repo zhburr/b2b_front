@@ -16,7 +16,7 @@ export class NavbarComponent extends BaseComponent implements OnInit {
   entityName: string = '';
   activeLang: any;
 
-  constructor(private sharedService: SharedService) {
+  constructor(public sharedService: SharedService) {
     super();
   }
 

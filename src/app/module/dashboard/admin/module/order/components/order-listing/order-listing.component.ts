@@ -123,8 +123,6 @@ export class OrderListingComponent extends BaseComponent implements OnInit {
             cancelButtonText: 'Invoice',
             allowOutsideClick: true,
           }).then(async (result) => {
-            console.log(result);
-
             if (result.isConfirmed) {
               await this.downloadOrderLine(orderDetail.id!);
             } else {
@@ -164,7 +162,7 @@ export class OrderListingComponent extends BaseComponent implements OnInit {
         this.sharedService.showErrorToast(res.message!);
       }
     } catch (error) {
-      console.log(error);
+      this.sharedService.showErrorToast('Something went wrong.');
     }
   }
 

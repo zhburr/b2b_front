@@ -81,7 +81,7 @@ export class ValidatorService {
           body[fields[index][0]].length < 8 ||
           body[fields[index][0]].length > 20
         ) {
-          reject('Enter a password in between 8 to 20 characters');
+          reject({ message: 'Enter a password in between 8 to 20 characters' });
         }
       });
       resolve(true);

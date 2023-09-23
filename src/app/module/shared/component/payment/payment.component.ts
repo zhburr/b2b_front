@@ -47,8 +47,6 @@ export class PaymentComponent extends BaseComponent implements OnInit {
     } else {
       this.userEmail = this.sharedService.userData$.value.email;
     }
-
-    console.log(this.userEmail);
   }
 
   ngOnInit(): void {
@@ -155,7 +153,6 @@ export class PaymentComponent extends BaseComponent implements OnInit {
         break;
 
       case 2:
-        console.log(this.newPayment);
         this.myModal = false;
         break;
 

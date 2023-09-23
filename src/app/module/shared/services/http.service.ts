@@ -6,7 +6,7 @@ import { firstValueFrom } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class HttpService {
   constructor(private http: HttpClient) {}
-  get(url: any) {
+  get(url: any): Promise<any> {
     return firstValueFrom(this.http.get(AppConstants.baseUrl + url));
   }
   post(url: any, body: any): Promise<any> {
@@ -17,16 +17,6 @@ export class HttpService {
     );
   }
 
-  postfile(url: any, body: any) {
-    return firstValueFrom(
-      this.http.post(AppConstants.baseUrl + url, body, {
-        responseType: 'json',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-    );
-  }
   put(url: any, body: any) {
     return firstValueFrom(
       this.http.post(AppConstants.baseUrl + url, body, { responseType: 'json' })

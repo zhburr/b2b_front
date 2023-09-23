@@ -226,7 +226,6 @@ export class UtilitiesService {
     const obj1Keys = Object.keys(obj1).sort();
     const obj2Keys = Object.keys(obj2).sort();
     if (obj1Keys.length !== obj2Keys.length) {
-      console.log(objEqual);
       return false;
     } else {
       const areEqual = obj1Keys.every((key, index) => {

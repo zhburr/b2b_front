@@ -19,10 +19,11 @@ export class InputComponent {
   @Input() minValue?: number;
   @Input() matSuffix?: string;
   @Input() blur: boolean = false;
+  @Input() password: boolean = false;
   @Input() readonly: boolean = false;
   @Output() callBack: EventEmitter<any> = new EventEmitter();
   @Output() keyUp: EventEmitter<any> = new EventEmitter();
-
+  visibility: boolean = false;
   inputOnChange(event: any) {
     this.callBack.emit(this.value);
   }

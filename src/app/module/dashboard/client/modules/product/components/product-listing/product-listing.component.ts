@@ -167,8 +167,6 @@ export class ProductListingComponent extends BaseComponent implements OnInit {
         data
       );
       if (res.Succeed) {
-        console.log('in here');
-
         this.sharedService.showSuccessToast(res.message!);
       } else {
         this.sharedService.showErrorToast(res.message!);

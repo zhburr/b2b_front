@@ -29,7 +29,6 @@ export class OrderInvoiceComponent extends BaseComponent implements OnInit {
   ) {
     super();
     this.orderId = Number(route.snapshot.paramMap.get('Id'));
-    console.log(this.orderId);
     if (!this.orderId) this.back();
 
     this.sharedService.userData$.value.isVat;
@@ -51,7 +50,6 @@ export class OrderInvoiceComponent extends BaseComponent implements OnInit {
     try {
       const res: ApiResponse<{ invoiceData: OrderLines[]; userData: User }> =
         await this.orderService.getInvoiceDataByOrderId(this.orderId!);
-      console.log(res);
 
       if (res.Succeed) {
         this.invoice = res.Content.invoiceData;

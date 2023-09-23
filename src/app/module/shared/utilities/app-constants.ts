@@ -74,6 +74,7 @@ export class AppConstants {
   public static LOGIN = 'auth/login';
   public static EMAIL_FORGET_PASSWORD = 'auth/emailForgetPassword';
   public static RESET_PASSWORD = 'auth/resetPassword';
+  public static UPDATE_PASSWORD = 'auth/updatePassword';
 
   //product
   public static UPLOAD_PRODUCT_APPROVAL_LISTING = 'product/uploadListing';
@@ -100,6 +101,9 @@ export class AppConstants {
   public static UPDATE_USER = 'user/updateUser';
   public static GET_PAYMENT_LIST = 'user/getPaymentList';
   public static ADD_PAYMENT = 'user/addPayment';
+  public static GET_USER_DATA = 'user/getUserData';
+  public static UPLOAD_USER_IMAGE = 'user/uploadUserImage';
+  public static USER_IMAGE_URL = `${this.baseUrl}uploads/usersImage/`;
 
   //order updateOrderLine
   public static UPLOAD_ORDER_LISTING = 'order/uploadOrder';

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { LandingService } from '../../services/landing.service';
-import { Route, Router } from '@angular/router';
 import { BaseComponent } from 'src/app/module/shared/utilities/base.component';
 import { SharedService } from 'src/app/module/shared/services/shared.service';
 import { ApiResponse } from 'src/app/module/shared/interface/response.type';

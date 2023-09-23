@@ -4,11 +4,13 @@ import { BehaviorSubject } from 'rxjs';
 import { User } from '../interface/user.type';
 import { AppConstants } from '../utilities/app-constants';
 import jwt_decode from 'jwt-decode';
+import { ApiResponse } from '../interface/response.type';
+import { HttpService } from './http.service';
 @Injectable({ providedIn: 'root' })
 export class SharedService {
   apiStack: any[] = [];
   userData$: BehaviorSubject<User> = new BehaviorSubject<User>({});
-  constructor(private toastr: ToastrService) {}
+  constructor(private toastr: ToastrService, private http: HttpService) {}
 
   showSuccessToast(msg: string) {
     this.toastr.success(msg);
@@ -42,5 +44,22 @@ export class SharedService {
     document.body.appendChild(link);
     link.click();
     link.remove();
+  }
+
+  async getUserData() {
+    try {
+      const res: ApiResponse<User> = await this.http.get(
+        AppConstants.GET_USER_DATA + `?email=${this.userData$.value.email!}`
+      );
+
+      if (res.Succeed) {
+        this.userData$.next(res.Content);
+        if (res.Content.access_toke) {
+          localStorage.setItem('token', this.userData$.value.access_toke!);
+        }
+      }
+    } catch (error: any) {
+      this.showErrorToast(error.message);
+    }
   }
 }

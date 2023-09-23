@@ -33,7 +33,6 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
   ) {
     super();
     this.orderId = Number(route.snapshot.paramMap.get('Id'));
-    console.log(this.orderId);
     if (!this.orderId) this.back();
   }
 
@@ -152,7 +151,6 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
       const res: ApiResponse<Order> = await this.orderService.getOrderById(
         this.orderId!
       );
-      console.log(res);
       if (res.Succeed) {
         this.orderDetail = res.Content;
         this.orderLinesList = this.orderDetail.OrderLine!;
@@ -166,8 +164,6 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
   }
 
   buttonCallback(event: any) {
-    console.log(event);
-
     switch (event) {
       case 0:
         if (!this.orderDetail.invoice) {
@@ -184,8 +180,6 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
             cancelButtonText: 'Invoice',
             allowOutsideClick: true,
           }).then((result) => {
-            console.log(result);
-
             if (result.isConfirmed) {
               this.orderService.downloadOrderLine(
                 this.orderDetail.OrderLine!,
@@ -216,14 +210,10 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
           allowOutsideClick: false,
           showCloseButton: true,
         }).then((result) => {
-          console.log(result);
           if (result.isConfirmed) {
-            console.log('i will download the file');
             this.downloadCsv();
           } else {
             if (result.dismiss === Swal.DismissReason.cancel) {
-              console.log('new popup for the file upload is shown');
-
               Swal.fire({
                 title: 'Upload file',
                 input: 'file',
@@ -237,12 +227,9 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
               })
                 .then(async (result) => {
                   if (result.isConfirmed) {
-                    console.log(result);
                     const formData: FormData = new FormData();
                     formData.append('file', result.value, result.value.name);
                     formData.append('orderId', this.orderId!.toString());
-                    console.log(formData.get('file'));
-                    console.log(formData.get('orderId'));
 
                     const res: ApiResponse<null> =
                       await this.orderService.addOrderTracking(formData);
@@ -297,15 +284,12 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
         trackingNo: orderLine.trackingNo ?? '',
         trackingCompany: orderLine.trackingCompany ?? '',
       };
-      console.log(data);
 
       const res: ApiResponse<string> = await this.orderService.updateOrderLine(
         data
       );
 
       if (res.Succeed) {
-        console.log(this.orderLinesList);
-
         this.sharedService.showSuccessToast(res.message!);
       } else {
         this.sharedService.showErrorToast(res.message!);

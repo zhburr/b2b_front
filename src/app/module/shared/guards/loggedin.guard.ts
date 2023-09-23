@@ -7,7 +7,6 @@ import { Roles } from '../interface/role.model';
 export const loggedinGuard: CanActivateFn = (route, state) => {
   const sharedService = inject(SharedService);
   const router = inject(Router);
-  console.log('in here');
 
   return !localStorage.getItem('token')
     ? true

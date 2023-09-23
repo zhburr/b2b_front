@@ -85,7 +85,6 @@ export class OrderListingComponent extends BaseComponent implements OnInit {
   }
 
   tableCallBack(event: any) {
-    console.log(event);
     switch (event.key) {
       case AppConstants.VIEW:
         this.navigate(`dashboard/client/order/details/${event.object.id}`);
@@ -101,8 +100,6 @@ export class OrderListingComponent extends BaseComponent implements OnInit {
             cancelButtonText: 'Invoice',
             allowOutsideClick: true,
           }).then((result) => {
-            console.log(result);
-
             if (result.isConfirmed) {
               this.sharedService.downloadFile(
                 `${AppConstants.ORDER_FILE_URL}${event.object.csv}`
@@ -156,7 +153,6 @@ export class OrderListingComponent extends BaseComponent implements OnInit {
       const res: ApiResponse<{}> = await this.orderService.uploadOrder(
         formData
       );
-      console.log(res);
 
       if (res.Succeed) {
         this.resetFileInput();

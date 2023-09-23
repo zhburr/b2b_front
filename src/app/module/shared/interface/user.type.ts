@@ -13,4 +13,5 @@ export interface User {
   access_toke?: string;
   productsCount?: number;
   canUploadOrder?: boolean;
+  avatar?: string | ArrayBuffer | null;
 }

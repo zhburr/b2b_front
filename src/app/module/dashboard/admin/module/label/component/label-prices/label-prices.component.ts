@@ -109,7 +109,6 @@ export class LabelPricesComponent extends BaseComponent implements OnInit {
   }
 
   tableCallback(event: any) {
-    console.log(event);
     if (event.key === AppConstants.EDIT) {
       this.selectedPostage = JSON.parse(JSON.stringify(event.object));
       this.myModal = true;
@@ -140,8 +139,6 @@ export class LabelPricesComponent extends BaseComponent implements OnInit {
         id: this.selectedPostage.id ?? 0,
       };
 
-      console.log(data);
-
       await this.validatorService.validateRequired(
         [
           ['weightFrom', 'Wieght from'],
@@ -160,8 +157,6 @@ export class LabelPricesComponent extends BaseComponent implements OnInit {
         data
       );
 
-      console.log(data);
-
       const res: ApiResponse<Postage> =
         await this.labelService.upsertLabelPrice(data);
 
@@ -174,8 +169,6 @@ export class LabelPricesComponent extends BaseComponent implements OnInit {
         this.sharedService.showErrorToast(res.message!);
       }
     } catch (error: any) {
-      console.log(error);
-
       this.sharedService.showErrorToast(
         error.message ?? 'Something went wrong. Please try again'
       );

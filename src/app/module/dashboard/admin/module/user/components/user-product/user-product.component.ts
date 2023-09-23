@@ -38,7 +38,6 @@ export class UserProductComponent extends BaseComponent implements OnInit {
     if (this.router.getCurrentNavigation()?.extras?.state) {
       let data: any = this.router.getCurrentNavigation()?.extras?.state;
       this.user = data.data;
-      console.log(this.user);
       this.getSelectedUserProduct(this.pageSize, this.pageIndex);
     } else {
       this.back();
@@ -76,9 +75,6 @@ export class UserProductComponent extends BaseComponent implements OnInit {
   }
 
   changesProduct(product: Product, index: number) {
-    console.log(product, 'product');
-    console.log(this.savedProducts[index], 'savedProduct');
-
     return this.utilitiesService.compareObjects(
       this.savedProducts[index],
       product
@@ -94,8 +90,6 @@ export class UserProductComponent extends BaseComponent implements OnInit {
         productPackaging: product.packaging ?? '',
         productQuantity: product.quantity ?? 0,
       };
-
-      console.log(data);
 
       const res: ApiResponse<Product> =
         await this.userService.updateUserProductByAdmin(data);

@@ -58,12 +58,12 @@ export class Interceptor implements HttpInterceptor {
         if (this.shared.apiStack.length === 0) this.loaderService.hide();
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log(error);
+        console.log('interceptro', error);
 
-        // let errorMsg = '';
         if (error.status === 401) {
           this.shared.showErrorToast('Session has expired. ');
-          this.router.navigate(['/home']);
+          localStorage.clear();
+          this.router.navigate(['/login']);
         }
         // if (error.error.text) {
         //   errorMsg = error.error.text;

@@ -48,7 +48,6 @@ export class UserListingComponent extends BaseComponent implements OnInit {
   }
 
   tableCallback(event: any) {
-    console.log(event);
     if ((event.object as User) !== undefined)
       this.user.emit(event.object as User);
   }
@@ -56,7 +55,6 @@ export class UserListingComponent extends BaseComponent implements OnInit {
   async getAllUsers() {
     try {
       const res: ApiResponse<User[]> = await this.userService.getAllUsers();
-      console.log(res);
       if (res.Succeed) {
         this.usersList = res.Content.map((user) => {
           return { ...user, fullName: `${user.firstName} ${user.lastName}` };
@@ -66,7 +64,7 @@ export class UserListingComponent extends BaseComponent implements OnInit {
         this.shareService.showErrorToast(res.message!);
       }
     } catch (error) {
-      console.log(error);
+      this.shareService.showErrorToast('Somehting went wrong.');
     }
   }
 }

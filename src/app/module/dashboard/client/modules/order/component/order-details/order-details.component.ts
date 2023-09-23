@@ -127,7 +127,6 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
       const res: ApiResponse<Order> = await this.orderService.getOrderById(
         this.orderId!
       );
-      console.log(res);
       if (res.Succeed) {
         this.orderDetail = res.Content;
         this.orderLinesList = this.orderDetail.OrderLine!;
