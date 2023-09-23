@@ -6,6 +6,7 @@ import { AppConstants } from 'src/app/module/shared/utilities/app-constants';
   providedIn: 'root',
 })
 export class ProductService {
+  updateProductimage: any;
   constructor(private http: HttpService) {}
 
   getAllProductsApproval(): Promise<any> {
@@ -25,5 +26,17 @@ export class ProductService {
 
   updateProductQuantity(payload: any): Promise<any> {
     return this.http.post(AppConstants.UPDATE_PRODUCT_QUANTITY, payload);
+  }
+
+  updateProduct(payload: any): Promise<any> {
+    return this.http.post(AppConstants.UPDATE_PRODUCT, payload);
+  }
+
+  uploadProductImage(payload: any): Promise<any> {
+    return this.http.post(AppConstants.UPLOAD_PRODUCT_IMAGE, payload);
+  }
+
+  addNewProduct(payload: any): Promise<any> {
+    return this.http.post(AppConstants.ADD_NEW_PRODUCT, payload);
   }
 }

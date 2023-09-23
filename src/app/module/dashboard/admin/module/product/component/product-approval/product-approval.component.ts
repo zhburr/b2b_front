@@ -100,7 +100,9 @@ export class ProductApprovalComponent extends BaseComponent implements OnInit {
 
         this.initializeTable();
       }
-    } catch (error) {}
+    } catch (error: any) {
+      this.sharedService.showErrorToast(error.message);
+    }
   }
 
   async tableCallBack(event: any) {

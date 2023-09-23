@@ -23,6 +23,7 @@
       "ES2022",
       "dom"
     ],
+    "types": ["node"],
     "paths": {
       "exceljs": [
         "node_modules/exceljs/dist/exceljs.min"

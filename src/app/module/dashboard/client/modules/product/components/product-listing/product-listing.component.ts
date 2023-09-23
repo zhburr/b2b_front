@@ -16,6 +16,7 @@ import { ValidatorService } from 'src/app/module/shared/utilities/validator.serv
 export class ProductListingComponent extends BaseComponent implements OnInit {
   appConstants = AppConstants;
   pageSize: number = 10;
+  pageIndex: number = 0;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   products: Product[] = [];
   totalProducts: number = 0;
@@ -28,6 +29,11 @@ export class ProductListingComponent extends BaseComponent implements OnInit {
     previousQuantity: number;
     newQuantity: number;
   }> = {};
+
+  isLoading: boolean = false;
+  fileToUpload: File | null = null;
+
+  addProductModal: boolean = false;
   constructor(
     private sharedService: SharedService,
     private productService: ProductService,
@@ -50,9 +56,17 @@ export class ProductListingComponent extends BaseComponent implements OnInit {
       {
         type: AppConstants.INFO,
         text: 'Update quantity',
+      },
+      {
+        type: AppConstants.SUCCESS,
+        text: 'Add',
+      },
+      {
+        type: AppConstants.PRIMARY,
+        text: 'Upload image',
       }
     );
-    this.getProductList(this.pageSize, 0);
+    this.getProductList(this.pageSize, this.pageIndex);
   }
 
   async getProductList(pageSize: number, pageIndex: number) {
@@ -63,6 +77,8 @@ export class ProductListingComponent extends BaseComponent implements OnInit {
       };
       const res: ApiResponse<{ products: Product[]; totalProduct: number }> =
         await this.productService.getProductList(data);
+
+      this.isLoading = true;
       if (res.Succeed) {
         this.products = res.Content.products;
         this.totalProducts = res.Content.totalProduct;
@@ -70,22 +86,31 @@ export class ProductListingComponent extends BaseComponent implements OnInit {
         this.sharedService.showErrorToast(res.message!);
       }
     } catch (error: any) {
+      this.isLoading = true;
       this.sharedService.showErrorToast(error.message);
     }
   }
 
   async pagination(event: any) {
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
     await this.getProductList(event.pageSize, event.pageIndex);
   }
 
-  buttonCallback(event: any) {
+  async buttonCallback(event: any) {
     switch (event) {
       case 0:
         // on save
+        await this.updateProduct();
+        this.myModal = false;
+        this.selectedProduct = {};
+        this.fileToUpload = null;
+        await this.getProductList(this.pageSize, this.pageIndex);
         break;
       case 1:
         // on cancel
         this.myModal = false;
+        this.selectedProduct = {};
 
         break;
 
@@ -96,6 +121,7 @@ export class ProductListingComponent extends BaseComponent implements OnInit {
 
   openModal(product: Product) {
     this.selectedProduct = JSON.parse(JSON.stringify(product));
+    this.fileToUpload = null;
     this.myModal = true;
   }
 
@@ -121,6 +147,128 @@ export class ProductListingComponent extends BaseComponent implements OnInit {
       if (res.Succeed) {
         this.sharedService.showSuccessToast(res.message!);
         this.updateQuantityModal = false;
+      } else {
+        this.sharedService.showErrorToast(res.message!);
+      }
+    } catch (error: any) {
+      this.sharedService.showErrorToast(error.message);
+    }
+  }
+
+  async updateProduct() {
+    try {
+      const data = {
+        sku: this.selectedProduct.sku,
+        title: this.selectedProduct.title,
+        description: this.selectedProduct.description,
+      };
+
+      const res: ApiResponse<String> = await this.productService.updateProduct(
+        data
+      );
+      if (res.Succeed) {
+        console.log('in here');
+
+        this.sharedService.showSuccessToast(res.message!);
+      } else {
+        this.sharedService.showErrorToast(res.message!);
+      }
+    } catch (error: any) {
+      this.sharedService.showErrorToast(error.message);
+    }
+  }
+
+  openFileInput() {
+    document.getElementById('file')?.click();
+  }
+
+  checkFile(event: any) {
+    const files: FileList = event.target.files;
+    this.fileToUpload = files.item(0);
+
+    if (!this.fileToUpload) {
+      this.fileToUpload = null;
+      this.selectedProduct.image = null;
+      return;
+    }
+
+    this.convertToDataUrl(this.fileToUpload!);
+
+    if (!this.fileToUpload?.name) {
+      this.sharedService.showErrorToast('File name is required');
+      this.fileToUpload = null;
+      this.selectedProduct.image = null;
+    }
+  }
+
+  convertToDataUrl(file: File) {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      this.selectedProduct.image = reader.result;
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  async uploadImage() {
+    const formData: FormData = new FormData();
+    formData.append('file', this.fileToUpload!, this.fileToUpload!.name);
+    formData.append('productSKU', this.selectedProduct.sku!);
+
+    try {
+      const res: ApiResponse<null> =
+        await this.productService.uploadProductImage(formData);
+      if (res.Succeed) {
+        this.sharedService.showSuccessToast(res.message!);
+        this.myModal = false;
+        await this.getProductList(this.pageSize, this.pageIndex);
+      } else {
+        this.sharedService.showErrorToast(res.message!);
+      }
+    } catch (error: any) {
+      this.sharedService.showErrorToast(error.message);
+    }
+  }
+
+  async addNewProduct() {
+    try {
+      const data = {
+        Name: this.selectedProduct.title,
+        SKU: this.selectedProduct.sku,
+        Description: this.selectedProduct.description,
+        Quantity: this.selectedProduct.quantity,
+        Price: this.selectedProduct.price,
+        Weight: this.selectedProduct.weight,
+      };
+
+      await this.validatorService.validateRequired(
+        [
+          ['SKU', 'SKU'],
+          ['Name', 'Title'],
+          ['Quantity', 'Quantity'],
+          ['Price', 'Price'],
+          ['Weight', 'Weight'],
+        ],
+        data
+      );
+
+      await this.validatorService.validateGreaterThanZero(
+        [
+          ['Quantity', 'Quantity'],
+          ['Price', 'Price'],
+          ['Weight', 'Weight'],
+        ],
+        data
+      );
+
+      const res: ApiResponse<null> = await this.productService.addNewProduct(
+        data
+      );
+      if (res.Succeed) {
+        this.sharedService.showSuccessToast(res.message!);
+        this.addProductModal = false;
+        this.selectedProduct = {};
       } else {
         this.sharedService.showErrorToast(res.message!);
       }

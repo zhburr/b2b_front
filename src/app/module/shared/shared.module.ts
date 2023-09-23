@@ -35,6 +35,7 @@ import { NgxPayPalModule } from 'ngx-paypal';
 import { MutliSelectComponent } from './component/mutli-select/mutli-select.component';
 import { PaymentComponent } from './component/payment/payment.component';
 import { DateRangeInputComponent } from './component/date-range-input/date-range-input.component';
+import { NoDataFoundComponent } from './component/no-data-found/no-data-found.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { DateRangeInputComponent } from './component/date-range-input/date-range
     MutliSelectComponent,
     PaymentComponent,
     DateRangeInputComponent,
+    NoDataFoundComponent,
   ],
   imports: [
     CommonModule,
@@ -108,6 +110,7 @@ import { DateRangeInputComponent } from './component/date-range-input/date-range
     TextareaComponent,
     NgxPayPalModule,
     MutliSelectComponent,
+    NoDataFoundComponent,
   ],
   providers: [SearchPipe, OderByPipe],
 })

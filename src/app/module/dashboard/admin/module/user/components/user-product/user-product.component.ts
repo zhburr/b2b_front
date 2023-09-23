@@ -18,6 +18,7 @@ import { SharedService } from 'src/app/module/shared/services/shared.service';
 })
 export class UserProductComponent extends BaseComponent implements OnInit {
   @ViewChild('template', { static: true }) template?: ElementRef;
+  appConstants = AppConstants;
   pageSize: number = 10;
   pageIndex: number = 0;
   pageSizeOptions: number[] = [5, 10, 25, 100];

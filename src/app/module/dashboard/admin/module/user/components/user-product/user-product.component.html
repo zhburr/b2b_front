@@ -16,9 +16,15 @@
             <tr *ngFor="let item of products; let i = index">
               <td class="align-middle">
                 <img
-                  [src]="'assets/images/no_image_availabel.svg'"
-                  class="product-image"
+                  [src]="
+                    !item.image
+                      ? 'assets/images/no_image_availabel.svg'
+                      : appConstants.PRODUCT_IMAGE_URL + item.image
+                  "
+                  class="card-img-top"
                   alt="..."
+                  style="object-fit: contain"
+                  height="150"
                 />
               </td>
               <td class="align-middle">

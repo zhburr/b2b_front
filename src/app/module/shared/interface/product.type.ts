@@ -8,7 +8,7 @@ export interface Product {
   location: string;
   price: number;
   userId: number;
-  image: string;
+  image: string | ArrayBuffer | null;
   packaging: string;
   createdAt: string;
   updateAt: string;

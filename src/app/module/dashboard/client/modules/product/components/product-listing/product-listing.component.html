@@ -9,45 +9,65 @@
       </div>
       <hr />
       <div class="card-body card-body-height">
-        <div class="row">
-          <div
-            class="p-2 col-lg-3 col-md-4 col-sm-6 col-xs-12"
-            *ngFor="let item of products"
-          >
-            <div class="card" style="cursor: pointer" (click)="openModal(item)">
-              <img
-                [src]="
-                  !item.image
-                    ? 'assets/images/no_image_availabel.svg'
-                    : appConstants.PRODUCT_IMAGE_URL + item.image
-                "
-                class="card-img-top"
-                alt="..."
-              />
-              <div class="card-body">
-                <p class="card-title fw-bold">{{ item.title }}</p>
-                <p>SKU : {{ item.sku }}</p>
-                <p class="card-text">{{ item.description }}</p>
-                <div class="mt-4">
-                  <p class="m-0">Quantity : {{ item.quantity }}</p>
-                  <p class="m-0">Price : {{ item.price }}£</p>
-                  <p class="m-0">Weight : {{ item.weight }}g</p>
-                  <p class="m-0">Location in warehouse : {{ item.location }}</p>
+        <div class="d-flex justify-content-end">
+          <app-button
+            [button]="buttons[3]"
+            (callBack)="addProductModal = true; selectedProduct = {}"
+          ></app-button>
+        </div>
+        <ng-container *ngIf="isLoading && products.length">
+          <div class="row">
+            <div
+              class="p-2 col-lg-3 col-md-4 col-sm-6 col-xs-12"
+              *ngFor="let item of products"
+            >
+              <div
+                class="card"
+                style="cursor: pointer"
+                (click)="openModal(item)"
+              >
+                <img
+                  [src]="
+                    !item.image
+                      ? 'assets/images/no_image_availabel.svg'
+                      : appConstants.PRODUCT_IMAGE_URL + item.image
+                  "
+                  class="card-img-top"
+                  alt="..."
+                  style="object-fit: contain"
+                  height="150"
+                />
+                <div class="card-body">
+                  <p class="card-title fw-bold">{{ item.title }}</p>
+                  <p>SKU : {{ item.sku }}</p>
+                  <p class="card-text">{{ item.description }}</p>
+                  <div class="mt-4">
+                    <p class="m-0">Quantity : {{ item.quantity }}</p>
+                    <p class="m-0">Price : {{ item.price }}£</p>
+                    <p class="m-0">Weight : {{ item.weight }}g</p>
+                    <p class="m-0">
+                      Location in warehouse : {{ item.location }}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <mat-paginator
-          *ngIf="totalProducts > 10"
-          [id]="'pagg'"
-          [pageSize]="pageSize"
-          [pageSizeOptions]="pageSizeOptions"
-          [length]="totalProducts"
-          (page)="pagination($event)"
-        >
-        </mat-paginator>
+          <mat-paginator
+            *ngIf="totalProducts > 10"
+            [id]="'pagg'"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="pageSizeOptions"
+            [length]="totalProducts"
+            (page)="pagination($event)"
+          >
+          </mat-paginator>
+        </ng-container>
+
+        <app-no-data-found
+          *ngIf="isLoading && !products.length"
+        ></app-no-data-found>
       </div>
     </div>
   </div>
@@ -75,27 +95,89 @@
       </div>
     </div>
 
-    <div class="d-flex justify-content-cebter">
+    <div class="d-flex justify-content-center position-relative">
       <img
         [src]="
-          !selectedProduct.image
+          !selectedProduct.image && fileToUpload == null
             ? 'assets/images/no_image_availabel.svg'
-            : appConstants.PRODUCT_IMAGE_URL + selectedProduct.image
+            : selectedProduct.image && !fileToUpload
+            ? appConstants.PRODUCT_IMAGE_URL + selectedProduct.image
+            : selectedProduct.image
         "
         class="card-img-top avatar"
         height="200"
         alt="..."
+        style="width: 30%; object-fit: contain"
+      />
+      <img
+        style="
+          top: 20px;
+          cursor: pointer;
+          --bs-icon-link-transform: translate3d(0, -0.125rem, 0);
+        "
+        class="position-absolute start-50 translate-middle p-2 icon-link icon-link-hover"
+        src="../../../../../../../../assets/icon/edit.svg"
+        alt=""
+        height="30"
+        (click)="openFileInput()"
+      />
+
+      <input
+        type="file"
+        id="file"
+        style="display: none"
+        name="image"
+        accept="image/gif,image/jpeg,image/jpg,image/png"
+        data-original-title="upload photos"
+        (change)="checkFile($event)"
       />
     </div>
+    <app-button
+      *ngIf="fileToUpload"
+      [button]="buttons[4]"
+      class="d-flex justify-content-center mt-4"
+      (callBack)="uploadImage()"
+    ></app-button>
   </div>
   <div class="card-body">
-    <p class="card-title fw-bold">{{ selectedProduct.title }}</p>
-    <p>SKU : {{ selectedProduct.sku }}</p>
-    <p class="card-text">Description : {{ selectedProduct.description }}</p>
-    <p class="m-0">Quantity : {{ selectedProduct.quantity }}</p>
-    <p class="m-0">Price : {{ selectedProduct.price }}£</p>
-    <p class="m-0">Weight : {{ selectedProduct.weight }}g</p>
-    <p class="m-0">Location in warehouse : {{ selectedProduct.location }}</p>
+    <p><app-label [label]="'SKU :'"></app-label> {{ selectedProduct.sku }}</p>
+    <div class="row">
+      <div class="col-3 my-auto">
+        <app-label [label]="'Title :'"></app-label>
+      </div>
+      <div class="col">
+        <app-input
+          [value]="selectedProduct.title"
+          (callBack)="selectedProduct.title = $event"
+        ></app-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3 my-auto">
+        <app-label [label]="'Description :'"></app-label>
+      </div>
+      <div class="col">
+        <app-textarea
+          [value]="selectedProduct.description"
+          (callBack)="selectedProduct.description = $event"
+          [inputWidth]="'100%'"
+        ></app-textarea>
+      </div>
+    </div>
+    <p class="m-0">
+      <app-label [label]="'Quantity :'"></app-label>
+      {{ selectedProduct.quantity }}
+    </p>
+    <p class="m-0">
+      <app-label [label]="'Price :'"></app-label> {{ selectedProduct.price }}£
+    </p>
+    <p class="m-0">
+      <app-label [label]="'Weight :'"></app-label> {{ selectedProduct.weight }}g
+    </p>
+    <p class="m-0">
+      <app-label [label]="'Location in warehouse :'"></app-label>
+      {{ selectedProduct.location }}
+    </p>
   </div>
 
   <div class="d-flex flex-row justify-content-end gap-1">
@@ -103,7 +185,10 @@
       [button]="buttons[2]"
       (callBack)="openUpdateQuantityModal()"
     ></app-button>
-    <app-button [button]="buttons[0]"></app-button>
+    <app-button
+      [button]="buttons[0]"
+      (callBack)="buttonCallback(0)"
+    ></app-button>
   </div>
 </ng-template>
 
@@ -181,4 +266,120 @@
   [customHeight]="modalHeight"
   [customMaxHeight]="modalMaxHeight"
   [customWidth]="'30%'"
+></app-modal>
+
+<ng-template #addProduct>
+  <div>
+    <div class="row mb-2">
+      <div class="col-12">
+        <mat-toolbar class="p-0 w-100 mat-toolbar">
+          <mat-toolbar-row>
+            <span>Add product</span>
+
+            <div class="row flex-fill">
+              <div class="d-flex justify-content-end">
+                <app-button
+                  class="mr-2"
+                  [button]="buttons[1]"
+                  (callBack)="buttonCallback(1)"
+                ></app-button>
+              </div>
+            </div>
+          </mat-toolbar-row>
+        </mat-toolbar>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <!-- <p><app-label [label]="'SKU :'"></app-label> {{ selectedProduct.sku }}</p> -->
+    <div class="row">
+      <div class="col-3 my-auto">
+        <app-label [label]="'SKU :'"></app-label>
+      </div>
+      <div class="col">
+        <app-input
+          [value]="selectedProduct.sku"
+          (callBack)="selectedProduct.sku = $event"
+        ></app-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3 my-auto">
+        <app-label [label]="'Title :'"></app-label>
+      </div>
+      <div class="col">
+        <app-input
+          [value]="selectedProduct.title"
+          (callBack)="selectedProduct.title = $event"
+        ></app-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3 my-auto">
+        <app-label [label]="'Description :'"></app-label>
+      </div>
+      <div class="col">
+        <app-textarea
+          [value]="selectedProduct.description"
+          (callBack)="selectedProduct.description = $event"
+          [inputWidth]="'100%'"
+        ></app-textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3 my-auto">
+        <app-label [label]="'Quantity :'"></app-label>
+      </div>
+      <div class="col">
+        <app-input
+          [value]="selectedProduct.quantity"
+          (callBack)="selectedProduct.quantity = $event"
+          [type]="'number'"
+        ></app-input>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3 my-auto">
+        <app-label [label]="'Price :'"></app-label>
+      </div>
+      <div class="col">
+        <app-input
+          [value]="selectedProduct.price"
+          (callBack)="selectedProduct.price = $event"
+          [type]="'number'"
+          [matSuffix]="'£'"
+        ></app-input>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3 my-auto">
+        <app-label [label]="'Weight :'"></app-label>
+      </div>
+      <div class="col">
+        <app-input
+          [value]="selectedProduct.weight"
+          (callBack)="selectedProduct.weight = $event"
+          [type]="'number'"
+          [matSuffix]="'g'"
+        ></app-input>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row justify-content-end gap-1">
+    <app-button [button]="buttons[0]" (callBack)="addNewProduct()"></app-button>
+  </div>
+</ng-template>
+
+<app-modal
+  *ngIf="addProductModal"
+  [template_]="addProduct"
+  (callback)="addProductModal = false"
+  [customHeight]="modalHeight"
+  [customMaxHeight]="modalMaxHeight"
+  [customWidth]="'50%'"
 ></app-modal>

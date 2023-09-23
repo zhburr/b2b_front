@@ -57,7 +57,7 @@ export class OrderService {
     });
 
     const postcodes: { [postcode: string]: Row[] } = {};
-    worksheet.eachRow({ includeEmpty: true }, (row, rowNumber) => {
+    worksheet.eachRow({ includeEmpty: true }, (row:any, rowNumber:any) => {
       if (rowNumber === 1) return; // Skip header row
 
       const postcode = row.getCell('buyerPostCode').value as string;
@@ -72,7 +72,7 @@ export class OrderService {
     Object.values(postcodes).forEach((rows) => {
       if (rows.length > 1) {
         rows.forEach((row) => {
-          row.eachCell((cell) => {
+          row.eachCell((cell:any) => {
             cell.fill = {
               type: 'pattern',
               pattern: 'solid',
@@ -86,7 +86,7 @@ export class OrderService {
     // Get the buffer data and save the file
     workbook.xlsx
       .writeBuffer()
-      .then((data) => {
+      .then((data:any) => {
         const blob = new Blob([data], {
           type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         });
@@ -94,7 +94,7 @@ export class OrderService {
         fs.saveAs(blob, orderId + '.xlsx');
         console.log('Excel file created and saved successfully.');
       })
-      .catch((error) => {
+      .catch((error:any) => {
         console.error('Error creating Excel file:', error);
       });
   }

@@ -88,8 +88,10 @@ export class AppConstants {
     'product/getSelectedUserProduct';
   public static UPDATE_USER_PRODUCT_BY_ADMIN =
     'product/updateUserProductByAdmin';
-  // updateProductQuantity
   public static UPDATE_PRODUCT_QUANTITY = 'product/updateProductQuantity';
+  public static UPDATE_PRODUCT = 'product/updateProduct';
+  public static UPLOAD_PRODUCT_IMAGE = 'product/uploadProductImage';
+  public static ADD_NEW_PRODUCT = 'product/addNewProduct';
   //productFileURl
   public static PRODUCT_FILE_URL = `${this.baseUrl}uploads/products/`;
   public static PRODUCT_IMAGE_URL = `${this.baseUrl}uploads/productsImage/`;
