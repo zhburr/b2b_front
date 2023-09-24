@@ -11,6 +11,7 @@ import { BaseComponent } from '../../utilities/base.component';
 export class SidebarComponent extends BaseComponent {
   @Input() sideNav: any[] = [];
   @Input() profile: string = '';
+  appConstants = AppConstants;
   // sideNav: any[] = [
   //   {
   //     Id: 1,

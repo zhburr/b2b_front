@@ -29,6 +29,10 @@ export class LandingService {
     return this.http.post(AppConstants.RESET_PASSWORD, payload);
   }
 
+  listingRemovalEmail(payload: any): Promise<any> {
+    return this.http.post(AppConstants.LISTING_REMOVAL_EMAIL, payload);
+  }
+
   partiallyHideEmail(email: string) {
     return email.replace(/(\w{3})[\w.-]+@([\w.]+\w)/, '$1***@$2');
   }

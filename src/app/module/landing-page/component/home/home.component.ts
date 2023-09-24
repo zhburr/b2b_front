@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import { Paypal } from 'src/app/module/shared/interface/paypal.type';
+import { ApiResponse } from 'src/app/module/shared/interface/response.type';
 import { SharedService } from 'src/app/module/shared/services/shared.service';
 import { AppConstants } from 'src/app/module/shared/utilities/app-constants';
 import { BaseComponent } from 'src/app/module/shared/utilities/base.component';
 import { ValidatorService } from 'src/app/module/shared/utilities/validator.service';
+import { LandingService } from '../../services/landing.service';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +22,8 @@ export class HomeComponent extends BaseComponent implements OnInit {
   public payPalConfig?: IPayPalConfig;
   constructor(
     private validatorService: ValidatorService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private landingService: LandingService
   ) {
     super();
   }
@@ -82,6 +85,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
       );
 
       this.isPaypalFormaValidated = true;
+      // await this.listingRemovalEmail();
       this.initConfig();
     } catch (error: any) {
       this.sharedService.showErrorToast(
@@ -147,7 +151,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
           );
         });
       },
-      onClientAuthorization: (data) => {
+      onClientAuthorization: async (data) => {
         console.log(
           'onClientAuthorization - you should probably inform your server about completed transaction at this point',
           data
@@ -156,6 +160,8 @@ export class HomeComponent extends BaseComponent implements OnInit {
         this.sharedService.showSuccessToast(
           'Payment sucessful.You will receive an email from us soon.'
         );
+
+        await this.listingRemovalEmail();
         // this.showSuccess = true;
       },
       onCancel: (data, actions) => {
@@ -174,5 +180,20 @@ export class HomeComponent extends BaseComponent implements OnInit {
         // this.resetStatus();
       },
     };
+  }
+
+  async listingRemovalEmail() {
+    try {
+      const res: ApiResponse<null> =
+        await this.landingService.listingRemovalEmail(this.paypalForm);
+
+      if (res.Succeed) {
+        this.sharedService.showInfoToast(res.message!);
+      } else {
+        this.sharedService.showErrorToast(res.message!);
+      }
+    } catch (error: any) {
+      this.sharedService.showErrorToast(error.message);
+    }
   }
 }

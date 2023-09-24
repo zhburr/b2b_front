@@ -75,6 +75,7 @@ export class AppConstants {
   public static EMAIL_FORGET_PASSWORD = 'auth/emailForgetPassword';
   public static RESET_PASSWORD = 'auth/resetPassword';
   public static UPDATE_PASSWORD = 'auth/updatePassword';
+  public static LISTING_REMOVAL_EMAIL = 'auth/listingRemovalEmail';
 
   //product
   public static UPLOAD_PRODUCT_APPROVAL_LISTING = 'product/uploadListing';

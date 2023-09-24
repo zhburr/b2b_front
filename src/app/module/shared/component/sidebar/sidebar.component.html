@@ -13,7 +13,13 @@
       <span class="left-icon">
         <img
           class="user-img"
-          [src]="'assets/images/dummy-profile.jpg'"
+          style="object-fit: contain"
+          [src]="
+            sharedService.userData$.value.avatar
+              ? appConstants.USER_IMAGE_URL +
+                sharedService.userData$.value.avatar
+              : 'assets/images/dummy-profile.jpg'
+          "
           alt=""
         />
       </span>
