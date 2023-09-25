@@ -34,6 +34,9 @@ export class ProductListingComponent extends BaseComponent implements OnInit {
   fileToUpload: File | null = null;
 
   addProductModal: boolean = false;
+
+  searchText: string = '';
+  processChanges!: Function;
   constructor(
     private sharedService: SharedService,
     private productService: ProductService,
@@ -41,6 +44,7 @@ export class ProductListingComponent extends BaseComponent implements OnInit {
     private validatorService: ValidatorService
   ) {
     super();
+    this.processChanges = this.debounce(() => this.searchCallback(), 500);
   }
 
   ngOnInit(): void {
@@ -74,6 +78,7 @@ export class ProductListingComponent extends BaseComponent implements OnInit {
       const data = {
         pageSize,
         pageIndex,
+        searchText: this.searchText,
       };
       const res: ApiResponse<{ products: Product[]; totalProduct: number }> =
         await this.productService.getProductList(data);
@@ -273,5 +278,9 @@ export class ProductListingComponent extends BaseComponent implements OnInit {
     } catch (error: any) {
       this.sharedService.showErrorToast(error.message);
     }
+  }
+
+  searchCallback() {
+    this.getProductList(this.pageSize, this.pageIndex);
   }
 }

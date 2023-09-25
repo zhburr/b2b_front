@@ -113,7 +113,7 @@ export class OrderListingComponent extends BaseComponent implements OnInit {
       case AppConstants.DOWNLOAD:
         let orderDetail = event.object as Order;
         if (!orderDetail.invoice) {
-          await this.downloadOrderLine(orderDetail.id!);
+          this.orderService.downloadExcel(orderDetail.id!);
         } else {
           Swal.fire({
             title: 'Download',
@@ -124,7 +124,7 @@ export class OrderListingComponent extends BaseComponent implements OnInit {
             allowOutsideClick: true,
           }).then(async (result) => {
             if (result.isConfirmed) {
-              await this.downloadOrderLine(orderDetail.id!);
+              this.orderService.downloadExcel(orderDetail.id!);
             } else {
               if (result.dismiss !== Swal.DismissReason.backdrop)
                 this.sharedService.downloadFile(
@@ -184,25 +184,6 @@ export class OrderListingComponent extends BaseComponent implements OnInit {
             tableActions: { canEdit: true, canDownload: true },
           };
         });
-        this.initializeTable();
-      } else {
-        this.sharedService.showErrorToast(res.message!);
-      }
-    } catch (error: any) {
-      this.sharedService.showErrorToast(error.message!);
-    }
-  }
-
-  async downloadOrderLine(orderId: number) {
-    try {
-      const res: ApiResponse<Order> = await this.orderService.getOrderById(
-        orderId
-      );
-      if (res.Succeed) {
-        this.orderService.downloadOrderLine(
-          res.Content.OrderLine!,
-          res.Content.id!
-        );
         this.initializeTable();
       } else {
         this.sharedService.showErrorToast(res.message!);

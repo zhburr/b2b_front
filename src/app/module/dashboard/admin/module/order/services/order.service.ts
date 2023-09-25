@@ -4,11 +4,13 @@ import { AppConstants } from 'src/app/module/shared/utilities/app-constants';
 // import { Row, Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { OrderLines } from 'src/app/module/shared/interface/order-line.type';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService {
-  constructor(private http: HttpService) {}
+  constructor(private http: HttpService, private httpclient: HttpClient) {}
 
   getAllPostage(): Promise<any> {
     return this.http.get(AppConstants.GET_ALL_POSTAGE);
@@ -34,62 +36,39 @@ export class OrderService {
     return this.http.get(`${AppConstants.GET_INVOICE_DATA}?orderId=${orderId}`);
   }
 
-  downloadOrderLine(orderLine: OrderLines[], orderId: number) {
-    //   const workbook = new Workbook();
-    //   const worksheet = workbook.addWorksheet('Sheet1');
-    //   worksheet.columns = [
-    //     { header: 'Name', key: 'buyerName', width: 15 },
-    //     { header: 'Address1`', key: 'buyerAddress1', width: 20 },
-    //     { header: 'Address2`', key: 'buyerAddress2', width: 20 },
-    //     { header: 'Country`', key: 'buyerCountry', width: 20 },
-    //     { header: 'City`', key: 'buyerCity', width: 20 },
-    //     { header: 'Postcode`', key: 'buyerPostCode', width: 10 },
-    //     { header: 'Product SKU', key: 'productSku', width: 20 },
-    //     { header: 'Product quantity', key: 'productQuantity', width: 10 },
-    //     { header: 'Product location', key: 'productlocation', width: 20 },
-    //   ];
-    //   orderLine.forEach((row) => {
-    //     const newRow = { ...row, productlocation: row.product?.location };
-    //     worksheet.addRow(newRow);
-    //   });
-    //   const postcodes: { [postcode: string]: Row[] } = {};
-    //   worksheet.eachRow({ includeEmpty: true }, (row:any, rowNumber:any) => {
-    //     if (rowNumber === 1) return; // Skip header row
-    //     const postcode = row.getCell('buyerPostCode').value as string;
-    //     if (postcodes[postcode]) {
-    //       postcodes[postcode].push(row);
-    //     } else {
-    //       postcodes[postcode] = [row];
-    //     }
-    //   });
-    //   // Apply highlighting to rows with the same postcode
-    //   Object.values(postcodes).forEach((rows) => {
-    //     if (rows.length > 1) {
-    //       rows.forEach((row) => {
-    //         row.eachCell((cell:any) => {
-    //           cell.fill = {
-    //             type: 'pattern',
-    //             pattern: 'solid',
-    //             fgColor: { argb: 'FFFF0000' },
-    //           };
-    //         });
-    //       });
-    //     }
-    //   });
-    //   // Get the buffer data and save the file
-    //   workbook.xlsx
-    //     .writeBuffer()
-    //     .then((data:any) => {
-    //       const blob = new Blob([data], {
-    //         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    //       });
-    //       const title = 'output'; // Set the desired title here
-    //       fs.saveAs(blob, orderId + '.xlsx');
-    //       console.log('Excel file created and saved successfully.');
-    //     })
-    //     .catch((error:any) => {
-    //       console.error('Error creating Excel file:', error);
-    //     });
+  downloadExcel(orderId: any) {
+    this.downloadExcelFile(orderId).subscribe((data: Blob) => {
+      console.log(data);
+
+      const blob = new Blob([data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${orderId}.xlsx`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
+  }
+
+  downloadExcelFile(orderId: any): Observable<Blob> {
+    console.log('in here');
+
+    // Set headers to indicate that we expect a blob (binary data) in response
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    // Make a GET request to the backend endpoint
+    return this.httpclient.get(
+      AppConstants.baseUrl +
+        'order/getOrderLineExcelFile' +
+        `?orderId=${orderId}`,
+      {
+        responseType: 'blob', // Specify the response type as a blob
+        headers: headers,
+      }
+    );
   }
 
   uploadInvoice(payload: any): Promise<any> {

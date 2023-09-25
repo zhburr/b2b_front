@@ -65,6 +65,7 @@ export class Interceptor implements HttpInterceptor {
           localStorage.clear();
           this.router.navigate(['/login']);
         }
+
         // if (error.error.text) {
         //   errorMsg = error.error.text;
         // } else if (error.error.Message) {

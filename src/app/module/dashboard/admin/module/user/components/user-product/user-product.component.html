@@ -11,86 +11,117 @@
       </div>
       <hr />
       <div class="card-body card-body-height">
-        <table class="table">
-          <tbody>
-            <tr *ngFor="let item of products; let i = index">
-              <td class="align-middle">
-                <img
-                  [src]="
-                    !item.image
-                      ? 'assets/images/no_image_availabel.svg'
-                      : appConstants.PRODUCT_IMAGE_URL + item.image
-                  "
-                  class="card-img-top"
-                  alt="..."
-                  style="object-fit: contain"
-                  height="150"
+        <ng-container *ngIf="isLoading && products.length">
+          <div class="d-flex justify-content-start">
+            <div>
+              <mat-form-field class="example-form-field">
+                <mat-label>Search..</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  [(ngModel)]="searchText"
+                  (input)="processChanges()"
                 />
-              </td>
-              <td class="align-middle">
-                <div class="d-flex flex-column">
-                  <div>SKU : {{ item.sku }}</div>
-                  <div>Title : {{ item.title }}</div>
-                  <div>Description : {{ item.description }}</div>
-                </div>
-              </td>
-              <td>
-                <div>
-                  <div>
-                    <app-input
-                      [value]="item.quantity"
-                      lablel="Quantity"
-                      (callBack)="item.quantity = $event"
-                      [type]="'number'"
-                    ></app-input>
+                <button
+                  *ngIf="searchText"
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="searchText = ''; processChanges()"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            <!-- <app-button
+            [button]="buttons[3]"
+            (callBack)="addProductModal = true; selectedProduct = {}"
+          ></app-button> -->
+          </div>
+          <table class="table">
+            <tbody>
+              <tr *ngFor="let item of products; let i = index">
+                <td class="align-middle">
+                  <img
+                    [src]="
+                      !item.image
+                        ? 'assets/images/no_image_availabel.svg'
+                        : appConstants.PRODUCT_IMAGE_URL + item.image
+                    "
+                    class="card-img-top"
+                    alt="..."
+                    style="object-fit: contain"
+                    height="150"
+                  />
+                </td>
+                <td class="align-middle">
+                  <div class="d-flex flex-column">
+                    <div>SKU : {{ item.sku }}</div>
+                    <div>Title : {{ item.title }}</div>
+                    <div>Description : {{ item.description }}</div>
                   </div>
+                </td>
+                <td>
                   <div>
-                    <app-input
-                      [value]="item.weight"
-                      [lablel]="'Weight'"
-                      (callBack)="item.weight = $event"
-                    ></app-input>
+                    <div>
+                      <app-input
+                        [value]="item.quantity"
+                        lablel="Quantity"
+                        (callBack)="item.quantity = $event"
+                        [type]="'number'"
+                      ></app-input>
+                    </div>
+                    <div>
+                      <app-input
+                        [value]="item.weight"
+                        [lablel]="'Weight'"
+                        (callBack)="item.weight = $event"
+                      ></app-input>
+                    </div>
                   </div>
-                </div>
-              </td>
-              <td>
-                <div>
+                </td>
+                <td>
                   <div>
-                    <app-input
-                      [value]="item.location"
-                      lablel="In store location"
-                      (callBack)="item.location = $event"
-                    ></app-input>
+                    <div>
+                      <app-input
+                        [value]="item.location"
+                        lablel="In store location"
+                        (callBack)="item.location = $event"
+                      ></app-input>
+                    </div>
+                    <div>
+                      <app-mutli-select
+                        [options]="packagingType"
+                        [placeholder]="'Packaging type'"
+                        [selectedValue]="item.packaging"
+                        (selected)="item.packaging = $event"
+                      ></app-mutli-select>
+                    </div>
                   </div>
-                  <div>
-                    <app-mutli-select
-                      [options]="packagingType"
-                      [placeholder]="'Packaging type'"
-                      [selectedValue]="item.packaging"
-                      (selected)="item.packaging = $event"
-                    ></app-mutli-select>
-                  </div>
-                </div>
-              </td>
-              <td class="align-middle">
-                <app-button
-                  [button]="buttons[0]"
-                  [disabled]="changesProduct(item, i)"
-                  (callBack)="updateProduct(item, i)"
-                ></app-button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <mat-paginator
-          *ngIf="totalProducts > 10"
-          [id]="'pagg'"
-          [pageSize]="pageSize"
-          [pageSizeOptions]="pageSizeOptions"
-          [length]="totalProducts"
-          (page)="pagination($event)"
-        >
-        </mat-paginator>
+                </td>
+                <td class="align-middle">
+                  <app-button
+                    [button]="buttons[0]"
+                    [disabled]="changesProduct(item, i)"
+                    (callBack)="updateProduct(item, i)"
+                  ></app-button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <mat-paginator
+            *ngIf="totalProducts > 10"
+            [id]="'pagg'"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="pageSizeOptions"
+            [length]="totalProducts"
+            (page)="pagination($event)"
+          >
+          </mat-paginator>
+        </ng-container>
+        <app-no-data-found
+          *ngIf="isLoading && !products.length"
+        ></app-no-data-found>
       </div>
     </div>
   </div>

@@ -167,10 +167,7 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
     switch (event) {
       case 0:
         if (!this.orderDetail.invoice) {
-          this.orderService.downloadOrderLine(
-            this.orderDetail.OrderLine!,
-            this.orderId!
-          );
+          this.orderService.downloadExcel(this.orderId!);
         } else {
           Swal.fire({
             title: 'Download',
@@ -181,10 +178,7 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
             allowOutsideClick: true,
           }).then((result) => {
             if (result.isConfirmed) {
-              this.orderService.downloadOrderLine(
-                this.orderDetail.OrderLine!,
-                this.orderId!
-              );
+              this.orderService.downloadExcel(this.orderId!);
             } else {
               if (result.dismiss !== Swal.DismissReason.backdrop)
                 this.sharedService.downloadFile(

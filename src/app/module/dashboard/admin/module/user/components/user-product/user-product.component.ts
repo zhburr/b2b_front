@@ -27,7 +27,9 @@ export class UserProductComponent extends BaseComponent implements OnInit {
   totalProducts: number = 0;
   user: User = {};
   packagingType: string[] = ['Parcel', 'Large'];
-
+  searchText: string = '';
+  processChanges!: Function;
+  isLoading: boolean = false;
   constructor(
     private router: Router,
     private userService: UserService,
@@ -42,6 +44,8 @@ export class UserProductComponent extends BaseComponent implements OnInit {
     } else {
       this.back();
     }
+
+    this.processChanges = this.debounce(() => this.searchCallback(), 500);
   }
 
   ngOnInit(): void {
@@ -51,21 +55,30 @@ export class UserProductComponent extends BaseComponent implements OnInit {
     });
   }
 
+  searchCallback() {
+    this.getSelectedUserProduct(this.pageSize, this.pageIndex);
+  }
+
   async getSelectedUserProduct(pageSize: number, pageIndex: number) {
     try {
       const data = {
         pageSize,
         pageIndex,
         selectedUserId: this.user.id,
+        searchText: this.searchText,
       };
       const res: ApiResponse<{ products: Product[]; totalProduct: number }> =
         await this.userService.getSelectedUserProduct(data);
+      this.isLoading = true;
       if (res.Succeed) {
         this.products = res.Content.products;
         this.totalProducts = res.Content.totalProduct;
         this.savedProducts = JSON.parse(JSON.stringify(this.products));
       }
-    } catch (error) {}
+    } catch (error) {
+      this.isLoading = true;
+      this.sharedService.showErrorToast('Someting went wrong');
+    }
   }
 
   async pagination(event: any) {

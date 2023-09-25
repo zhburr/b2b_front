@@ -18,6 +18,9 @@ export class NavbarComponent extends BaseComponent implements OnInit {
 
   constructor(public sharedService: SharedService) {
     super();
+    if (this.sharedService.userData$.value.email) {
+      this.sharedService.getUserData();
+    }
   }
 
   ngOnInit(): void {

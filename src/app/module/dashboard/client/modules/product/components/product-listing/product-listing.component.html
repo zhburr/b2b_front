@@ -9,7 +9,27 @@
       </div>
       <hr />
       <div class="card-body card-body-height">
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-between">
+          <div>
+            <mat-form-field class="example-form-field">
+              <mat-label>Search..</mat-label>
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="searchText"
+                (input)="processChanges()"
+              />
+              <button
+                *ngIf="searchText"
+                matSuffix
+                mat-icon-button
+                aria-label="Clear"
+                (click)="searchText = ''; processChanges()"
+              >
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
           <app-button
             [button]="buttons[3]"
             (callBack)="addProductModal = true; selectedProduct = {}"
