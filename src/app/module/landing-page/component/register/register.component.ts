@@ -15,7 +15,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   asClient: boolean = true;
   asCustomer: boolean = false;
 
-  registerAs: string[] = ['Client', 'Customer'];
+  registerAs: string[] = ['Client'];
 
   registerationForm!: FormGroup;
   user: User = {};
