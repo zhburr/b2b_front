@@ -9,57 +9,59 @@
       </div>
       <hr />
       <div class="card-body card-body-height">
-        <div
-          class="d-flex justifu-content-around align-items-center gap-1 mb-4"
-        >
-          <input
-            class="form-control"
-            type="file"
-            #formFile
-            (change)="checkFile($event)"
-          />
-        </div>
+        <ng-container *ngIf="labelPricesList.length">
+          <div
+            class="d-flex justifu-content-around align-items-center gap-1 mb-4"
+          >
+            <input
+              class="form-control"
+              type="file"
+              #formFile
+              (change)="checkFile($event)"
+            />
+          </div>
 
-        <div>
-          <div class="row">
-            <div
-              class="p-2 col-lg-3 col-md-4 col-sm-6 col-xs-12"
-              *ngFor="let label of labelPricesList; let i = index"
-            >
+          <div>
+            <div class="row">
               <div
-                [ngClass]="i === selectedWeightIndex ? 'selected' : ''"
-                class="card p-4 text-center ccaad"
-                (click)="selecteWeight(i)"
+                class="p-2 col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                *ngFor="let label of labelPricesList; let i = index"
               >
-                <div class="card-body">
-                  <p class="card-title display-6">
-                    {{ label.weight_from }} - {{ label.weight_to }}kg
-                  </p>
-                  <h4>Price : {{ label.price }}£</h4>
+                <div
+                  [ngClass]="i === selectedWeightIndex ? 'selected' : ''"
+                  class="card p-4 text-center ccaad"
+                  (click)="selecteWeight(i)"
+                >
+                  <div class="card-body">
+                    <p class="card-title display-6">
+                      {{ label.weight_from }} - {{ label.weight_to }}kg
+                    </p>
+                    <h4>Price : {{ label.price }}£</h4>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div>
-          <div class="row">
-            <div class="col-3 my-auto">
-              <app-label [label]="'Number of order in csv : '"></app-label>
-            </div>
-            <div class="col">
-              <app-input
-                type="number"
-                [value]="numberOfOrder"
-                (callBack)="numberOfOrder = $event"
-              ></app-input>
+          <div>
+            <div class="row">
+              <div class="col-3 my-auto">
+                <app-label [label]="'Number of order in csv : '"></app-label>
+              </div>
+              <div class="col">
+                <app-input
+                  type="number"
+                  [value]="numberOfOrder"
+                  (callBack)="numberOfOrder = $event"
+                ></app-input>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="d-flex justify-content-end mb-4">
-          <a class="btn btn-success" (click)="placeOrder()">Place order</a>
-        </div>
+          <div class="d-flex justify-content-end mb-4">
+            <a class="btn btn-success" (click)="placeOrder()">Place order</a>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>

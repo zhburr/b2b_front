@@ -8,16 +8,14 @@ export const loggedinGuard: CanActivateFn = (route, state) => {
   const sharedService = inject(SharedService);
   const router = inject(Router);
 
-  return !localStorage.getItem('token')
+  return !sharedService.accessToken
     ? true
     : router.parseUrl(getDashboardRoute(sharedService));
 };
 
 const getDashboardRoute = (service: SharedService) => {
   if (!Object.keys(service.userData$.value).length) {
-    localStorage.getItem('token') !== undefined
-      ? service.decodeJwtToken()
-      : '/home';
+    service.accessToken !== undefined ? service.decodeJwtToken() : '/home';
   }
 
   const user = service.userData$.value;

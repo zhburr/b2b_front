@@ -12,7 +12,10 @@
             </h4>
           </div>
           <hr />
-          <div *ngIf="user.email" class="card-body card-body-height">
+          <div
+            *ngIf="sharedService.userData$.value"
+            class="card-body card-body-height"
+          >
             <div class="row p-t-b-1 align-items-center">
               <div class="col-md-4">
                 <app-label [label]="'Profile photo'"></app-label>
@@ -21,11 +24,13 @@
                 <div class="d-flex flex-row align-items-center">
                   <img
                     [src]="
-                      !user.avatar && fileToUpload == null
+                      !sharedService.userData$.value.avatar &&
+                      fileToUpload == null
                         ? 'assets/images/dummy-profile.jpg'
-                        : user.avatar && !fileToUpload
-                        ? appConstants.USER_IMAGE_URL + user.avatar
-                        : user.avatar
+                        : sharedService.userData$.value.avatar && !fileToUpload
+                        ? appConstants.USER_IMAGE_URL +
+                          sharedService.userData$.value.avatar
+                        : sharedService.userData$.value.avatar
                     "
                     height="200"
                     alt="..."
@@ -63,7 +68,7 @@
                 <app-label [label]="'Email'"></app-label>
               </div>
               <div class="col-md-8">
-                {{ user.email }}
+                {{ sharedService.userData$.value.email }}
               </div>
             </div>
             <div class="row p-t-b-1 align-items-center">
@@ -71,8 +76,8 @@
                 <app-label [label]="'Name'"></app-label>
               </div>
               <div class="col-md-8">
-                {{ user.firstName }}
-                {{ user.lastName }}
+                {{ sharedService.userData$.value.firstName }}
+                {{ sharedService.userData$.value.lastName }}
               </div>
             </div>
 
@@ -80,7 +85,9 @@
               <div class="col-md-4">
                 <app-label [label]="'Balance'"></app-label>
               </div>
-              <div class="col-md-8">{{ user.balance | number : "1.2-2" }}£</div>
+              <div class="col-md-8">
+                {{ sharedService.userData$.value.balance | number : "1.2-2" }}£
+              </div>
             </div>
 
             <app-button

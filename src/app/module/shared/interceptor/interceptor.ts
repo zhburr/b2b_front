@@ -47,7 +47,7 @@ export class Interceptor implements HttpInterceptor {
     if (!request.url.includes('auth')) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${this.shared.accessToken}`,
         },
       });
     }

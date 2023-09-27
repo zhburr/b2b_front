@@ -26,7 +26,7 @@ export class SharedService {
   }
 
   decodeJwtToken() {
-    const token = localStorage.getItem('token')!;
+    const token = this.accessToken!;
     const payload = jwt_decode(token);
     this.userData$.next(payload!);
   }
@@ -55,11 +55,27 @@ export class SharedService {
       if (res.Succeed) {
         this.userData$.next(res.Content);
         if (res.Content.access_toke) {
-          localStorage.setItem('token', this.userData$.value.access_toke!);
+          if (localStorage.getItem('stay') === 'true') {
+            localStorage.setItem('token', this.userData$.value.access_toke!);
+          } else {
+            sessionStorage.setItem('token', this.userData$.value.access_toke!);
+          }
         }
       }
     } catch (error: any) {
       this.showErrorToast(error.message);
     }
+  }
+
+  get accessToken() {
+    console.log(
+      localStorage.getItem('stay') === 'true'
+        ? localStorage.getItem('token')
+        : sessionStorage.getItem('token')
+    );
+
+    return localStorage.getItem('stay') === 'true'
+      ? localStorage.getItem('token')
+      : sessionStorage.getItem('token');
   }
 }

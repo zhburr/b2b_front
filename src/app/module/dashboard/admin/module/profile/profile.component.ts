@@ -24,7 +24,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     confirmNewPassword: string;
   }> = {};
 
-  user: Partial<User> = {};
+  // user: Partial<User> = {};
   fileToUpload: File | null = null;
 
   constructor(
@@ -37,7 +37,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeButtons();
-    this.getUserData();
+    // this.getUserData();
   }
 
   initializeButtons() {
@@ -67,7 +67,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 
     if (!this.fileToUpload) {
       this.fileToUpload = null;
-      this.user.avatar = null;
+      this.sharedService.userData$.value.avatar = null;
       return;
     }
 
@@ -76,7 +76,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     if (!this.fileToUpload?.name) {
       this.sharedService.showErrorToast('File name is required');
       this.fileToUpload = null;
-      this.user.avatar = null;
+      this.sharedService.userData$.value.avatar = null;
     }
   }
 
@@ -134,28 +134,32 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     }
   }
 
-  async getUserData() {
-    try {
-      const res: ApiResponse<User> = await this.profileService.getUserData(
-        this.sharedService.userData$.value.email!
-      );
+  // async getUserData() {
+  //   try {
+  //     const res: ApiResponse<User> = await this.profileService.getUserData(
+  //       this.sharedService.userData$.value.email!
+  //     );
 
-      if (res.Succeed) {
-        this.user = res.Content;
-        if (this.user.access_toke) {
-          localStorage.setItem('token', this.user.access_toke);
-        }
-      }
-    } catch (error: any) {
-      this.sharedService.showErrorToast(error.message);
-    }
-  }
+  //     if (res.Succeed) {
+  //       this.user = res.Content;
+  //       if (this.user.access_toke) {
+  //         if (localStorage.getItem('stay') === 'true') {
+  //           localStorage.setItem('token', this.user.access_toke);
+  //         } else {
+  //           sessionStorage.setItem('token', this.user.access_toke);
+  //         }
+  //       }
+  //     }
+  //   } catch (error: any) {
+  //     this.sharedService.showErrorToast(error.message);
+  //   }
+  // }
 
   convertToDataUrl(file: File) {
     const reader = new FileReader();
 
     reader.onload = () => {
-      this.user.avatar = reader.result;
+      this.sharedService.userData$.value.avatar = reader.result;
     };
 
     reader.readAsDataURL(file);
@@ -172,7 +176,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       if (res.Succeed) {
         this.sharedService.showSuccessToast(res.message!);
         this.fileToUpload = null;
-        await this.getUserData();
+        await this.sharedService.getUserData();
       } else {
         this.sharedService.showErrorToast(res.message!);
       }

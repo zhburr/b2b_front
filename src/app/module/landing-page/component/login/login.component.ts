@@ -35,8 +35,13 @@ export class LoginComponent extends BaseComponent {
       );
       if (res.Succeed) {
         localStorage.setItem('stay', this.rememberMe ? 'true' : 'false');
-        if (res.Content.access_toke)
-          localStorage.setItem('token', res.Content.access_toke!);
+        if (res.Content.access_toke) {
+          if (this.rememberMe) {
+            localStorage.setItem('token', res.Content.access_toke!);
+          } else {
+            sessionStorage.setItem('token', res.Content.access_toke!);
+          }
+        }
 
         if (res.Content.role === Roles.Client) {
           this.navigate('/dashboard/client');
