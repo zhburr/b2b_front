@@ -193,4 +193,9 @@ export class LabelOrderListingComponent
       this.sharedService.showErrorToast(error.message);
     }
   }
+
+  changeShowAll(event: boolean) {
+    this.showAll = event;
+    this.getLabelOrderList();
+  }
 }
