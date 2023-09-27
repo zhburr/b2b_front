@@ -17,6 +17,7 @@ export class LoginComponent extends BaseComponent {
   password: string = '';
   forgetEmail: string = '';
   showModal = false;
+  rememberMe: boolean = false;
 
   constructor(
     private landingService: LandingService,
@@ -33,6 +34,7 @@ export class LoginComponent extends BaseComponent {
         this.password
       );
       if (res.Succeed) {
+        localStorage.setItem('stay', this.rememberMe ? 'true' : 'false');
         if (res.Content.access_toke)
           localStorage.setItem('token', res.Content.access_toke!);
 

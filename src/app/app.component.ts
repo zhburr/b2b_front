@@ -2,6 +2,7 @@ import {
   AfterContentChecked,
   ChangeDetectorRef,
   Component,
+  HostListener,
   OnInit,
 } from '@angular/core';
 import { LoaderService } from './module/shared/services/loader.service';
@@ -26,5 +27,10 @@ export class AppComponent implements AfterContentChecked, OnInit {
 
   ngAfterContentChecked() {
     this.cdr.detectChanges();
+  }
+
+  @HostListener('window:beforeunload')
+  async ngOnDestroy() {
+    if (localStorage.getItem('stay') !== 'true') localStorage.clear();
   }
 }

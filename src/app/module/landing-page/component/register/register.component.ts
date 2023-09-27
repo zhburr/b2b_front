@@ -64,16 +64,20 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   }
 
   async registeration() {
-    const res: ApiResponse<User> = await this.landingService.registerUser(
-      this.registerationForm.value
-    );
+    try {
+      const res: ApiResponse<User> = await this.landingService.registerUser(
+        this.registerationForm.value
+      );
 
-    if (res.Succeed) {
-      this.user = res.Content;
-      this.navigate('verify/' + this.user.email);
-      this.sharedService.showSuccessToast(res.message!);
-    } else {
-      this.sharedService.showErrorToast(res.message!);
+      if (res.Succeed) {
+        this.user = res.Content;
+        this.navigate('verify/' + this.user.email);
+        this.sharedService.showSuccessToast(res.message!);
+      } else {
+        this.sharedService.showErrorToast(res.message!);
+      }
+    } catch (error: any) {
+      this.sharedService.showErrorToast(error.message);
     }
   }
 
