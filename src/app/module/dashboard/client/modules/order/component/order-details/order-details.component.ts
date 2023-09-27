@@ -29,7 +29,6 @@ export class OrderDetailsComponent extends BaseComponent implements OnInit {
   ) {
     super();
     this.orderId = Number(route.snapshot.paramMap.get('Id'));
-    console.log(this.orderId);
     if (!this.orderId) this.back();
   }
 

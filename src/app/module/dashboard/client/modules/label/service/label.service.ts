@@ -11,4 +11,12 @@ export class LabelService {
   getAllLabelPrice(): Promise<any> {
     return this.http.get(AppConstants.GET_ALL_LABEL_PRICE);
   }
+
+  getLabelOrderList(email: string): Promise<any> {
+    return this.http.get(AppConstants.GET_LABEL_ORDER_LIST + `?email=${email}`);
+  }
+
+  createLabelOrder(payload: any): Promise<any> {
+    return this.http.post(AppConstants.CREATE_ORDER_LABEL, payload);
+  }
 }

@@ -20,6 +20,7 @@ export class AppConstants {
 
   public static PAGINATION = 'pagination';
   public static DOWNLOAD = 'download';
+  public static UPLOAD = 'upload';
   public static DETAIL = 'detail';
   public static FILE = 'file';
 
@@ -110,10 +111,9 @@ export class AppConstants {
   public static UPLOAD_ORDER_LISTING = 'order/uploadOrder';
   public static GET_ALL_POSTAGE = 'order/getAllPostage';
   public static UPSERT_POSTAGE = 'order/upsertPostage';
-  //
   public static GET_ALL_LABEL_PRICE = 'order/getAllLabelPrice';
   public static UPSERT_LABEL_PRICE = 'order/upsertLabelPrice';
-  //
+  public static UPDATE_LABEL_ORDER = 'order/updateLabelOrder';
   public static GET_USER_ORDER_LIST = 'order/getUserOrderList';
   public static GET_ORDER_BY_ID = 'order/getOrderById';
   public static GET_PENDING_ORDER_LIST = 'order/getAllPendingOrderList';
@@ -123,7 +123,11 @@ export class AppConstants {
   public static UPDATE_ORDER_LINE = `order/updateOrderLine`;
   public static ADD_ORDER_LINE_TRACKING = `order/addOrderTracking`;
   public static GET_USER_ORDERS = `order/getUserOrders`;
+  public static CREATE_ORDER_LABEL = `order/createLabelOrder`;
+  public static GET_LABEL_ORDER_LIST = `order/getLabelOrderList`;
+  public static GET_ALL_LABEL_ORDER_LIST = `order/getAllLabelOrderList`;
   //order file urls
   public static ORDER_FILE_URL = `${this.baseUrl}uploads/orders/`;
   public static INVOICE_FILE_URL = `${this.baseUrl}uploads/invoices/`;
+  public static LABEL_FILE_URL = `${this.baseUrl}uploads/labels/`;
 }

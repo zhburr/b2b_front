@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LabelPricesComponent } from './component/label-prices/label-prices.component';
+import { LabelOrderListingComponent } from './component/label-order-listing/label-order-listing.component';
 
 const routes: Routes = [
   {
@@ -9,6 +10,10 @@ const routes: Routes = [
       {
         path: 'prices',
         component: LabelPricesComponent,
+      },
+      {
+        path: 'listing',
+        component: LabelOrderListingComponent,
       },
     ],
   },

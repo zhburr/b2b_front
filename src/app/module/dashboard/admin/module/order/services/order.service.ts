@@ -38,8 +38,6 @@ export class OrderService {
 
   downloadExcel(orderId: any) {
     this.downloadExcelFile(orderId).subscribe((data: Blob) => {
-      console.log(data);
-
       const blob = new Blob([data], {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
@@ -54,8 +52,6 @@ export class OrderService {
   }
 
   downloadExcelFile(orderId: any): Observable<Blob> {
-    console.log('in here');
-
     // Set headers to indicate that we expect a blob (binary data) in response
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 

@@ -3,5 +3,6 @@ export interface TableActions {
   canDownload?: boolean;
   canDelete?: boolean;
   canComment?: boolean;
-  canView? : boolean
+  canView?: boolean;
+  canUpload?: boolean;
 }

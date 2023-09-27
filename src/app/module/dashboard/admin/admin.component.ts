@@ -104,6 +104,18 @@ export class AdminComponent {
           CanRead: true,
           CanWrite: true,
         },
+        {
+          Id: 4,
+          Code: 'USERS',
+          Active: true,
+          NameEn: 'Listing',
+          PageName: 'dashboard/admin/label/listing',
+          Icon: 'reorder',
+          MasterPageId: 1,
+          IsMaster: false,
+          CanRead: true,
+          CanWrite: true,
+        },
       ],
     },
   ];

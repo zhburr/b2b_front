@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LabelService } from '../../service/label.service';
 import { SharedService } from 'src/app/module/shared/services/shared.service';
 import { ApiResponse } from 'src/app/module/shared/interface/response.type';
@@ -12,9 +12,13 @@ import { AppConstants } from 'src/app/module/shared/utilities/app-constants';
   styleUrls: ['./label-order.component.scss'],
 })
 export class LabelOrderComponent implements OnInit {
+  @ViewChild('formFile') fileInput?: ElementRef;
+
   selectedWeightIndex: number = 0;
   labelPricesList: Postage[] = [];
   numberOfOrder: number = 0;
+  labelUpdatePrice: number = 0;
+  fileToUpload: File | null = null;
   public payPalConfig?: IPayPalConfig;
   constructor(
     private labelService: LabelService,
@@ -27,7 +31,6 @@ export class LabelOrderComponent implements OnInit {
 
   selecteWeight(event: number) {
     this.selectedWeightIndex = event;
-    console.log(event);
   }
 
   async getAllLabelPrice() {
@@ -107,7 +110,7 @@ export class LabelOrderComponent implements OnInit {
           'Payment sucessful.You will receive an email from us soon.'
         );
 
-        // await this.listingRemovalEmail();
+        await this.createLabelOrder();
         // this.showSuccess = true;
       },
       onCancel: (data, actions) => {
@@ -126,5 +129,78 @@ export class LabelOrderComponent implements OnInit {
         // this.resetStatus();
       },
     };
+  }
+
+  async placeOrder() {
+    try {
+      if (!this.fileToUpload) {
+        throw new Error('Select a file to continue.');
+      }
+
+      if (this.numberOfOrder <= 0) {
+        throw new Error('Number of order should be greater than zero.');
+      }
+
+      this.labelUpdatePrice =
+        this.labelPricesList[this.selectedWeightIndex].price! *
+        this.numberOfOrder;
+      // this.initConfig(
+      //   this.labelUpdatePrice.toString(),
+      //   this.numberOfOrder.toString()
+      // );
+      await this.createLabelOrder();
+    } catch (error: any) {
+      this.sharedService.showErrorToast(error.message);
+    }
+  }
+
+  async createLabelOrder() {
+    try {
+      const formData = new FormData();
+      formData.append('file', this.fileToUpload!, this.fileToUpload!.name);
+      formData.append(
+        'userId',
+        this.sharedService.userData$.value.id!.toString()
+      );
+      formData.append(
+        'weight_from',
+        this.labelPricesList[this.selectedWeightIndex].weight_from!.toString()
+      );
+      formData.append(
+        'weight_to',
+        this.labelPricesList[this.selectedWeightIndex].weight_to!.toString()
+      );
+      formData.append('quantity', this.numberOfOrder.toString());
+      formData.append('price', this.labelUpdatePrice.toString());
+      const res: ApiResponse<null> = await this.labelService.createLabelOrder(
+        formData
+      );
+
+      if (res.Succeed) {
+        this.sharedService.showSuccessToast(res.message!);
+        this.labelUpdatePrice = 0;
+        this.selectedWeightIndex = 0;
+        this.numberOfOrder = 0;
+      } else {
+        this.sharedService.showErrorToast(res.message!);
+      }
+    } catch (error: any) {
+      this.sharedService.showErrorToast(error.message);
+    }
+  }
+
+  checkFile(event: any) {
+    const files: FileList = event.target.files;
+    this.fileToUpload = files.item(0);
+
+    if (!this.fileToUpload?.name) {
+      this.sharedService.showErrorToast('File name is required');
+      this.resetFileInput();
+    }
+  }
+
+  resetFileInput() {
+    this.fileInput!.nativeElement.value = '';
+    this.fileToUpload = null;
   }
 }

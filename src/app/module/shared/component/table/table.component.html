@@ -345,7 +345,8 @@
                       actionCallbackButton(appConstants.VIEW, $event, row, i)
                     "
                     class="material-icons ms-3"
-                    >visibility</mat-icon>
+                    >visibility</mat-icon
+                  >
                 </div>
                 <div *ngIf="row.tableActions?.canDelete">
                   <span
@@ -399,8 +400,20 @@
                         i
                       )
                     "
+                    title="Download"
                     class="material-icons"
                     >download</mat-icon
+                  >
+                </div>
+
+                <div *ngIf="row.tableActions?.canUpload">
+                  <mat-icon
+                    (click)="
+                      actionCallbackButton(appConstants.UPLOAD, $event, row, i)
+                    "
+                    title="Upload"
+                    class="material-icons"
+                    >upload</mat-icon
                   >
                 </div>
               </div>

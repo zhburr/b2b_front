@@ -15,4 +15,12 @@ export class LabelService {
   upsertLabelPrice(payload: any): Promise<any> {
     return this.http.post(AppConstants.UPSERT_LABEL_PRICE, payload);
   }
+
+  updateLabelOrder(payload: any): Promise<any> {
+    return this.http.post(AppConstants.UPDATE_LABEL_ORDER, payload);
+  }
+
+  getAllLabelOrderList(payload: any) {
+    return this.http.post(AppConstants.GET_ALL_LABEL_ORDER_LIST, payload);
+  }
 }
