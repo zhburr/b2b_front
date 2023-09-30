@@ -115,6 +115,7 @@ export class ProductListingComponent extends BaseComponent implements OnInit {
       case 1:
         // on cancel
         this.myModal = false;
+        this.addProductModal = false;
         this.selectedProduct = {};
 
         break;
