@@ -117,7 +117,7 @@ export class ProductUploadComponent extends BaseComponent implements OnInit {
     } catch (error: any) {
       this.resetFileInput();
       this.sharedService.showErrorToast(
-        error.error.message[0].constraints.isNotEmpty
+        error.message[0].constraints.isNotEmpty
       );
     }
   }

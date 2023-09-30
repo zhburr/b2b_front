@@ -50,7 +50,11 @@ export class NavbarComponent extends BaseComponent implements OnInit {
   }
 
   logOut(): void {
-    localStorage.removeItem('token');
+    if (localStorage.getItem('stay') === 'true') {
+      localStorage.clear();
+    } else {
+      sessionStorage.clear();
+    }
     this.navigate('home');
   }
 }
