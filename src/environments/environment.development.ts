@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  baseURL: 'http://141./136.42.56:3000/',
+  baseURL: 'http://141.136.42.56:3000/',
   // baseURL: 'https://dev.b2bdirect.co.uk/',
   // baseURL: 'http://prod.b2bdirect.co.uk:3000/',
   // baseURL: 'http://localhost:3000/',
