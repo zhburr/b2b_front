@@ -33,7 +33,6 @@ export class OtpComponent extends BaseComponent {
   }
 
   gotoNext(nextId: string, event: any, previousId?: any) {
-    console.log({ nextId, event, previousId });
     if (event.keyCode === 8) {
       document.getElementById(previousId)?.focus();
     } else {
