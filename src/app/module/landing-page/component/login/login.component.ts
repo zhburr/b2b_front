@@ -70,6 +70,7 @@ export class LoginComponent extends BaseComponent {
       );
       if (res.Succeed) {
         this.sharedService.showSuccessToast(res.message);
+        this.forgetEmail = '';
         document.getElementById('clode-modal')!.click();
       } else {
         this.sharedService.showErrorToast(res.message);

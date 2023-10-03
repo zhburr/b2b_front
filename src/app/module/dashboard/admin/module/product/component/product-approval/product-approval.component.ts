@@ -18,7 +18,7 @@ export class ProductApprovalComponent extends BaseComponent implements OnInit {
   approvalListing: ProductApproval[] = [];
   tableOrder: TableOrderby = {
     HeaderIndex: 2,
-    Sort: AppConstants.ASC,
+    Sort: AppConstants.DEC,
   };
   constructor(
     private sharedService: SharedService,

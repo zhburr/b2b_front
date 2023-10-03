@@ -36,6 +36,7 @@ import { MutliSelectComponent } from './component/mutli-select/mutli-select.comp
 import { PaymentComponent } from './component/payment/payment.component';
 import { DateRangeInputComponent } from './component/date-range-input/date-range-input.component';
 import { NoDataFoundComponent } from './component/no-data-found/no-data-found.component';
+import { ServerTableComponent } from './component/server-table/server-table.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { NoDataFoundComponent } from './component/no-data-found/no-data-found.co
     PaymentComponent,
     DateRangeInputComponent,
     NoDataFoundComponent,
+    ServerTableComponent,
   ],
   imports: [
     CommonModule,

@@ -22,41 +22,42 @@
           id="first"
           maxlength="1"
           autofocus
-          (keypress)="gotoNext('second')"
+          (keyup)="gotoNext('second', $event)"
         />
         <input
           class="m-2 text-center form-control rounded"
           type="text"
           id="second"
           maxlength="1"
-          (keypress)="gotoNext('third')"
+          (keyup)="gotoNext('third', $event, 'first')"
         />
         <input
           class="m-2 text-center form-control rounded"
           type="text"
           id="third"
           maxlength="1"
-          (keypress)="gotoNext('fourth')"
+          (keyup)="gotoNext('fourth', $event, 'second')"
         />
         <input
           class="m-2 text-center form-control rounded"
           type="text"
           id="fourth"
           maxlength="1"
-          (keypress)="gotoNext('fifth')"
+          (keyup)="gotoNext('fifth', $event, 'third')"
         />
         <input
           class="m-2 text-center form-control rounded"
           type="text"
           id="fifth"
           maxlength="1"
-          (keypress)="gotoNext('sixth')"
+          (keyup)="gotoNext('sixth', $event, 'fourth')"
         />
         <input
           class="m-2 text-center form-control rounded"
           type="text"
           id="sixth"
           maxlength="1"
+          (keyup)="gotoNext('sixth', $event, 'fifth')"
         />
       </div>
       <div class="mt-4">

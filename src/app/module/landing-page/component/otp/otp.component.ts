@@ -32,8 +32,13 @@ export class OtpComponent extends BaseComponent {
     await this.verifyEmail(this.otpValue);
   }
 
-  gotoNext(id: string) {
-    document.getElementById(id)?.focus();
+  gotoNext(nextId: string, event: any, previousId?: any) {
+    console.log({ nextId, event, previousId });
+    if (event.keyCode === 8) {
+      document.getElementById(previousId)?.focus();
+    } else {
+      document.getElementById(nextId)?.focus();
+    }
   }
 
   async verifyEmail(otp: string) {
