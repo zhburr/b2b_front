@@ -68,7 +68,14 @@
             <th>Product Weight</th>
             <th>Total quantity</th>
             <th>Total Weight</th>
-            <th>Postage price</th>
+            <th>
+              Postage price &nbsp;
+              <!-- <mat-icon
+                *ngIf="!generatingInvoive"
+                [ngClass]="{ 'd-none': generatingInvoive }"
+                >edit</mat-icon
+              > -->
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -83,6 +90,7 @@
                 class="p-2 border border-0 fs-6 fw-bold"
                 type="text"
                 [(ngModel)]="item.totalPrice"
+                [disabled]="hasInvoice"
               />
             </td>
           </tr>
@@ -90,15 +98,11 @@
       </table>
       <div class="d-flex justify-content-end" style="background-color: white">
         <div class="fs-5">
-          <p>
-            <span class="fw-bold">Pick & Pack :</span> {{ pickAndPack }}£
-          </p>
+          <p><span class="fw-bold">Pick & Pack :</span> {{ pickAndPack }}£</p>
           <p>
             <span class="fw-bold">Subtotal :</span> {{ subtotalOfInvoice }}£
           </p>
-          <p>
-            <span class="fw-bold">VAT :</span> {{ tax }}£
-          </p>
+          <p><span class="fw-bold">VAT :</span> {{ tax }}£</p>
           <p><span class="fw-bold">Total :</span> {{ total }}£</p>
         </div>
       </div>
@@ -107,5 +111,9 @@
 </div>
 
 <div *ngIf="invoice" class="d-flex justify-content-end">
-  <app-button [button]="buttons[0]" (callBack)="sendInvoice()"></app-button>
+  <app-button
+    [button]="buttons[0]"
+    (callBack)="sendInvoice()"
+    [disabled]="hasInvoice"
+  ></app-button>
 </div>

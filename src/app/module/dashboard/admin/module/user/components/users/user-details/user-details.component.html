@@ -8,8 +8,8 @@
     <div class="row">
       <div class="col-6">
         <div class="row">
-          <div class="col-3 my-auto">
-            <app-label [label]="'FirstName'"></app-label>
+          <div class="col-4 my-auto">
+            <app-label [label]="'First name'"></app-label>
           </div>
           <div class="col">
             <app-input [readonly]="true" [value]="user.firstName"></app-input>
@@ -18,8 +18,8 @@
       </div>
       <div class="col-6">
         <div class="row">
-          <div class="col-3 my-auto">
-            <app-label [label]="'LastName'"></app-label>
+          <div class="col-4 my-auto">
+            <app-label [label]="'Last name'"></app-label>
           </div>
           <div class="col">
             <app-input [readonly]="true" [value]="user.lastName"></app-input>
@@ -34,13 +34,17 @@
             <app-label [label]="'Email'"></app-label>
           </div>
           <div class="col">
-            <app-input [readonly]="true" [value]="user.email"></app-input>
+            <app-input
+              [readonly]="true"
+              [value]="user.email"
+              [inputWidth]="'100%'"
+            ></app-input>
           </div>
         </div>
       </div>
       <div class="col-6">
         <div class="row">
-          <div class="col-3 my-auto">
+          <div class="col-4 my-auto">
             <app-label [label]="'Role'"></app-label>
           </div>
           <div class="col">

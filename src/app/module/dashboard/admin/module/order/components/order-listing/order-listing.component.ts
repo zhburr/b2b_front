@@ -8,7 +8,8 @@ import { OrderService } from '../../services/order.service';
 import { SharedService } from 'src/app/module/shared/services/shared.service';
 import { OrderLines } from 'src/app/module/shared/interface/order-line.type';
 import Swal from 'sweetalert2';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/module/shared/interface/user.type';
 
 @Component({
   selector: 'app-order-listing',
@@ -22,14 +23,24 @@ export class OrderListingComponent extends BaseComponent implements OnInit {
     Sort: AppConstants.DEC,
   };
   userEmail: string | undefined;
+  user: User = {};
 
   constructor(
     private orderService: OrderService,
     private sharedService: SharedService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     super();
     this.userEmail = route.snapshot.paramMap.get('email')!;
+    if (this.router.getCurrentNavigation()?.extras?.state) {
+      let data: any = this.router.getCurrentNavigation()?.extras?.state;
+      this.user = data.data;
+    } else {
+      if (router.url.includes('users')) {
+        this.back();
+      }
+    }
   }
 
   ngOnInit(): void {

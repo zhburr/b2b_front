@@ -4,11 +4,12 @@ import { AppConstants } from '../../utilities/app-constants';
 import { TableOrderby } from '../../interface/tableOrderBy.type';
 import * as moment from 'moment';
 import { SharedService } from '../../services/shared.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from '../../services/http.service';
 import { ApiResponse } from '../../interface/response.type';
 import { Payment } from '../../interface/payment.type';
 import { ValidatorService } from '../../utilities/validator.service';
+import { User } from '../../interface/user.type';
 
 @Component({
   selector: 'app-payment',
@@ -34,18 +35,29 @@ export class PaymentComponent extends BaseComponent implements OnInit {
   newPayment: Partial<Payment> = {};
 
   paymentType = ['Credit', 'Debit'];
+  user: User = {};
 
   constructor(
     public sharedService: SharedService,
     private route: ActivatedRoute,
     private http: HttpService,
-    private validatorService: ValidatorService
+    private validatorService: ValidatorService,
+    private router: Router
   ) {
     super();
     if (this.sharedService.userData$.value.role === 'Admin') {
       this.userEmail = route.snapshot.paramMap.get('email')!;
     } else {
       this.userEmail = this.sharedService.userData$.value.email;
+    }
+
+    if (this.router.getCurrentNavigation()?.extras?.state) {
+      let data: any = this.router.getCurrentNavigation()?.extras?.state;
+      this.user = data.data;
+    } else {
+      if (router.url.includes('users')) {
+        this.back();
+      }
     }
   }
 

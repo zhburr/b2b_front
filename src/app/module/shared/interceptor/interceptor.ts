@@ -61,6 +61,7 @@ export class Interceptor implements HttpInterceptor {
         if (error.status === 401) {
           this.shared.showErrorToast('Session has expired. ');
           localStorage.clear();
+          sessionStorage.clear();
           this.router.navigate(['/login']);
         }
 

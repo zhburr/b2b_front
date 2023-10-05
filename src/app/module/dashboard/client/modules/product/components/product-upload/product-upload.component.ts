@@ -5,6 +5,7 @@ import { AppConstants } from 'src/app/module/shared/utilities/app-constants';
 import { BaseComponent } from 'src/app/module/shared/utilities/base.component';
 import { ProductService } from '../../service/product.service';
 import { TableOrderby } from 'src/app/module/shared/interface/tableOrderBy.type';
+import { Product } from 'src/app/module/shared/interface/product.type';
 
 @Component({
   selector: 'app-product-upload',
@@ -17,7 +18,7 @@ export class ProductUploadComponent extends BaseComponent implements OnInit {
   listingApproval: any[] = [];
   tableOrder: TableOrderby = {
     HeaderIndex: 1,
-    Sort: AppConstants.ASC,
+    Sort: AppConstants.DEC,
   };
   constructor(
     private sharedService: SharedService,
@@ -107,9 +108,11 @@ export class ProductUploadComponent extends BaseComponent implements OnInit {
 
       const res: any = await this.productService.uploadProductListing(formData);
       if (res.Succeed) {
-        this.getAllProductListing();
+        console.log('in res of uploading');
+
         this.resetFileInput();
         this.sharedService.showSuccessToast(res.message);
+        await this.getAllProductListing();
       } else {
         this.resetFileInput();
         this.sharedService.showErrorToast(res.message);
@@ -124,12 +127,19 @@ export class ProductUploadComponent extends BaseComponent implements OnInit {
 
   async getAllProductListing() {
     try {
-      const res: any = await this.productService.getAllProductsApproval();
+      const res: ApiResponse<Product[]> =
+        await this.productService.getAllProductsApproval();
+      console.log(res);
+
       if (res.Succeed) {
+        console.log('in res of getting all prod');
+
         this.listingApproval = res.Content.map((list: any) => {
           return { ...list, tableActions: { canDownload: true } };
         });
         this.initializeTable();
+      } else {
+        this.sharedService.showErrorToast(res.message!);
       }
     } catch (error: any) {}
   }

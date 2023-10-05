@@ -10,6 +10,7 @@ import * as jspdf from 'jspdf';
 import { User } from 'src/app/module/shared/interface/user.type';
 import { ApiResponse } from 'src/app/module/shared/interface/response.type';
 import { OrderLines } from 'src/app/module/shared/interface/order-line.type';
+import { LoaderService } from 'src/app/module/shared/services/loader.service';
 
 @Component({
   selector: 'app-order-invoice',
@@ -21,11 +22,14 @@ export class OrderInvoiceComponent extends BaseComponent implements OnInit {
   orderId?: number;
   invoice: any;
   userData: User = {};
+  generatingInvoive: boolean = false;
+  hasInvoice: boolean = false;
   constructor(
     private route: ActivatedRoute,
     private orderService: OrderService,
     private sharedService: SharedService,
-    private deciamlPipe: DecimalPipe
+    private deciamlPipe: DecimalPipe,
+    private loader: LoaderService
   ) {
     super();
     this.orderId = Number(route.snapshot.paramMap.get('Id'));
@@ -48,12 +52,16 @@ export class OrderInvoiceComponent extends BaseComponent implements OnInit {
 
   async getInvoiceData() {
     try {
-      const res: ApiResponse<{ invoiceData: OrderLines[]; userData: User }> =
-        await this.orderService.getInvoiceDataByOrderId(this.orderId!);
+      const res: ApiResponse<{
+        invoiceData: OrderLines[];
+        userData: User;
+        hasInvoice: boolean;
+      }> = await this.orderService.getInvoiceDataByOrderId(this.orderId!);
 
       if (res.Succeed) {
         this.invoice = res.Content.invoiceData;
         this.userData = res.Content.userData;
+        this.hasInvoice = res.Content.hasInvoice;
       } else {
         this.sharedService.showErrorToast(res.message!);
       }
@@ -97,6 +105,8 @@ export class OrderInvoiceComponent extends BaseComponent implements OnInit {
   }
 
   sendInvoice() {
+    this.generatingInvoive = true;
+    this.loader.show();
     const element = this.template!.nativeElement;
     html2canvas(element, { useCORS: true })
       .then(async (canvas: any) => {
@@ -124,6 +134,7 @@ export class OrderInvoiceComponent extends BaseComponent implements OnInit {
         }
       })
       .catch((error) => {
+        this.loader.hide();
         this.sharedService.showErrorToast(error.message);
       });
   }

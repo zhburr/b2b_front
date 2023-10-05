@@ -5,7 +5,10 @@
         <div class="card-icon">
           <mat-icon class="material-icons">local_parking</mat-icon>
         </div>
-        <h4 class="card-title pull-left"></h4>
+        <h4 class="card-title pull-left" *ngIf="!user.firstName">Statment</h4>
+        <h4 class="card-title pull-left" *ngIf="user.firstName">
+          Payments of {{ user.firstName }}
+        </h4>
       </div>
       <hr />
       <div class="card-body card-body-height">

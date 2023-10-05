@@ -18,10 +18,7 @@ export class NavbarComponent extends BaseComponent implements OnInit {
 
   constructor(public sharedService: SharedService) {
     super();
-    if (
-      this.sharedService.userData$.value.email &&
-      this.sharedService.userData$.value.role !== 'Admin'
-    ) {
+    if (this.sharedService.userData$.value.email) {
       this.sharedService.getUserData();
     }
   }

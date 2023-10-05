@@ -1,24 +1,27 @@
 <div>
-    <div class="col">
-      <div class="card">
-        <div class="card-header card-header-primary card-header-icon">
-          <div class="card-icon">
-            <mat-icon class="material-icons">local_parking</mat-icon>
-          </div>
-          <h4 class="card-title pull-left">Order Listing</h4>
+  <div class="col">
+    <div class="card">
+      <div class="card-header card-header-primary card-header-icon">
+        <div class="card-icon">
+          <mat-icon class="material-icons">local_parking</mat-icon>
         </div>
-        <hr />
-        <div class="card-body card-body-height">
-        
-          <div>
-            <app-table
-              [tableData]="tableData"
-              [oderBy]="tableOrder"
-              (tableCallback)="tableCallBack($event)"
-            ></app-table>
-          </div>
+        <h4 class="card-title pull-left" *ngIf="!user.firstName">
+          Order Listing
+        </h4>
+        <h4 class="card-title pull-left" *ngIf="user.firstName">
+          Order Listing of {{ user.firstName }}
+        </h4>
+      </div>
+      <hr />
+      <div class="card-body card-body-height">
+        <div>
+          <app-table
+            [tableData]="tableData"
+            [oderBy]="tableOrder"
+            (tableCallback)="tableCallBack($event)"
+          ></app-table>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
