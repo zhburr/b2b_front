@@ -19,6 +19,7 @@ export class LabelOrderComponent implements OnInit {
   numberOfOrder: number = 0;
   labelUpdatePrice: number = 0;
   fileToUpload: File | null = null;
+  isPaypalFormaValidated: boolean = false;
   public payPalConfig?: IPayPalConfig;
   constructor(
     private labelService: LabelService,
@@ -141,14 +142,15 @@ export class LabelOrderComponent implements OnInit {
         throw new Error('Number of order should be greater than zero.');
       }
 
+      this.isPaypalFormaValidated = true;
       this.labelUpdatePrice =
         this.labelPricesList[this.selectedWeightIndex].price! *
         this.numberOfOrder;
-      // this.initConfig(
-      //   this.labelUpdatePrice.toString(),
-      //   this.numberOfOrder.toString()
-      // );
-      await this.createLabelOrder();
+      this.initConfig(
+        this.labelUpdatePrice.toString(),
+        this.numberOfOrder.toString()
+      );
+      // await this.createLabelOrder();
     } catch (error: any) {
       this.sharedService.showErrorToast(error.message);
     }

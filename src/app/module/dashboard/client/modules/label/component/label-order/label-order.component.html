@@ -58,9 +58,15 @@
             </div>
           </div>
 
-          <div class="d-flex justify-content-end mb-4">
+          <div
+            class="d-flex justify-content-end mb-4"
+            *ngIf="!isPaypalFormaValidated"
+          >
             <a class="btn btn-success" (click)="placeOrder()">Place order</a>
           </div>
+
+          <ngx-paypal [config]="payPalConfig" *ngIf="isPaypalFormaValidated">
+          </ngx-paypal>
         </ng-container>
       </div>
     </div>
