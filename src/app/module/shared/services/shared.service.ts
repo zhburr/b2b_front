@@ -68,12 +68,6 @@ export class SharedService {
   }
 
   get accessToken() {
-    console.log(
-      localStorage.getItem('stay') === 'true'
-        ? localStorage.getItem('token')
-        : sessionStorage.getItem('token')
-    );
-
     return localStorage.getItem('stay') === 'true'
       ? localStorage.getItem('token')
       : sessionStorage.getItem('token');

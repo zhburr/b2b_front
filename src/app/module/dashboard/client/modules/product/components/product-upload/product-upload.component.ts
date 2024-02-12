@@ -108,7 +108,6 @@ export class ProductUploadComponent extends BaseComponent implements OnInit {
 
       const res: any = await this.productService.uploadProductListing(formData);
       if (res.Succeed) {
-        console.log('in res of uploading');
 
         this.resetFileInput();
         this.sharedService.showSuccessToast(res.message);
@@ -129,10 +128,8 @@ export class ProductUploadComponent extends BaseComponent implements OnInit {
     try {
       const res: ApiResponse<Product[]> =
         await this.productService.getAllProductsApproval();
-      console.log(res);
 
       if (res.Succeed) {
-        console.log('in res of getting all prod');
 
         this.listingApproval = res.Content.map((list: any) => {
           return { ...list, tableActions: { canDownload: true } };
